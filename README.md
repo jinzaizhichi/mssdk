@@ -2,9 +2,9 @@
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的介绍
 
-[mssdk](https://pypi.org/project/mssdk/) 主要是为 **https://qhkch.com/** 提供 SDK 的 Python 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://www.showdoc.cc/qhkchapi?page_id=3878436763477725) 了解和查询详细数据接口！
+[mssdk](https://pypi.org/project/mssdk/) 主要是为 **麦思多维科技** 提供 SDK 的 Python 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://www.showdoc.cc/qhkchapi?page_id=3878436763477725) 了解和查询详细数据接口！
 
-## [mssdk](https://pypi.org/project/mssdk/) 服务于 **www.qhkch.com**
+## [mssdk](https://pypi.org/project/mssdk/) 服务于 **麦思多维科技**
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的特色
 
@@ -67,10 +67,6 @@ print(variety_positions_df)
 ```
 
 # 特别说明
-
-## 致谢
-
-特别感谢 [AkShare](https://github.com/jindaxiang/akshare) 项目提供借鉴学习的机会;
 
 ## 声明
 
