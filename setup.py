@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/16 13:58
+Date: 2020/4/23 13:58
 Desc: mssdk 的 pypi 基本信息文件
 """
 import re
@@ -29,12 +29,12 @@ setuptools.setup(
     name="mssdk",
     version=get_version_string(),
     author="maxsmart",
-    author_email="jindaxiang@163.com",
+    author_email="298038875@qq.com",
     license="MIT",
-    description="Python SDK for http://cdmsdw.s.cn.vc/!",
+    description="Python SDK for MaxSmart!",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jindaxiang/mssdk",
+    url="https://github.com/cdmaxsmart/mssdk",
     packages=setuptools.find_packages(),
     install_requires=[
         "pandas>=0.25.3",
