@@ -22,9 +22,9 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 
 # -- Project information -----------------------------------------------------
 
-project = 'QHSDK'
-copyright = '2019–{}, https://qhkch.com/'.format(datetime.now().year)
-author = 'qhsdk'
+project = 'MSSDK'
+copyright = '2020–{}, MaxSmart'.format(datetime.now().year)
+author = 'mssdk'
 version = "1.0.0"
 
 templates_path = ['_templates']

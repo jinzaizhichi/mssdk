@@ -2,18 +2,16 @@
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的介绍
 
-[mssdk](https://pypi.org/project/mssdk/) 主要是为 **https://qhkch.com/** 提供 SDK 的 Python 库, 您可以通过 [奇货可查机构VIP接口文档](https://www.showdoc.cc/qhkchapi?page_id=3878436763477725) 了解和查询详细数据接口！
+[mssdk](https://pypi.org/project/mssdk/) 主要是为 **https://qhkch.com/** 提供 SDK 的 Python 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://www.showdoc.cc/qhkchapi?page_id=3878436763477725) 了解和查询详细数据接口！
 
 ## [mssdk](https://pypi.org/project/mssdk/) 服务于 **www.qhkch.com**
-
-<img src="https://static.qhkch.com/dist//style/res/logo.png" align = center/>
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的特色
 
 [mssdk](https://pypi.org/project/mssdk/) 主要改进如下:
 
 1. [mssdk](https://pypi.org/project/mssdk/)支持 **Python 3.7** 及以上版本;
-2. 目前提供已提供奇货可查全部接口;
+2. 目前提供已提供麦思多维科技全部接口;
 3. 提供完善的接口文档, 提高 [mssdk](https://pypi.org/project/mssdk/) 的易用性;
 
 # 安装方法
@@ -30,13 +28,13 @@ pip install mssdk --upgrade
 
 # 快速入门
 
-目标数据: 奇货可查-商品-持仓数据接口
+目标数据: 麦思多维科技-商品-持仓数据接口
 
 示例代码:
 
 ```python
 import mssdk as qh
-pro = qh.pro_api(token="此处输入您的token, 请联系奇货可查获取！")
+pro = qh.pro_api(token="此处输入您的token, 请联系麦思多维科技获取！")
 variety_positions_df = pro.variety_positions(fields="shorts", code="rb1810", date="2018-08-08")
 print(variety_positions_df)
 ```
@@ -78,47 +76,12 @@ print(variety_positions_df)
 
 1. [mssdk](https://pypi.org/project/mssdk) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [mssdk](https://pypi.org/project/mssdk) 进行研究的投资者请注意数据风险;
-3. [mssdk](https://pypi.org/project/mssdk) 的使用请遵循奇货可查网站的用户协议;
-4. [mssdk](https://pypi.org/project/mssdk) 使用产生的所有问题的最终解释权归奇货可查网站所有;
+3. [mssdk](https://pypi.org/project/mssdk) 的使用请遵循麦思多维科技网站的用户协议;
+4. [mssdk](https://pypi.org/project/mssdk) 使用产生的所有问题的最终解释权归麦思多维科技网站所有;
 
 # 版本更新说明
+
 ```
 0.0.1
 发布测试版本
-
-0.0.2
-调试接口
-
-0.0.3
-增加lxml=4.4.1
-
-0.0.4
-更新说明文档
-
-0.0.5
-新增通过用户名和密码登录并访问VIP资源功能
-
-0.0.6
-修正导入问题
-
-0.0.7
-更新 README 文档
-
-0.0.8
-第二版接口测试
-
-0.0.9
-更新说明文档
-
-0.1.0
-更新测试文件
-
-0.1.1
-预览版
-
-0.1.2
-增加 token 使用说明
-
-0.1.3
-增加 inventory 参数类型二
 ```
