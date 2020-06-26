@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: qhsdk
-date: 2019/11/10 22:52
+Author: mssdk
+date: 2020/6/25 22:52
 desc: 数据接口源代码
 """
 from functools import partial

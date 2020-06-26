@@ -9,7 +9,7 @@ import os
 
 import pandas as pd
 
-from qhsdk.pro import cons
+from mssdk.pro import cons
 
 
 def set_token(token):

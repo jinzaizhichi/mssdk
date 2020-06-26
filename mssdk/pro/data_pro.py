@@ -5,8 +5,8 @@ Author: qhsdk
 Date: 2019/11/10 22:52
 Desc: 数据接口初始化
 """
-from qhsdk.pro import client
-from qhsdk.utils import token_process
+from mssdk.pro import client
+from mssdk.utils import token_process
 
 
 def pro_api(token=''):

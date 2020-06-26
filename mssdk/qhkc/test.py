@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: qhsdk
-date: 2020/2/13 21:33
-desc: 接口测试文件
+Author: mssdk
+Date: 2020/6/26 21:33
+Desc: 接口测试文件
 """
-from qhsdk.pro.data_pro import pro_api
+from mssdk.pro.data_pro import pro_api
 
 pro = pro_api()
 
