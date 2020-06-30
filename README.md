@@ -33,8 +33,8 @@ pip install mssdk --upgrade
 示例代码:
 
 ```python
-import mssdk as qh
-pro = qh.pro_api(token="此处输入您的token, 请联系麦思多维科技获取！")
+import mssdk as ms
+pro = ms.pro_api(token="此处输入您的token, 请联系麦思多维科技获取！")
 variety_positions_df = pro.variety_positions(fields="shorts", code="rb1810", date="2018-08-08")
 print(variety_positions_df)
 ```
