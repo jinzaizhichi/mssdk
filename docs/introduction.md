@@ -7,12 +7,9 @@
 
 2. 如有库、文档及数据的相关问题, 请在 [mssdk Issues](https://github.com/cdmaxsmart/mssdk/issues) 中提 Issues;
 
-
 ## 引用
 
 如果您想在文章或者项目中引用 [mssdk](https://github.com/cdmaxsmart/mssdk), 请使用如下 **bibtex** 格式:
-
-
 
 ## [mssdk](https://github.com/cdmaxsmart/mssdk) 的介绍
 
@@ -189,13 +186,13 @@
 
 7. 提供完善的接口文档, 提高 [mssdk](https://github.com/cdmaxsmart/mssdk) 的易用性.
 
-![思维导图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/mindmap/mssdk.svg)
+![思维导图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/mssdk.svg)
 
 ## [mssdk](https://github.com/cdmaxsmart/mssdk) 的初衷
 
 [mssdk](https://github.com/cdmaxsmart/mssdk) 主要目的是服务于财经研究, 解决在财经研究中数据获取困难的问题. 
 
-![私募基金曲线](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/index/stock_futures_index.png)
+![私募基金曲线](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/stock_futures_index.png)
 
 上图是利用 [mssdk](https://github.com/cdmaxsmart/mssdk) 的 **get_zdzk_fund_index** 接口获取的[智道智科](https://www.ziasset.com/company/)发布的股票策略指数和管理期货策略指数.
 可以看出股票策略的波动性大于管理期货策略, 而且从 2015 年至今, 管理期货策略能获得较稳定的收益.
