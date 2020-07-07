@@ -28,7 +28,7 @@ pip install mssdk --upgrade
 
 # 快速入门
 
-目标数据：美股复权数据获取和绘图
+目标：美股复权数据获取和绘图
 
 代码：
 
@@ -44,7 +44,7 @@ stock_us_daily_df = stock_us_daily_df["2020-04-01": "2020-04-29"]
 mpf.plot(stock_us_daily_df, type='candle', mav=(3, 6, 9), volume=True, show_nontrading=False)
 ```
 
-绘图
+绘图：
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/AAPL_candle.png)
 
