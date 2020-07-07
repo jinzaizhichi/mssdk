@@ -28,43 +28,25 @@ pip install mssdk --upgrade
 
 # 快速入门
 
-目标数据: 麦思多维科技-商品-持仓数据接口
+目标数据：美股复权数据获取和绘图
 
-示例代码:
+代码：
 
 ```python
-import mssdk as ms
-pro = ms.pro_api(token="此处输入您的token, 请联系麦思多维科技获取！")
-variety_positions_df = pro.variety_positions(fields="shorts", code="rb1810", date="2018-08-08")
-print(variety_positions_df)
+import mssdk as ak
+import mplfinance as mpf
+
+stock_us_daily_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq")
+stock_us_daily_df = stock_us_daily_df[["open", "high", "low", "close", "volume"]]
+stock_us_daily_df.columns = ["Open", "High", "Low", "Close", "Volume"]
+stock_us_daily_df.index.name = "Date"
+stock_us_daily_df = stock_us_daily_df["2020-04-01": "2020-04-29"]
+mpf.plot(stock_us_daily_df, type='candle', mav=(3, 6, 9), volume=True, show_nontrading=False)
 ```
 
-示例结果:
+绘图
 
-```
-   broker  short  short_chge
-0    银河期货  60987       -4228
-1    永安期货  57520       -1071
-2    中信期货  38120        -620
-3    国泰君安  36498         528
-4    方正中期  32105        4444
-5    海通期货  29638       -2783
-6    东海期货  29250         450
-7    光大期货  28458         -84
-8    南华期货  27853        -144
-9    中辉期货  26101        -553
-10   中大期货  23761        1572
-11   鲁证期货  22501        -598
-12   兴证期货  22262        -842
-13   东证期货  21675        -686
-14   徽商期货  18966        -607
-15   中信建投  18583        -625
-16   华泰期货  17076       -5797
-17   国投安信  16808         349
-18   申银万国  14876         376
-19   广发期货  14588       -2196
-20   大地期货      0      -14603
-```
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/AAPL_candle.png)
 
 # 特别说明
 
@@ -80,4 +62,7 @@ print(variety_positions_df)
 ```
 0.0.1: 发布测试版本 v0.0.1
 0.0.2: 发布测试版本 v0.0.2
+0.0.3: 发布测试版本 v0.0.3
+0.0.4: 发布测试版本 v0.0.4
+0.0.5: 发布测试版本 v0.0.5
 ```
