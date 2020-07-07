@@ -15,8 +15,8 @@ import requests
 from fontTools.ttLib import TTFont
 from bs4 import BeautifulSoup
 
-from akshare.movie.movie_maoyan_knn_font import Classify
-from akshare.movie.cons import _board_url, _headers
+from mssdk.movie.movie_maoyan_knn_font import Classify
+from mssdk.movie.cons import _board_url, _headers
 
 _woff_path = Path(__file__).absolute().parent / "fonts" / "test.woff"
 
