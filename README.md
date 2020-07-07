@@ -2,7 +2,7 @@
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的介绍
 
-[mssdk](https://pypi.org/project/mssdk/) 主要是为 **麦思多维科技** 提供 SDK 的 Python 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://mssdk.readthedocs.io/en/latest/) 了解和查询详细数据接口！
+[mssdk](https://pypi.org/project/mssdk/) 是 **麦思多维科技** 提供的基于 Python 的 SDK 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://mssdk.readthedocs.io/en/latest/) 了解和查询详细数据接口！
 
 ## [mssdk](https://pypi.org/project/mssdk/) 服务于 **麦思多维科技**
 
@@ -11,8 +11,8 @@
 [mssdk](https://pypi.org/project/mssdk/) 主要改进如下:
 
 1. [mssdk](https://pypi.org/project/mssdk/)支持 **Python 3.7** 及以上版本;
-2. 目前提供已提供麦思多维科技全部接口;
-3. 提供完善的接口文档, 提高 [mssdk](https://pypi.org/project/mssdk/) 的易用性;
+2. 目前提供已提供**麦思多维科技**部分数据接口;
+3. 提供完善的接口文档支持, 提高 [mssdk](https://pypi.org/project/mssdk/) 的易用性;
 
 # 安装方法
 
