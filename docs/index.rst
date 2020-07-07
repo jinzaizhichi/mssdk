@@ -11,11 +11,15 @@
    :glob:
    :caption: Table of contents:
 
-   installation.md
-   broker.md
-   commodity.md
-   fund.md
-   fundamental.md
-   index_data.md
-   tools.md
-   changelog.md
+   introduction
+   installation
+   answer
+   tutorial
+   data/index
+   anaconda
+   special
+   strategy
+   platform
+   topic/index
+   demo
+   changelog
