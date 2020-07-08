@@ -1,4 +1,4 @@
-# 安装指导
+# [mssdk](https://github.com/cdmaxsmart/mssdk) 安装指导
 
 ## 重要提示
 
