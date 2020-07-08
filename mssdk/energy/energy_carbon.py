@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/17 16:55
+Date: 2020/7/8 12:42
 Desc: 获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
 """
@@ -14,6 +14,8 @@ def energy_carbon() -> pd.DataFrame:
     """
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
     https://www.bjets.com.cn/article/jyxx/
+    :return: 北京市碳排放权公开交易行情
+    :rtype: pandas.DataFrame
     """
     temp_df = pd.DataFrame()
     for i in tqdm(range(1, 74), desc="Please wait for a moment"):
