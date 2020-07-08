@@ -58,6 +58,8 @@ def get_deal_data():
 def bond_spot_quote():
     """
     处理中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
+    :return: 现券市场做市报价
+    :rtype: pandas.DataFrame
     """
     data = get_quote_data()
     need_data = data["records"]
