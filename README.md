@@ -1,18 +1,18 @@
-# [mssdk](https://pypi.org/project/mssdk/)
+# [MSSDK](https://pypi.org/project/mssdk/)
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的介绍
 
-[mssdk](https://pypi.org/project/mssdk/) 是 **麦思多维科技** 提供的基于 Python 的 SDK 库, 您可以通过 [麦思多维科技机构VIP接口文档](https://mssdk.readthedocs.io/en/latest/) 了解和查询详细数据接口！
+[mssdk](https://pypi.org/project/mssdk/) 是**麦思多维科技**提供的基于 Python 的 SDK 库, 您可以通过[麦思多维科技机构VIP接口文档](https://mssdk.readthedocs.io/en/latest/)了解和查询详细数据接口！
 
-## [mssdk](https://pypi.org/project/mssdk/) 服务于 **麦思多维科技**
+## [mssdk](https://pypi.org/project/mssdk/) 服务于**麦思多维科技**
 
 ## [mssdk](https://pypi.org/project/mssdk/) 的特色
 
 [mssdk](https://pypi.org/project/mssdk/) 主要改进如下:
 
-1. [mssdk](https://pypi.org/project/mssdk/)支持 **Python 3.7** 及以上版本;
-2. 目前提供已提供**麦思多维科技**部分数据接口;
-3. 提供完善的接口文档支持, 提高 [mssdk](https://pypi.org/project/mssdk/) 的易用性;
+1. [mssdk](https://pypi.org/project/mssdk/)支持 **Python 3.7** 及以上版本；
+2. 目前提供已提供**麦思多维科技**部分数据接口；
+3. 提供完善的接口文档支持, 提高 [mssdk](https://pypi.org/project/mssdk/) 的易用性；
 
 # 安装方法
 
@@ -52,17 +52,17 @@ mpf.plot(stock_us_daily_df, type='candle', mav=(3, 6, 9), volume=True, show_nont
 
 ## 声明
 
-1. [mssdk](https://pypi.org/project/mssdk) 提供的数据仅供参考, 不构成任何投资建议;
-2. 任何基于 [mssdk](https://pypi.org/project/mssdk) 进行研究的投资者请注意数据风险;
-3. [mssdk](https://pypi.org/project/mssdk) 的使用请遵循麦思多维科技网站的用户协议;
-4. [mssdk](https://pypi.org/project/mssdk) 使用产生的所有问题的最终解释权归麦思多维科技网站所有;
+1. [mssdk](https://pypi.org/project/mssdk) 提供的数据仅供参考，不构成任何投资建议；
+2. 任何基于 [mssdk](https://pypi.org/project/mssdk) 进行研究的用户请注意数据风险；
+3. [mssdk](https://pypi.org/project/mssdk) 的使用请遵循**麦思多维科技**的用户协议；
+4. [mssdk](https://pypi.org/project/mssdk) 使用产生的问题的最终解释权归**麦思多维科技**所有；
 
 # 版本更新说明
 
 ```
-0.0.1: 发布测试版本 v0.0.1
-0.0.2: 发布测试版本 v0.0.2
-0.0.3: 发布测试版本 v0.0.3
-0.0.4: 发布测试版本 v0.0.4
-0.0.5: 发布测试版本 v0.0.5
+0.0.1：发布测试版本 v0.0.1
+0.0.2：发布测试版本 v0.0.2
+0.0.3：发布测试版本 v0.0.3
+0.0.4：发布测试版本 v0.0.4
+0.0.5：发布测试版本 v0.0.5
 ```

@@ -1,2 +1,5 @@
-pandas>=0.25.3
-requests>=2.22.0
+sphinx
+sphinx-hoverxref
+sphinx-notfound-page
+sphinx_rtd_theme
+sphinx-markdown-tables
