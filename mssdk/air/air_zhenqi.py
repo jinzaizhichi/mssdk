@@ -8,15 +8,13 @@ https://www.zq12369.com/environment.php
 https://www.aqistudy.cn/
 """
 import json
-import re
 import os
+import re
 
 import demjson
 import execjs
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
-from datetime import datetime
 
 
 def _get_js_path(name, module_file):
@@ -74,7 +72,9 @@ def air_city_list() -> list:
     return pd.read_html(r.text)[1].iloc[1:, :]["城市"].tolist()
 
 
-def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27") -> pd.DataFrame:
+def air_quality_watch_point(
+    city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27"
+) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
     https://www.zq12369.com/
@@ -115,7 +115,10 @@ def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01"
 
 
 def air_quality_hist(
-    city: str = "杭州", period: str = "day", start_date: str = "2019-03-27", end_date: str = "2020-04-27"
+    city: str = "杭州",
+    period: str = "day",
+    start_date: str = "2019-03-27",
+    end_date: str = "2020-04-27",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
