@@ -668,11 +668,6 @@ from mssdk.futures_derivative.nh_index_volatility import nh_volatility_index
 from mssdk.air.air_hebei import air_quality_hebei
 
 """
-timeanddate-日出和日落
-"""
-from mssdk.air.time_and_date import sunrise_daily, sunrise_monthly
-
-"""
 金十财经-实时监控
 """
 from mssdk.ws.js_ws_fx import watch_jinshi_fx
