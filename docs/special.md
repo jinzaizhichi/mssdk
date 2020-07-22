@@ -110,21 +110,6 @@
 
 感谢[宽客在线](https://www.quantinfo.com/Argus/)提供的相关数据;
 
-## 交流
-
-欢迎关注 **数据科学实战** 微信公众号来获取最新的更新信息:
-
-<div align=center>
-    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/qrcode/ds.png">
-</div>
-
-您也可以加入 **QQ群** 咨询相关问题: 1061759653:
-
-<div align=center>
-    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/qq/mssdk_md_fold_2_1588856077932.png" alt="mssdk-官方" title="mssdk-官方" align="center">
-    </a>
-</div>
 
 ## 声明
 
