@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk)公募数据
+## [mssdk](https://github.com/cdmaxsmart/mssdk) 公募数据
 
 ### 基金基本信息
 

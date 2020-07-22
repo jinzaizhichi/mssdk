@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk)私募数据
+## [mssdk](https://github.com/cdmaxsmart/mssdk) 私募数据
 
 ### 中国证券投资基金业协会
 
