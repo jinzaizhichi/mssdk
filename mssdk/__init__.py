@@ -713,10 +713,6 @@ from mssdk.article.risk_rv import (
     article_rlab_rv,
 )
 
-"""
-银保监分局本级行政处罚数据
-"""
-from mssdk.bank.bank_cbirc_2020 import bank_fjcf_table_detail
 
 """
 科创板股票
