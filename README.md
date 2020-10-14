@@ -33,10 +33,10 @@ pip install mssdk --upgrade
 代码：
 
 ```python
-import mssdk as ak
+import mssdk as ms
 import mplfinance as mpf
 
-stock_us_daily_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq")
+stock_us_daily_df = ms.stock_us_daily(symbol="AAPL", adjust="qfq")
 stock_us_daily_df = stock_us_daily_df[["open", "high", "low", "close", "volume"]]
 stock_us_daily_df.columns = ["Open", "High", "Low", "Close", "Volume"]
 stock_us_daily_df.index.name = "Date"
@@ -52,10 +52,10 @@ mpf.plot(stock_us_daily_df, type='candle', mav=(3, 6, 9), volume=True, show_nont
 
 ## 声明
 
-1. [mssdk](https://pypi.org/project/mssdk) 提供的数据仅供参考，不构成任何投资建议；
-2. 任何基于 [mssdk](https://pypi.org/project/mssdk) 进行研究的用户请注意数据风险；
-3. [mssdk](https://pypi.org/project/mssdk) 的使用请遵循**麦思多维科技**的用户协议；
-4. [mssdk](https://pypi.org/project/mssdk) 使用产生的问题的最终解释权归**麦思多维科技**所有；
+1. [MSSDK](https://pypi.org/project/mssdk) 提供的数据仅供参考，不构成任何投资建议；
+2. 任何基于 [MSSDK](https://pypi.org/project/mssdk) 进行研究的用户请注意数据风险；
+3. [MSSDK](https://pypi.org/project/mssdk) 的使用请遵循 **麦思多维科技** 的用户协议；
+4. [MSSDK](https://pypi.org/project/mssdk) 使用产生的问题的最终解释权归 **麦思多维科技** 所有；
 
 # 版本更新说明
 
