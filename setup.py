@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/23 13:58
-Desc: mssdk 的 pypi 基本信息文件
+Date: 2020/10/14 13:58
+Desc: MSSDK 的 PYPI 基本信息文件
 """
 import re
 import ast
@@ -64,6 +64,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
