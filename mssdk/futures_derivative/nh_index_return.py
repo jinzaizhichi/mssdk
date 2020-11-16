@@ -57,19 +57,6 @@ def nh_return_index(code: str = "Y") -> pd.DataFrame:
     南华期货-南华指数单品种所有历史数据
     :param code: str 通过 get_nh_list 提供
     :return: pandas.Series
-                      value
-    date
-    2006-01-10     1000
-    2006-01-11   998.82
-    2006-01-12     1000
-    2006-01-13   990.17
-    2006-01-16   994.49
-                 ...
-    2019-11-20  796.433
-    2019-11-21  794.932
-    2019-11-22  792.682
-    2019-11-25  793.331
-    2019-11-26  779.346
     """
     if code in get_nh_list_table()["code"].tolist():
         t = time.time()

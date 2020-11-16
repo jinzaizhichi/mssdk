@@ -1511,8 +1511,8 @@ display_main_df[display_main_df["name"].str.contains("连续")]
 
 ```python
 import mssdk as ms
-nh_df = ms.nh_return_index(code="Y")
-print(nh_df)
+nh_return_index_df = ms.nh_return_index()
+print(nh_return_index_df)
 ```
 
 数据示例
