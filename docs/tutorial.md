@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/cdmaxsmart/mssdk) 快速入门
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 快速入门
 
 ## 环境配置
 
@@ -413,6 +413,7 @@
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理
  "nlp_ownthink"  # 知识图谱
+ "nlp_answer"  # 问答系统
  # 货币
  "currency_latest"  # 最新货币报价
  "currency_history"  # 指定历史日期的所有货币报价

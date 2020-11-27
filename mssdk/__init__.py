@@ -8,9 +8,10 @@
 0.0.5: 发布测试版本 v0.0.5
 0.0.6: 发布测试版本 v0.0.6
 0.0.7: 发布测试版本 v0.0.7
+0.0.8: 发布测试版本 v0.0.8
 """
 
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 __author__ = 'mssdk'
 
 """
@@ -205,7 +206,7 @@ from mssdk.currency.currency import (
 """
 知识图谱
 """
-from mssdk.nlp.nlp_interface import nlp_ownthink
+from mssdk.nlp.nlp_interface import nlp_ownthink, nlp_answer
 
 """
 微博舆情报告

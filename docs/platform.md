@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/jindaxiang/mssdk) 量化平台
+# [MSSDK](https://github.com/jindaxiang/mssdk) 量化平台
 
 ## 目录
 

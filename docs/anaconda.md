@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/cdmaxsmart/mssdk) 环境配置
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 环境配置
 
 ## Anaconda 安装说明
 

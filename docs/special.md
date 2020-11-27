@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/cdmaxsmart/mssdk) 特别说明
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 特别说明
 
 ## 致谢
 

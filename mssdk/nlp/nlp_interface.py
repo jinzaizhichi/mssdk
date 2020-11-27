@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/3/1 0:02
-contact: jindaxiang@163.com
+date: 2020/11/27 14:02
 desc: ownthink-knowledge graph
 https://ownthink.com/
 https://www.ownthink.com/docs/kg/
@@ -12,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def nlp_ownthink(word="人工智能", indicator="entity"):
+def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> list:
     """
     Knowledge Graph interface for financial research
     https://ownthink.com/
@@ -41,6 +39,28 @@ def nlp_ownthink(word="人工智能", indicator="entity"):
         return r.json()["data"]["tag"]
 
 
+def nlp_answer(question: str = "人工智能") -> str:
+    """
+    Knowledge Graph interface for financial research
+    https://ownthink.com/
+    :param question: word in chinese
+    :type question: str
+    :return: indicator data
+    :rtype: list or dict or pandas.DataFrame
+    """
+    url = 'https://api.ownthink.com/bot'
+    params = {
+        'spoken': question
+    }
+    r = requests.get(url, params=params)
+    json_data = r.json()
+    answer = json_data['data']['info']['text']
+    return answer
+
+
 if __name__ == "__main__":
     nlp_ownthink_df = nlp_ownthink(word="人工智能", indicator="tag")
     print(nlp_ownthink_df)
+
+    nlp_answer_df = nlp_answer(question="姚明的身高")
+    print(nlp_answer_df)
