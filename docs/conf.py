@@ -23,8 +23,8 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 # -- Project information -----------------------------------------------------
 
 project = 'MSSDK'
-copyright = '2020–{}, MaxSmart'.format(datetime.now().year)
-author = 'mssdk'
+copyright = '2020–{}, MaxSwell'.format(datetime.now().year)
+author = 'MaxSwell'
 version = "1.0.0"
 
 templates_path = ['_templates']
@@ -59,7 +59,12 @@ exclude_patterns = ['_build', '**.ipynb_checkpoints']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+# html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
+
+html_theme_options = {
+    'page_width': '1000px',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

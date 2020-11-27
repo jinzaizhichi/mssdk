@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/cdmaxsmart/mssdk) 量化策略
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 量化策略
 
 [掘金量化策略文档](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/strategy/classic_strategy_myquant.pdf)
 

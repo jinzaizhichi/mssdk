@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 策略示例
+## [MSSDK](https://github.com/cdmaxsmart/mssdk) 策略示例
 
 ### 股票策略
 

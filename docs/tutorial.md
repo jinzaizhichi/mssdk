@@ -1,4 +1,4 @@
-# [mssdk](https://github.com/cdmaxsmart/mssdk) 快速入门
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 快速入门
 
 ## 环境配置
 
