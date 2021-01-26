@@ -22,6 +22,7 @@ dist/
 *.egg-info/
 colors
 docs/_build/
+venv/
 
 # IDE
 .idea/
