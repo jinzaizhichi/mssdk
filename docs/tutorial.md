@@ -1,7 +1,5 @@
 # [MSSDK](https://github.com/cdmaxsmart/mssdk) 快速入门
 
-## 环境配置
-
 ## 查看数据
 
 具体函数使用详情, 请查看 [mssdk 文档](https://mssdk.readthedocs.io/) 每个接口的示例代码
