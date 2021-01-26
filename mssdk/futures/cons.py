@@ -1,19 +1,14 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 期货配置文件
+Date: 2021/1/8 17:58
+Desc: 期货配置文件
 """
 import datetime
 import json
 import os
 import pickle
 import re
-
-# futures_rule-futures_rule
-futures_rule_url = "http://www.gtjaqh.com/gtqh/html/calendar/dataTable"
 
 # hf_sina_spot
 hf_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
@@ -146,6 +141,8 @@ market_exchange_symbols = {
         "EG",
         "RR",
         "EB",  # 20191009
+        "PG",
+        "LH",  # 20210108 生猪期货
     ],
     "czce": [
         "WH",
@@ -199,6 +196,7 @@ market_exchange_symbols = {
         "NR",
         "SP",
         "SS",
+        "LU",
     ],
 }
 
@@ -255,7 +253,8 @@ SYS_SPOT_PRICE_LATEST_URL = "http://www.100ppi.com/sf/"
 
 SHFE_VOL_RANK_URL = "http://www.shfe.com.cn/data/dailydata/kx/pm%s.dat"
 CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/fzjy/ccpm/%s/%s/%s_1.csv"
-DCE_VOL_RANK_URL = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=all&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
+DCE_VOL_RANK_URL_1 = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=%s&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
+DCE_VOL_RANK_URL_2 = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=all&contract.variety_id=%s&year=%s&month=%s&day=%s"
 CZCE_VOL_RANK_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/pm/pm%s.html"
 CZCE_VOL_RANK_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm"
 CZCE_VOL_RANK_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm"
@@ -408,6 +407,7 @@ OPTION_OUTPUT_COLUMNS = [
 ]
 
 DCE_MAP = {
+    "大豆": "A",
     "豆一": "A",
     "豆二": "B",
     "豆粕": "M",
@@ -428,6 +428,7 @@ DCE_MAP = {
     "粳米": "RR",
     "苯乙烯": "EB",
     "液化石油气": "PG",
+    "生猪": "LH",
 }
 
 

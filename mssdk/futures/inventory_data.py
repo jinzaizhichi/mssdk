@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 得到99期货网的原始数据
+Date: 2021/1/10 13:58
+Desc: 得到 99 期货网的原始数据
 """
 import requests
 import pickle
@@ -89,13 +87,13 @@ for i in code_temp_list:
             continue
 
 
-with open('./mssdk/futures/exchange_symbol_list.pk', 'wb') as f:
+with open('./akshare/futures/exchange_symbol_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_list, f)
 
-with open('./mssdk/futures/exchange_symbol_value_list.pk', 'wb') as f:
+with open('./akshare/futures/exchange_symbol_value_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_value_list, f)
 
-with open('./mssdk/futures/code_exchange_name_dict.pk', 'wb') as f:
+with open('./akshare/futures/code_exchange_name_dict.pk', 'wb') as f:
     pickle.dump(code_exchange_name_dict, f)
 
 
