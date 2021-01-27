@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/22 0:11
-contact: jindaxiang@163.com
-desc: 新浪财经-期权
+Date: 2020/10/17 18:11
+Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深300指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
@@ -104,7 +102,7 @@ def option_sina_cffex_hs300_daily(contract: str = "io2004C4450") -> pd.DataFrame
     r = requests.get(url, params=payload)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        eval(data_text[data_text.find("["): data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     return data_df
@@ -141,7 +139,7 @@ def option_sina_sse_expire_day(
     :param exchange: null
     :type exchange: str
     :return: (到期时间, 剩余时间)
-    :rtype: Tuple
+    :rtype: tuple
     """
     url = (
         f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?"
@@ -161,10 +159,10 @@ def option_sina_sse_codes(
     trade_date: str = "202002", underlying: str = "510300"
 ) -> Tuple[List[str], List[str]]:
     """
-    获取所有看涨看跌合约的代码
+    获取上海证券交易所所有看涨和看跌合约的代码
     :param trade_date: 期权到期月份
     :type trade_date: "202002"
-    :param underlying: 标的产品代码 华夏上证50ETF: 510050 or 华泰柏瑞沪深300ETF: 510300
+    :param underlying: 标的产品代码 华夏上证 50ETF: 510050 or 华泰柏瑞沪深 300ETF: 510300
     :type underlying: str
     :return: 看涨看跌合约的代码
     :rtype: Tuple[List, List]
@@ -302,7 +300,7 @@ def option_sina_sse_greeks(code: str = "10002273") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_SO_{code}"
     data_text = requests.get(url).text
-    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(",")
     field_list = [
         "期权合约简称",
         "成交量",
@@ -326,7 +324,8 @@ def option_sina_sse_greeks(code: str = "10002273") -> pd.DataFrame:
 
 def option_sina_sse_minute(code: str = "10002273") -> pd.DataFrame:
     """
-    获取指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
+    指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
+    https://stock.finance.sina.com.cn/option/quotes.html
     :param code: 期权代码
     :type code: str
     :return: 指定期权的当前交易日的分钟数据
@@ -361,16 +360,40 @@ def option_sina_sse_daily(code: str = "10002273") -> pd.DataFrame:
     return data_df
 
 
+def option_sina_finance_minute(code: str = "10002530") -> pd.DataFrame:
+    """
+    指定期权的分钟频率数据
+    https://stock.finance.sina.com.cn/option/quotes.html
+    :param code: 期权代码
+    :type code: str
+    :return: 指定期权的分钟频率数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getFiveDayLine"
+    params = {
+        "symbol": f"CON_OP_{code}",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.json()
+    temp_df = pd.DataFrame()
+    for item in data_text["result"]["data"]:
+        temp_df = temp_df.append(pd.DataFrame(item), ignore_index=True)
+    temp_df.fillna(method="ffill", inplace=True)
+    temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
+    temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
+    return temp_df
+
+
 if __name__ == "__main__":
     # 期权-中金所-沪深300指数
     option_sina_cffex_hs300_list_df = option_sina_cffex_hs300_list()
     print(option_sina_cffex_hs300_list_df)
 
-    option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2004")
+    option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2106")
     print(option_sina_cffex_hs300_spot_df)
 
     option_sina_cffex_hs300_daily_df = option_sina_cffex_hs300_daily(
-        contract="io2004C4450"
+        contract="io2106C3600"
     )
     print(option_sina_cffex_hs300_daily_df)
 
@@ -379,16 +402,17 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202002", symbol="50ETF", exchange="null"
+        trade_date="202101", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 
-    option_sina_sse_codes_df = option_sina_sse_codes(
-        trade_date="202002", underlying="510300"
+    up, down = option_sina_sse_codes(
+        trade_date="202012", underlying="510300"
     )
-    print(option_sina_sse_codes_df)
+    print(up)
+    print(down)
 
-    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002273")
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002497")
     print(option_sina_sse_spot_price_df)
 
     option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
@@ -396,11 +420,14 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_underlying_spot_price_df)
 
-    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002273")
+    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002498")
     print(option_sina_sse_greeks_df)
 
-    option_sina_sse_minute_df = option_sina_sse_minute(code="10002273")
+    option_sina_sse_minute_df = option_sina_sse_minute(code="10002498")
     print(option_sina_sse_minute_df)
 
-    option_sina_sse_daily_df = option_sina_sse_daily(code="10002273")
+    option_sina_sse_daily_df = option_sina_sse_daily(code="10002498")
     print(option_sina_sse_daily_df)
+
+    option_sina_finance_minute_df = option_sina_finance_minute(code="10002498")
+    print(option_sina_finance_minute_df)

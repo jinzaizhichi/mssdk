@@ -1,8 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: mssdk
-Date: 2020/6/26 21:33
+Date: 2020/2/13 21:33
 Desc: 接口测试文件
 """
 from mssdk.pro.data_pro import pro_api
@@ -123,7 +122,7 @@ broker_all_df = pro.broker_all(offset_days="365")
 print(broker_all_df)
 
 # 席位-建仓过程
-broker_positions_process_df = pro.broker_positions_process(broker="永安期货", code="rb1810")
+broker_positions_process_df = pro.broker_positions_process(broker="永安期货", code="rb2010", start_date="2020-02-03", end_date="2020-06-03")
 print(broker_positions_process_df)
 
 # 席位-席位对对碰
@@ -171,12 +170,8 @@ print(basis_df)
 term_structure_df = pro.term_structure(variety="RB", date="2018-08-08")
 print(term_structure_df)
 
-# 基本面-库存数据-参数类型一
+# 基本面-库存数据
 inventory_df = pro.inventory(variety="RB", date="2018-08-08")
-print(inventory_df)
-
-# 基本面-库存数据-参数类型二
-inventory_df = pro.inventory(variety="RB", year="2019", week_number="10")
 print(inventory_df)
 
 # 基本面-利润数据
@@ -240,3 +235,4 @@ print(stock_flow_short_df)
 # 资金-每日商品保证金沉淀变化
 money_in_out_df = pro.money_in_out(date="2018-08-08")
 print(money_in_out_df)
+

@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: qhsdk
-date: 2020/2/13 21:22
-desc: 存储和读取Token文件
+Date: 2020/2/13 21:22
+Desc: 存储和读取Token文件
 """
 import os
 
