@@ -1,10 +1,10 @@
-mssdk 数据字典
+MSSDK 数据字典
 =================
 
-数据字典主要介绍 mssdk 提供的数据接口的详细说明
+数据字典主要介绍 MSSDK 提供的数据接口的详细说明
 
 .. toctree::
-    :maxdepth: 5
+    :maxdepth: 6
 
     stock/stock
     futures/futures

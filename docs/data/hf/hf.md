@@ -1,6 +1,6 @@
 ## [mssdk](https://github.com/cdmaxsmart/mssdk) 高频数据
 
-### 标普500指数
+### 标普 500 指数
 
 接口: hf_sp_500
 
