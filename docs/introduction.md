@@ -16,15 +16,15 @@
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AKShare](https://github.com/jindaxiang/akshare) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
+[MSSDK](https://github.com/cdmaxsmart/mssdk) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
 
-[AKShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
+[MSSDK](https://github.com/cdmaxsmart/mssdk) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
 
-**[AKShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和研究报告来添加更多数据接口和衍生指标，并提供相应的计算代码，敬请关注。**
+**[MSSDK](https://github.com/cdmaxsmart/mssdk) 后续会基于学术论文和研究报告来添加更多数据接口和衍生指标，并提供相应的计算代码，敬请关注。**
 
-## [AKShare](https://github.com/jindaxiang/akshare) 的特色
+## [MSSDK](https://github.com/cdmaxsmart/mssdk) 的特色
 
-[AKShare](https://github.com/jindaxiang/akshare) 主要改进如下:
+[MSSDK](https://github.com/cdmaxsmart/mssdk) 主要改进如下:
 
 1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008) 规范, 数据接口的命名统一;
 2. 最佳支持 Python 3.7.5 及其以上版本;
@@ -39,11 +39,11 @@
     
     6.3 增加[99期货网](http://www.99qh.com/)提供的大宗商品库存数据;
     
-    6.4 增加[商品期权](https://github.com/jindaxiang/akshare)提供的商品期货数据;
+    6.4 增加[商品期权](https://github.com/cdmaxsmart/mssdk)提供的商品期货数据;
     
-    6.5 增加[英为财情网站-全球指数](https://github.com/jindaxiang/akshare)提供的全球股指与期货指数数据;
+    6.5 增加[英为财情网站-全球指数](https://github.com/cdmaxsmart/mssdk)提供的全球股指与期货指数数据;
     
-    6.6 增加[英为财情网站-全球债券](https://github.com/jindaxiang/akshare)提供的全球政府债券行情与收益率数据;
+    6.6 增加[英为财情网站-全球债券](https://github.com/cdmaxsmart/mssdk)提供的全球政府债券行情与收益率数据;
     
     6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的中国银行间债券行情和外汇数据;
 

@@ -2,7 +2,7 @@
 
 ### 债券基础信息
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/msshare/readme/index/bond_stock_index.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/index/bond_stock_index.png)
 
 上图是利用 [mssdk](https://github.com/cdmaxsmart/mssdk) 的 **get_bond_bank** 函数获取的中国银行间
 交易商协会发布的债券数据来绘制的, 可以在上面明确看出近几个月发债规模急速上升.

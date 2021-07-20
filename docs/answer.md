@@ -1,4 +1,4 @@
-# [MSSDK](https://github.com/jindaxiang/akshare) 答疑专栏
+# [MSSDK](https://github.com/cdmaxsmart/mssdk) 答疑专栏
 
 ## 专栏介绍
 
@@ -42,7 +42,7 @@
 
     1. 多运行几次，查看是否是网络不稳定造成的问题
     2. 切换 IP 后重试
-    3. 可以在 [GitHub Issues](https://github.com/jindaxiang/akshare/issues) 中反馈
+    3. 可以在 [GitHub Issues](https://github.com/cdmaxsmart/mssdk) 中反馈
 
 7. 全球疫情历史数据接口获取不到数据
     
@@ -64,7 +64,7 @@
 
 ```python
 import pandas as pd
-import mssdk as ak
+import mssdk as ms
 # 列名与数据对其显示
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
@@ -72,7 +72,7 @@ pd.set_option('display.unicode.east_asian_width', True)
 pd.set_option('display.max_columns', None)
 # 显示所有行
 pd.set_option('display.max_rows', None)
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
+stock_zh_index_daily_df = ms.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
 

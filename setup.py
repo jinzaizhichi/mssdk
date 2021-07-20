@@ -29,8 +29,8 @@ def get_version_string():
 setuptools.setup(
     name="mssdk",
     version=get_version_string(),
-    author="Albert King",
-    author_email="jindaxiang@163.com",
+    author="maxsmart",
+    author_email="298038875@qq.com",
     license="MIT",
     description="MSSDK is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,
