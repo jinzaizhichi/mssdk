@@ -15,6 +15,29 @@ import recommonmark
 from datetime import datetime
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
+import ast
+import re
+
+
+def get_version_string():
+    """
+    Get the mssdk version number
+    :return: version number
+    :rtype: str, e.g. '0.6.24'
+    """
+    with open("../mssdk/__init__.py", "rb") as _f:
+        version_line = re.search(
+            r"__version__\s+=\s+(.*)", _f.read().decode("utf-8")
+        ).group(1)
+        return str(ast.literal_eval(version_line))
+
+
+latex_engine = 'xelatex'
+latex_use_xindy = False
+latex_elements = {
+    'preamble': '\\usepackage[UTF8]{ctex}\n',
+}
+
 
 source_suffix = ['.rst', '.md']
 
@@ -59,12 +82,7 @@ exclude_patterns = ['_build', '**.ipynb_checkpoints']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'sphinx_rtd_theme'
-html_theme = 'alabaster'
-
-html_theme_options = {
-    'page_width': '1000px',
-}
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -80,4 +98,3 @@ def setup(app):
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
-

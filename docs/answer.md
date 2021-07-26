@@ -2,7 +2,7 @@
 
 ## 专栏介绍
 
-本专栏的主要目的是为了解决在使用 https://github.com/cdmaxsmart/mssdk 中遇到的各种问题，主题包括但不限于：环境配置、mssdk 安装和升级、数据接口请求、代理配置等等。
+本专栏的主要目的是为了解决在使用 [MSSDK](https://github.com/cdmaxsmart/mssdk) 中遇到的各种问题，主题包括但不限于：环境配置、mssdk 安装和升级、数据接口请求、代理配置等等。
 
 ## 常见问题
 
@@ -29,33 +29,39 @@
 
 4. 接口报错出现类似错误提示： `ReadTimeout: HTTPConnectionPool(host="www.xxx.com")` 
 
-   1. 重新运行接口函数
-   2. 更换 IP 地址，可以使用代理访问
-   3. 降低数据访问的频率
+    1. 重新运行接口函数
+    2. 更换 IP 地址，可以使用代理访问
+    3. 降低数据访问的频率
 
 5. 接口报错出现类似错误提示：`cannot import name 'StringIO' from 'pandas.compat'`
 
-   1. 建议安装 pandas 版本大于 **0.25.2**，建议 pandas 版本大于 **1.0**
-   2. 升级命令如下: `pip install mssdk --upgrade`
+    1. 建议安装 pandas 版本大于 **0.25.2**，建议 pandas 版本大于 **1.0**
+    2. 升级命令如下: `pip install pandas --upgrade`
 
 6. 出现数据返回错位，如日期数据和价格数据返回错位的情况
 
-   1. 多运行几次，是否是网络稳定问题
-   2. 切换 IP 后重试
-   3. 可以在 [GitHub Issues](https://github.com/cdmaxsmart/mssdk) 中反馈
+    1. 多运行几次，查看是否是网络不稳定造成的问题
+    2. 切换 IP 后重试
+    3. 可以在 [GitHub Issues](https://github.com/cdmaxsmart/mssdk) 中反馈
 
 7. 全球疫情历史数据接口获取不到数据
     
-   1. 由于 GitHub 服务器在国外，访问此数据接口最好使用代理访问
-   2. 如没有代理的情况下，多重复请求几次
+    1. 由于 GitHub 服务器在国外，访问此数据接口最好使用代理访问
+    2. 如没有代理的情况下，多重复请求几次
    
 8. 返回值字段错位
     
-   1. 升级 pandas 到最新版本
+    1. 升级 pandas 到最新版本
 
-9. 将数据在 IDE 全显示，避免折叠显示不全的情况
+9. Linux 系统显示 `execjs._exceptions.RuntimeUnavailableError: Could not find an available JavaScript runtime.`
+    
+    1. 需要安装 `nodejs`
+    2. 参考[文章](https://blog.csdn.net/qq_36853469/article/details/106401389)
 
-    1. 全局设置 `pandas`，使用方法: 
+10. 将数据在 IDE 全显示，避免折叠显示不全的情况
+
+    1. 全局设置 `pandas`，使用方法:
+
 ```python
 import pandas as pd
 import mssdk as ms
@@ -69,3 +75,18 @@ pd.set_option('display.max_rows', None)
 stock_zh_index_daily_df = ms.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
+
+11. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
+    
+    1. 安装 64 位版本的 Python
+
+12. 无法下载疫情的海外数据
+
+    1. 访问 [IPAddress](https://www.ipaddress.com/)
+    2. 查询 ```raw.githubusercontent.com``` 的真实 IP 地址
+    3. 找到系统 host
+        1. Windows 10 在目录 ```C:\Windows\System32\drivers\etc```
+        2. Ubuntu 18.04 在目录 ```/etc/hosts```
+    4. 修改 host
+        1. 添加如下内容: ```199.232.28.133 raw.githubusercontent.com```
+        2. 此处 ```199.232.28.133``` 为查找到的真实 IP

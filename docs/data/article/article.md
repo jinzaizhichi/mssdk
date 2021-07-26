@@ -224,10 +224,10 @@ Big Growth                                             0.30           1.04
 Size and Operating Profitability Portfolios               -              -   
 Small Robust                                           3.73          -6.10   
 Small Neutral                                          4.50          -1.20   
-Small Weak                                            -0.22          -6.10   
+Small Wems                                            -0.22          -6.10   
 Big Robust                                             1.12           2.24   
 Big Neutral                                            2.60           0.67   
-Big Weak                                               1.11          -2.08   
+Big Wems                                               1.11          -2.08   
 Size and Investment Portfolios                            -              -   
 Small Conservative                                     3.57          -3.90   
 Small Neutral                                          3.57          -1.41   
@@ -257,10 +257,10 @@ Big Growth                                             3.73
 Size and Operating Profitability Portfolios               -  
 Small Robust                                         -15.42  
 Small Neutral                                         -7.23  
-Small Weak                                           -15.73  
+Small Wems                                           -15.73  
 Big Robust                                             4.76  
 Big Neutral                                            3.40  
-Big Weak                                              -4.88  
+Big Wems                                              -4.88  
 Size and Investment Portfolios                            -  
 Small Conservative                                   -14.66  
 Small Neutral                                         -8.16  
@@ -398,7 +398,7 @@ equity premium prediction 中的标普 500 和常用经济指标
 ```python
 import mssdk as ms
 agoyal_stock_return_df = ms.agoyal_stock_return(indicator="monthly")
-print(agoyal_stock_return_df.columns)
+print(agoyal_stock_return_df)
 ```
 
 数据示例

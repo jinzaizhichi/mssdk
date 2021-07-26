@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2021/1/14 20:50
-Desc: 获取商品期权数据
+Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
 (2) 价格：元/吨，鸡蛋为元/500千克，纤维板为元/立方米，胶合板为元/张
@@ -308,6 +308,6 @@ if __name__ == "__main__":
     get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20210113", symbol="玉米期权")
     print(get_dce_option_daily_one)
     print(get_dce_option_daily_two)
-    get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
+    get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20210312", symbol="天胶期权")
     print(get_shfe_option_daily_one)
     print(get_shfe_option_daily_two)
