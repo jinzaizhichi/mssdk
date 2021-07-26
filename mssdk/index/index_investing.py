@@ -308,8 +308,8 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
 
 
 def index_investing_global(
-    country: str = "台湾",
-    index_name: str = "台湾加权指数",
+    country: str = "美国",
+    index_name: str = "美元指数",
     period: str = "每日",
     start_date: str = "2000-01-01",
     end_date: str = "2019-10-17",
@@ -409,10 +409,10 @@ def index_investing_global(
 if __name__ == "__main__":
     index_investing_global_country_name_url_dict = index_investing_global_country_name_url("美国")
     index_investing_global_df = index_investing_global(
-        country="中国",
-        index_name="上证指数",
+        country="美国",
+        index_name="美元指数",
         period="每日",
-        start_date="2005-01-01",
-        end_date="2020-06-05",
+        start_date="1950-01-01",
+        end_date="1999-11-25",
     )
     print(index_investing_global_df)

@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-date: 2020/11/27 14:02
-desc: ownthink-knowledge graph
+Date: 2020/11/27 14:02
+Desc: ownthink-knowledge graph
 https://ownthink.com/
 https://www.ownthink.com/docs/kg/
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> list:
+def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> pd.DataFrame:
     """
     Knowledge Graph interface for financial research
     https://ownthink.com/
@@ -41,8 +41,8 @@ def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> list:
 
 def nlp_answer(question: str = "人工智能") -> str:
     """
-    Knowledge Graph interface for financial research
-    https://ownthink.com/
+    智能问答
+    https://ownthink.com/robot.html
     :param question: word in chinese
     :type question: str
     :return: indicator data

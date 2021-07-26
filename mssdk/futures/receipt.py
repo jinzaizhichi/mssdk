@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 从大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据,
-避免交易所数据更新不稳定导致的程序出错
+Date: 2021/1/8 13:58
+Desc: 大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定导致的程序出错
 """
 import datetime
 import re
@@ -28,8 +25,7 @@ shfe_20101029 = pd.DataFrame({'var': ['CU', 'AL', 'ZN', 'RU', 'FU', 'AU', 'RB', 
 
 def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols):
     """
-    完成
-    采集大连商品交易所注册仓单数据
+    大连商品交易所注册仓单数据
     :param date: format 开始日期: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 为空时为当天
     :param symbol_list: 合约品种如 RB, AL等列表, 为空时为所有商品数据从 20060106开始，每周五更新仓单数据。直到20090407起，每交易日都更新仓单数据
     :return: pd.DataFrame
@@ -263,8 +259,8 @@ def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
 
 def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols):
     """
-    抓取郑州商品交易所注册仓单数据
-    适用20151112(包括)至今
+    郑州商品交易所注册仓单数据
+    适用 20151112-至今
     Parameters
     ------
         date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -324,7 +320,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
 
 def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = cons.contract_symbols):
     """
-    获取大宗商品注册仓单数量
+    大宗商品注册仓单数量
     :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type start_day: str
     :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -376,6 +372,8 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
         start_day += datetime.timedelta(days=1)
     records.reset_index(drop=True, inplace=True)
+    if records.empty:
+        return records
     if "MA" in records["var"].to_list():
         replace_index = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0].index
         records.loc[replace_index, "receipt"] = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0]
@@ -383,5 +381,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20200225', end_day='20200225')
+    get_receipt_df = get_receipt(start_day='20201117', end_day='20201117')
     print(get_receipt_df)

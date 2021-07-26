@@ -10,7 +10,6 @@ import time
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
 from mssdk.economic.cons import (
     JS_USA_NON_FARM_URL,
@@ -23,8 +22,6 @@ from mssdk.economic.cons import (
     JS_USA_ADP_NONFARM_URL,
     JS_USA_GDP_MONTHLY_URL,
 )
-
-# pd.set_option('display.max_rows', 10)
 
 
 # 金十数据中心-经济指标-美国-经济状况-美国GDP
@@ -2109,6 +2106,7 @@ def macro_usa_spcs20():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_spcs20"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2168,6 +2166,7 @@ def macro_usa_pending_home_sales():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_pending_home_sales"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2226,6 +2225,7 @@ def macro_usa_cb_consumer_confidence():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "cb_consumer_confidence"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2283,6 +2283,7 @@ def macro_usa_nfib_small_business():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "nfib_small_business"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2340,6 +2341,7 @@ def macro_usa_michigan_consumer_sentiment():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "michigan_consumer_sentiment"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 

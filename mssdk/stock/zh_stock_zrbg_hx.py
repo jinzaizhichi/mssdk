@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/25 15:56
-contact: jindaxiang@163.com
-desc: 和讯财经-上市公司社会责任报告数据, http://stockdata.stock.hexun.com/zrbg/
+Date: 2019/10/25 15:56
+Desc: 和讯财经-上市公司社会责任报告数据, http://stockdata.stock.hexun.com/zrbg/
 """
 import demjson
 import requests
@@ -12,8 +10,8 @@ import pandas as pd
 from tqdm import tqdm
 
 from mssdk.stock.cons import (hx_headers,
-                                hx_params,
-                                hx_url)
+                              hx_params,
+                              hx_url)
 
 
 def stock_zh_a_scr_report(report_year=2018, page=1):

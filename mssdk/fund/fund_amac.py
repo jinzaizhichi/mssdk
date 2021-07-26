@@ -1,8 +1,6 @@
 """
-Author: Albert King & Guo Yangyang
-date: 2020/01/16 19:54
-contact: jindaxiang@163.com
-desc: 获取中国证券投资基金业协会-信息公示数据
+Date: 2020/10/18 19:54
+Desc: 获取中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
 目前的网络数据采集基于旧版接口, Guo Yangyang 正在更新新版接口数据
@@ -10,15 +8,12 @@ desc: 获取中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 from mssdk.fund.cons import (
     amac_member_info_url,
     amac_member_info_payload,
     amac_person_org_list_url,
     amac_person_org_list_payload,
-    amac_person_org_list_ext_url,
-    amac_person_org_list_ext_payload,
     amac_manager_info_url,
     amac_manager_info_payload,
     amac_manager_classify_info_url,
@@ -44,7 +39,7 @@ from mssdk.fund.cons import (
 )
 
 
-def _get_pages(url="", payload=""):
+def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
     暂时不使用本函数, 直接可以获取所有数据
@@ -52,20 +47,20 @@ def _get_pages(url="", payload=""):
     headers = {
         "Content-Type": "application/json",
     }
-    res = requests.post(url=url, json=payload, headers=headers)  # 请求数据
+    res = requests.post(url=url, json=payload, headers=headers, verify=False)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df["totalPages"]
 
 
-def get_data(url="", payload=""):
+def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
     headers = {
         "Content-Type": "application/json",
     }
-    res = requests.post(url=url, json=payload, headers=headers)  # 请求数据
+    res = requests.post(url=url, json=payload, headers=headers, verify=False)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df
@@ -73,7 +68,7 @@ def get_data(url="", payload=""):
 
 # 中国证券投资基金业协会-信息公示-会员信息
 # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
-def amac_member_info():
+def amac_member_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
@@ -108,7 +103,7 @@ def amac_member_info():
 
 # 中国证券投资基金业协会-信息公示-从业人员信息
 # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-def amac_person_org_list():
+def amac_person_org_list() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
@@ -138,42 +133,9 @@ def amac_person_org_list():
     return manager_data_out
 
 
-# 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
-def amac_person_org_list_ext():
-    """
-    中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
-    http://gs.amac.org.cn/amac-infodisc/res/pof/extperson/extPersonOrgList.html
-    :return:
-    :rtype: pandas.DataFrame
-    """
-    data = get_data(url=amac_person_org_list_ext_url, payload=amac_person_org_list_ext_payload)
-    need_data = data["content"]
-    keys_list = [
-        "orgName",
-        "orgType",
-        "extWorkerTotalNum",
-        "extOperNum",
-        "extSalesmanNum",
-        "extInvestmentManagerNum",
-        "extFundManagerNum",
-    ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
-    manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
-        "机构名称",
-        "机构性质",
-        "员工人数",
-        "基金从业资格",
-        "基金销售业务资格",
-        "基金经理",
-        "投资经理",
-    ]
-    return manager_data_out
-
-
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
-def amac_manager_info():
+def amac_manager_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
@@ -209,7 +171,7 @@ def amac_manager_info():
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
-def amac_manager_classify_info():
+def amac_manager_classify_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
@@ -245,7 +207,7 @@ def amac_manager_classify_info():
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
-def amac_member_sub_info():
+def amac_member_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
@@ -278,7 +240,7 @@ def amac_member_sub_info():
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info():
+def amac_fund_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
@@ -314,7 +276,7 @@ def amac_fund_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
-def amac_securities_info():
+def amac_securities_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
@@ -354,7 +316,7 @@ def amac_securities_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
-def amac_aoin_info():
+def amac_aoin_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
     http://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
@@ -384,7 +346,7 @@ def amac_aoin_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
-def amac_fund_sub_info():
+def amac_fund_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
     http://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
@@ -417,7 +379,7 @@ def amac_fund_sub_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
-def amac_fund_account_info():
+def amac_fund_account_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -446,7 +408,7 @@ def amac_fund_account_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-def amac_fund_abs():
+def amac_fund_abs() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -454,7 +416,10 @@ def amac_fund_abs():
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = requests.post(url=amac_fund_abs_url, data=amac_fund_abs_payload)
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    }
+    data = requests.post(url=amac_fund_abs_url, data=amac_fund_abs_payload, headers=headers)
     need_data = data.json()["result"]
     keys_list = [
         "ASPI_BA_NUMBER",
@@ -481,7 +446,7 @@ def amac_fund_abs():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
-def amac_futures_info():
+def amac_futures_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
@@ -521,81 +486,8 @@ def amac_futures_info():
 
 
 # 中国证券投资基金业协会-信息公示-诚信信息
-# 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
-def amac_manager_xxgs_hmd():
-    """
-    中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
-    http://www1.amac.org.cn/xxgs/hmd/
-    :return:
-    :rtype: pandas.DataFrame
-    """
-    headers = {
-        "Content-Type": "application/json",
-    }
-    res = requests.get("http://www1.amac.org.cn/xxgs/hmd/", headers=headers)
-    res.encoding = "utf-8"
-    soup = BeautifulSoup(res.text, "lxml")
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
-    manager_data_out = pd.DataFrame([date_list, content_list]).T
-    return manager_data_out.iloc[:-1, :]
-
-
-# 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
-def amac_manager_xxgs_jlcf():
-    """
-    中国证券投资基金业协会-信息公示-诚信信息-纪律处分
-    http://www1.amac.org.cn/xxgs/jlcf/
-    :return:
-    :rtype: pandas.DataFrame
-    """
-    headers = {
-        "Content-Type": "application/json",
-    }
-    res = requests.get("http://www1.amac.org.cn/xxgs/jlcf/index.shtml", headers=headers)
-    res.encoding = "utf-8"
-    soup = BeautifulSoup(res.text, "lxml")
-    page_num = soup.find(attrs={"onclick": "_PageBar_1574932671465_Go()"}).parent.get_text().split("/")[-1].split('页')[0]
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
-    manager_data_out = pd.DataFrame([date_list, content_list]).T
-    manager_data_out = manager_data_out.iloc[:-4, :]
-    for page in range(1, int(page_num)):
-        res = requests.get(f"http://www1.amac.org.cn/xxgs/jlcf/index_{page}.shtml", headers=headers)
-        res.encoding = "utf-8"
-        soup = BeautifulSoup(res.text, "lxml")
-        content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-        date_list = [item.get_text() for item in
-                     soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
-        inner_manager_data_out = pd.DataFrame([date_list, content_list]).T
-        inner_manager_data_out = inner_manager_data_out.iloc[:-4, :]
-        manager_data_out = manager_data_out.append(inner_manager_data_out, ignore_index=True)
-    return manager_data_out
-
-
-# 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
-def amac_manager_xxgs_cxdj():
-    """
-    中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
-    http://www1.amac.org.cn/xxgs/cxdj/
-    :return:
-    :rtype: pandas.DataFrame
-    """
-    headers = {
-        "Content-Type": "application/json",
-    }
-    res = requests.get("http://www1.amac.org.cn/xxgs/cxdj/", headers=headers)
-    res.encoding = "utf-8"
-    soup = BeautifulSoup(res.text, "lxml")
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
-    manager_data_out = pd.DataFrame([date_list, content_list]).T
-    manager_data_out = manager_data_out.iloc[:-1, :]
-    return manager_data_out
-
-
 # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
-def amac_manager_cancelled_info():
+def amac_manager_cancelled_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
     http://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
@@ -637,9 +529,6 @@ if __name__ == "__main__":
     # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     amac_person_org_list_df = amac_person_org_list()
     print(amac_person_org_list_df)
-    # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
-    amac_person_org_list_ext_df = amac_person_org_list_ext()
-    print(amac_person_org_list_ext_df)
 
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示
     # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
@@ -678,15 +567,6 @@ if __name__ == "__main__":
     print(amac_futures_info_df)
 
     # 中国证券投资基金业协会-信息公示-诚信信息
-    # 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
-    amac_manager_xxgs_hmd_df = amac_manager_xxgs_hmd()
-    print(amac_manager_xxgs_hmd_df)
-    # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
-    amac_manager_xxgs_jlcf_df = amac_manager_xxgs_jlcf()
-    print(amac_manager_xxgs_jlcf_df)
-    # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
-    amac_manager_xxgs_cxdj_df = amac_manager_xxgs_cxdj()
-    print(amac_manager_xxgs_cxdj_df)
     # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
     amac_manager_cancelled_info_df = amac_manager_cancelled_info()
     print(amac_manager_cancelled_info_df)

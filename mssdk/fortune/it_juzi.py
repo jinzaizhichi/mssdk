@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/25 13:55
-contact: jindaxiang@163.com
-desc: 获取 IT桔子 的死亡公司数据
+Date: 2019/12/25 13:55
+Desc: 获取 IT桔子 的死亡公司数据
 https://www.itjuzi.com/deathCompany
 死亡公司数据库网页声明：
 一、本网页基于IT桔子投资数据库而打造的“死亡公司数据库”，致力于展现中国新经济领域近些年倒闭的创新创业公司；
@@ -64,7 +62,7 @@ def nicorn_company():
     :return: pandas.DataFrame
     """
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/nicorn_company.csv",
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv",
         index_col=0,
     )
     for i in range(1, 2):
@@ -93,7 +91,7 @@ def maxima_company():
     :return: pandas.DataFrame
     """
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/maxima.csv",
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv",
         index_col=0,
     )
     temp_df.head().append(temp_df.tail())
@@ -143,7 +141,7 @@ def _death_company():
 
 if __name__ == "__main__":
     death_company_df = death_company()
-    print(death_company_df.to_csv("test.csv", encoding="utf-8"))
+    print(death_company_df)
     nicorn_company_df = nicorn_company()
     print(nicorn_company_df)
     maxima_company_df = maxima_company()
