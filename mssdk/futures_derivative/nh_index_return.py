@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/11/26 18:52
-Desc: 获取南华期货-商品指数历史走势-收益率指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
+Date: 2020/10/14 16:52
+Desc: 南华期货-商品指数历史走势-收益率指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: http://www.nanhua.net/ianalysis/varietyindex/index/NHCI.json?t=1574932290494
 """
@@ -61,9 +61,9 @@ def nh_return_index(code: str = "Y") -> pd.DataFrame:
     if code in get_nh_list_table()["code"].tolist():
         t = time.time()
         base_url = f"http://www.nanhua.net/ianalysis/varietyindex/index/{code}.json?t={int(round(t * 1000))}"
-        res = requests.get(base_url)
-        date = [num_to_str_data(item[0]).split(" ")[0] for item in res.json()]
-        data = [item[1] for item in res.json()]
+        r = requests.get(base_url)
+        date = [num_to_str_data(item[0]).split(" ")[0] for item in r.json()]
+        data = [item[1] for item in r.json()]
         df_all = pd.DataFrame([date, data]).T
         df_all.columns = ["date", "value"]
         df_all.index = pd.to_datetime(df_all["date"])

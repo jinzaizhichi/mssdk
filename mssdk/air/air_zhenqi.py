@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/27 21:13
+Date: 2021/6/18 19:50
 Desc: 真气网-空气质量
 https://www.zq12369.com/environment.php
 空气质量在线监测分析平台的空气质量数据
@@ -12,27 +12,33 @@ import os
 import re
 
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 
 
-def _get_js_path(name, module_file):
+def _get_js_path(name: str = None, module_file: str = None) -> str:
     """
     获取 JS 文件的路径(从模块所在目录查找)
     :param name: 文件名
-    :param module_file: filename
-    :return: str json_file_path
+    :type name: str
+    :param module_file: 模块路径
+    :type module_file: str
+    :return: 路径
+    :rtype: str
     """
     module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
     module_json_path = os.path.join(module_folder, "air", name)
     return module_json_path
 
 
-def _get_file_content(file_name="crypto.js"):
+def _get_file_content(file_name: str = "crypto.js") -> str:
     """
-    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
-    :return: json
+    获取 JS 文件的内容
+    :param file_name:  JS 文件名
+    :type file_name: str
+    :return: 文件内容
+    :rtype: str
     """
     setting_file_name = file_name
     setting_file_path = _get_js_path(setting_file_name, __file__)
@@ -77,6 +83,7 @@ def air_quality_watch_point(
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
+    指定之间段之间的空气质量数据
     https://www.zq12369.com/
     :param city: 调用 air_city_list 接口获取
     :type city: str
@@ -87,9 +94,11 @@ def air_quality_watch_point(
     :return: 指定城市指定日期区间的观测点空气质量
     :rtype: pandas.DataFrame
     """
+
     url = "https://www.zq12369.com/api/zhenqiapi.php"
     file_data = _get_file_content(file_name="crypto.js")
-    ctx = execjs.compile(file_data)
+    ctx = py_mini_racer.MiniRacer()
+    ctx.eval(file_data)
     method = "GETCITYPOINTAVG"
     ctx.call("encode_param", method)
     ctx.call("encode_param", start_date)
@@ -129,17 +138,18 @@ def air_quality_hist(
     :type period: str
     :param start_date: e.g., "2019-03-27"
     :type start_date: str
-    :param end_date: e.g., ""2020-03-27""
+    :param end_date: e.g., "2020-03-27"
     :type end_date: str
     :return: 指定城市和数据频率下在指定时间段内的空气质量数据
     :rtype: pandas.DataFrame
     """
     url = "https://www.zq12369.com/api/newzhenqiapi.php"
     file_data = _get_file_content(file_name="outcrypto.js")
-    out = execjs.compile(file_data)
+    ctx = py_mini_racer.MiniRacer()
+    ctx.eval(file_data)
     appId = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
     method = "CETCITYPERIOD"
-    timestamp = execjs.eval("timestamp = new Date().getTime()")
+    timestamp = ctx.eval("timestamp = new Date().getTime()")
     p_text = json.dumps(
         {
             "city": city,
@@ -150,7 +160,7 @@ def air_quality_hist(
         ensure_ascii=False,
         indent=None,
     ).replace(' "', '"')
-    secret = out.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
+    secret = ctx.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
     payload = {
         "appId": "4f0e3a273d547ce6b7147bfa7ceb4b6e",
         "method": "CETCITYPERIOD",
@@ -175,10 +185,10 @@ def air_quality_hist(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
     }
-    params = {"param": out.call("AES.encrypt", need)}
+    params = {"param": ctx.call("AES.encrypt", need)}
     r = requests.post(url, data=params, headers=headers)
-    temp_text = out.call("decryptData", r.text)
-    data_json = demjson.decode(out.call("b.decode", temp_text))
+    temp_text = ctx.call("decryptData", r.text)
+    data_json = demjson.decode(ctx.call("b.decode", temp_text))
     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
     temp_df.index = temp_df["time"]
     del temp_df["time"]
@@ -186,54 +196,9 @@ def air_quality_hist(
     return temp_df
 
 
-# def _air_quality_rank(city="杭州", period="day", start_date="2019-03-27", end_date="2020-04-27"):
-#     url = "https://www.zq12369.com/api/newzhenqiapi.php"
-#     with open(r"mssdk/air_new/outcrypto.js") as file:
-#         file_data = file.read()
-#     out = execjs.compile(file_data)
-#     appId = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
-#     method = "GETCITYAQIRANK"
-#     timestamp = execjs.eval("timestamp = new Date().getTime()")
-#     p_text = json.dumps(
-#         {
-#             "order": "desc",
-#         },
-#         ensure_ascii=False,
-#         indent=None,
-#     ).replace(' "', '"')
-#     secret = out.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
-#     payload = {
-#         "appId": "4f0e3a273d547ce6b7147bfa7ceb4b6e",
-#         "method": method,
-#         "timestamp": int(timestamp),
-#         "clienttype": "WEB",
-#         "object": {
-#             "order": "desc",
-#         },
-#         "secret": secret,
-#     }
-#     need = (
-#         json.dumps(payload, ensure_ascii=False, indent=None, sort_keys=False)
-#         .replace(' "', '"')
-#         .replace("\\", "")
-#         .replace('p": ', 'p":')
-#         .replace('t": ', 't":')
-#     )
-#
-#     headers = {
-#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
-#     }
-#     params = {"param": out.call("AES.encrypt", need)}
-#     r = requests.post(url, data=params, headers=headers)
-#     temp_text = out.call("decryptData", r.text)
-#     data_json = demjson.decode(out.call("b.decode", temp_text))
-#     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
-#     return temp_df
-
-
 def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
     """
-    真气网-168城市AQI排行榜
+    真气网-168 城市 AQI 排行榜
     https://www.zq12369.com/environment.php?date=2020-03-12&tab=rank&order=DESC&type=DAY#rank
     :param date: "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名;
     :type date: str
@@ -284,14 +249,12 @@ if __name__ == "__main__":
     print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2020-01-01", end_date="2020-05-13"
+        city="杭州", start_date="2021-06-01", end_date="2021-06-07"
     )
     print(air_quality_watch_point_df)
 
-    air_quality_hist_df = air_quality_hist(
-        city="北京", period="day", start_date="2020-04-25", end_date="2020-05-01"
-    )
+    air_quality_hist_df = air_quality_hist()
     print(air_quality_hist_df)
 
-    air_quality_rank_df = air_quality_rank(date="2019")
+    air_quality_rank_df = air_quality_rank(date="2020")
     print(air_quality_rank_df)

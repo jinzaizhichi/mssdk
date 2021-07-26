@@ -1,5 +1,57 @@
 ## [mssdk](https://github.com/cdmaxsmart/mssdk) 外汇数据
 
+### 人民币牌价数据
+
+接口: currency_boc_sina
+
+目标地址: http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
+
+描述: 获取新浪财经-中行人民币牌价历史数据
+
+限量: 单次返回指定日期的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y | symbol="欧元"; choice of {'美元', '英镑', '欧元', '澳门元', '泰国铢', '菲律宾比索', '港币', '瑞士法郎', '新加坡元', '瑞典克朗', '丹麦克朗', '挪威克朗', '日元', '加拿大元', '澳大利亚元', '新西兰元', '韩国元'} |
+| date | str | Y | date="20210614" |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | object   | Y        | -  |
+| 中行汇买价      | float64   | Y        | 注意单位: 元   |
+| 中行钞买价      | float64   | Y        | 注意单位: 元  |
+| 中行钞卖价/汇卖价      | float64   | Y        | 注意单位: 元  |
+| 央行中间价      | float64   | Y        | 注意单位: 元  |
+
+接口示例
+
+```python
+import mssdk as ms
+currency_boc_sina_df = ms.currency_boc_sina(symbol="美元", date="20210614")
+print(currency_boc_sina_df)
+```
+
+数据示例
+
+```
+   日期  中行汇买价 中行钞买价 中行钞卖价/汇卖价 央行中间价
+0     2021-06-14  638.50  633.30     641.20  638.56
+1     2021-06-11  638.40  633.20     641.10  638.56
+2     2021-06-10  637.95  632.76     640.65  639.72
+3     2021-06-09  637.40  632.21     640.10  639.56
+4     2021-06-08  638.72  633.52     641.42  639.09
+          ...     ...     ...        ...     ...
+2660  2012-01-06  629.21  624.17     631.74  631.66
+2661  2012-01-05  628.79  623.75     631.31  631.15
+2662  2012-01-04  628.02  622.98     630.53  630.01
+2663  2012-01-03  627.42  622.39     629.93  630.09
+2664  2012-01-02  627.42  622.39     629.93  630.09
+```
+
 ### 人民币外汇即期报价
 
 接口: fx_spot_quote
@@ -16,7 +68,6 @@
 | -------- | ---- | ---- | --- |
 | 无 | 无 | 无 | 无 |
 
-
 输出参数
 
 人民币外汇即期报价
@@ -32,6 +83,7 @@
 **注：本行情为询价报价行情(美元为ODM), 实时更新**
 						
 接口示例
+
 ```python
 import mssdk as ms
 fx_df = ms.fx_spot_quote()
@@ -216,23 +268,71 @@ print(fx_df)
 10  EUR/GBP  0.86544  0.86546      ---
 ```
 
+### 指定币种的所有货币对
+
+接口: currency_pair_map
+
+目标地址: https://cn.investing.com/currencies/cny-jmd
+
+描述: 获取指定币种的所有能够获取到的货币对信息，历史数据可以调用 **currency_history** 获取
+
+限量: 单次返回指定币种的所有能获取数据的货币对
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y | symbol="人民币"; 此处提供中文的币种名称, 可以访问[网页](https://cn.investing.com/currencies/cny-jmd) 的页面下方查看 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| name      | str   | Y        | 货币对中文简称  |
+| code      | float   | Y        | 货币对代码   |
+
+接口示例
+
+```python
+import mssdk as ms
+currency_pair_map_df = ms.currency_pair_map(symbol="人民币")
+print(currency_pair_map_df)
+```
+
+数据示例
+
+```
+          name     code
+0     人民币-丹麦克朗  cny-dkk
+1     丹麦克朗-人民币  dkk-cny
+2     人民币-瑞士法郎  cny-chf
+3     瑞士法郎-人民币  chf-cny
+4     人民币-捷克克朗  cny-czk
+..         ...      ...
+85   人民币-澳大利亚元  cny-aud
+86   澳大利亚元-人民币  aud-cny
+87    人民币-新西兰元  cny-nzd
+88    新西兰元-人民币  nzd-cny
+89  人民币-巴拿马巴波亚  cny-pab
+```
+
 ### 外币对历史数据
 
 接口: currency_hist
 
 目标地址: https://cn.investing.com/currencies/
 
-描述: 获取指定外币对指定时间的历史数据
+描述: 获取指定外币对指定时间的历史数据, 此接口需要使用代理访问
 
 限量: 单次返回指定时间的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述     |
 | -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对 |
-| start_date | str | Y | start_date="2005/01/01" |
-| end_date | str | Y | end_date="2020/01/17" |
+| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对或通过 **currency_pair_map** 获取指定币种的所有货币对 |
+| start_date | str | Y | start_date="20050101" |
+| end_date | str | Y | end_date="20200117" |
 
 数据示例-currency_name_code
 
@@ -266,7 +366,7 @@ print(fx_df)
 
 ```python
 import mssdk as ms
-currency_hist_df = ms.currency_hist(symbol="usd-jpy", start_date="2005/01/01", end_date="2020/01/17")
+currency_hist_df = ms.currency_hist(symbol="usd-jpy", start_date="20050101", end_date="20200117")
 print(currency_hist_df)
 ```
 
@@ -329,7 +429,7 @@ print(currency_hist_df)
 ```python
 import mssdk as ms
 from datetime import datetime
-test_date = datetime.now().date().isoformat()
+test_date = datetime.now().date().isoformat().replace("-", "")
 macro_fx_sentiment_df = ms.macro_fx_sentiment(start_date=test_date, end_date=test_date)
 print(macro_fx_sentiment_df)
 ```

@@ -33,14 +33,14 @@ def energy_oil_hist() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{"): -1])
-    data_df = pd.DataFrame(data_json["result"]["data"])
-    data_df.columns = ["日期", "汽油价格", "柴油价格", "汽油涨幅", "柴油涨幅"]
-    return data_df
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.columns = ["日期", "汽油价格", "柴油价格", "汽油涨幅", "柴油涨幅"]
+    return temp_df
 
 
 def energy_oil_detail(date: str = "2020-03-19") -> pd.DataFrame:
     """
-    地区油价
+    全国各地区的汽油和柴油油价
     http://data.eastmoney.com/cjsj/oil_default.html
     :param date: call function: energy_oil_hist to get the date point
     :type date: str
@@ -61,13 +61,14 @@ def energy_oil_detail(date: str = "2020-03-19") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -1])
-    data_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
-    return data_df
+    data_json = json.loads(data_text[data_text.find("{"): -1])
+    temp_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
+    return temp_df
 
 
 if __name__ == "__main__":
     energy_oil_hist_df = energy_oil_hist()
     print(energy_oil_hist_df)
-    energy_oil_detail_df = energy_oil_detail(date="2020-03-19")
+
+    energy_oil_detail_df = energy_oil_detail(date="2021-04-01")
     print(energy_oil_detail_df)

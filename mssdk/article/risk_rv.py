@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/12 14:51
-contact: jindaxiang@163.com
-desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quantitative Finance Realized Library
+Date: 2019/11/12 14:51
+Desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quantitative Finance Realized Library
 """
 import json
 
@@ -215,12 +213,9 @@ def article_rlab_rv(symbol: str = "39693", plot: bool = True) -> pd.DataFrame:
 if __name__ == "__main__":
     article_rlab_rv_df = article_rlab_rv(symbol="39693")
     print(article_rlab_rv_df)
-    help(article_rlab_rv)
 
     article_oman_rv_short_df = article_oman_rv_short(symbol="FTSE")
     print(article_oman_rv_short_df)
-    help(article_rlab_rv)
 
     article_oman_rv_df = article_oman_rv(symbol="FTSE", index="rk_th2")
     print(article_oman_rv_df)
-    help(article_rlab_rv)

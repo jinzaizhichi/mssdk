@@ -1,18 +1,11 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/10 22:22
-contact: jindaxiang@163.com
-desc: fortune 配置文件
+Date: 2021/6/30 19:55
+Desc: fortune 配置文件
 """
-# it-juzi
-it_headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
-}
-it_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/juzi.csv"
-
 # fortune
+url_2020 = "http://www.fortunechina.com/fortune500/c/2020-08/10/content_372148.htm"
 url_2019 = "http://www.fortunechina.com/fortune500/c/2019-07/22/content_339535.htm"
 url_2018 = "http://www.fortunechina.com/fortune500/c/2018-07/19/content_311046.htm"
 url_2017 = "http://www.fortunechina.com/fortune500/c/2017-07/20/content_286785.htm"

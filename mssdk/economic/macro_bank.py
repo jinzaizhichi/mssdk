@@ -4,6 +4,7 @@
 Date: 2020/4/22 22:52
 Desc: 金十数据中心-经济指标-央行利率-主要央行利率
 https://datacenter.jin10.com/economic
+输出数据格式为 float64
 美联储利率决议报告
 欧洲央行决议报告
 新西兰联储决议报告
@@ -206,7 +207,7 @@ def macro_bank_newzealand_interest_rate():
 # 金十数据中心-经济指标-央行利率-主要央行利率-中国央行决议报告
 def macro_bank_china_interest_rate():
     """
-    中国人民银行利率报告, 数据区间从19910501-至今
+    中国人民银行利率报告, 数据区间从 19910501-至今
     https://datacenter.jin10.com/reportType/dc_china_interest_rate_decision
     https://cdn.jin10.com/dc/reports/dc_china_interest_rate_decision_all.js?v=1578582163
     :return: 中国人民银行利率报告-今值(%)

@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: mssdk
-date: 2020/6/25 22:52
-desc: 数据接口源代码
+Date: 2019/11/10 22:52
+Desc: 数据接口源代码
 """
 from functools import partial
 from urllib import parse
@@ -53,8 +52,21 @@ class DataApi:
             except ValueError as e:
                 result_df = pd.DataFrame.from_dict(data_json, orient="index", columns=[api_name])
                 return result_df
-        else:
-            return pd.DataFrame(data_json[fields])
+        else:  # 此处增加处理
+            if api_name == "variety_all_positions":
+                big_df = pd.DataFrame()
+                for item in data_json[fields].keys():
+                    temp_df = pd.DataFrame(data_json[fields][item])
+                    temp_df["code"] = item
+                    big_df = big_df.append(temp_df, ignore_index=True)
+                big_df.reset_index(inplace=True, drop=True)
+                return big_df
+            else:
+                return pd.DataFrame(data_json[fields])
 
     def __getattr__(self, name):
         return partial(self.query, name)
+
+
+if __name__ == '__main__':
+    pass

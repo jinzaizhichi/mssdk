@@ -1,17 +1,15 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/14 11:28
-contact: jindaxiang@163.com
-desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
+Date: 2021/7/15 19:27
+Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
 import datetime
 import re
 
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -27,7 +25,7 @@ from mssdk.stock.cons import hk_js_decode
 
 def _get_zh_bond_hs_cov_page_count() -> int:
     """
-    行情中心首页-债券-沪深可转债的总页数
+    新浪财经-行情中心-债券-沪深可转债的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :return: 总页数
     :rtype: int
@@ -35,8 +33,8 @@ def _get_zh_bond_hs_cov_page_count() -> int:
     params = {
         "node": "hskzz_z",
     }
-    res = requests.get(zh_sina_bond_hs_cov_count_url, params=params)
-    page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
+    r = requests.get(zh_sina_bond_hs_cov_count_url, params=params)
+    page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
     else:
@@ -45,7 +43,7 @@ def _get_zh_bond_hs_cov_page_count() -> int:
 
 def bond_zh_hs_cov_spot() -> pd.DataFrame:
     """
-    新浪财经-债券-沪深可转债的实时行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深可转债的实时行情数据; 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :return: 所有沪深可转债在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
@@ -53,7 +51,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_bond_hs_cov_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_cov_payload.copy()
-    for page in tqdm(range(1, page_count + 1)):
+    for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
@@ -61,33 +59,31 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     return big_df
 
 
-def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
+def bond_zh_hs_cov_daily(symbol: str = "sz123111") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :param symbol: 沪深可转债代码; e.g., sh010107
     :type symbol: str
     :return: 指定沪深可转债代码的日 K 线数据
     :rtype: pandas.DataFrame
     """
-    res = requests.get(
+    r = requests.get(
         zh_sina_bond_hs_cov_hist_url.format(
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
         )
     )
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
-        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
+        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
-    data_df.index = pd.to_datetime(data_df["date"])
-    del data_df["date"]
-    data_df.astype("float")
+    data_df['date'] = pd.to_datetime(data_df["date"]).dt.date
     return data_df
 
 
-def bond_zh_cov():
+def bond_zh_cov() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-可转债数据
     http://data.eastmoney.com/kzz/default.html
@@ -104,10 +100,11 @@ def bond_zh_cov():
         "p": "1",
         "ps": "5000",
         "js": "var {jsname}={pages:(tp),data:(x),font:(font)}",
+        "rt": "53603537",
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("=") + 1 :])
+    json_data = demjson.decode(text_data[text_data.find("=") + 1:])
     temp_df = pd.DataFrame(json_data["data"])
     map_dict = {
         item["code"]: item["value"] for item in json_data["font"]["FontMapping"]
@@ -117,7 +114,6 @@ def bond_zh_cov():
             temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(
                 lambda x: x.replace(key, str(value))
             )
-    temp_df.shape
     temp_df.columns = [
         "债券代码",
         "交易场所",
@@ -130,7 +126,7 @@ def bond_zh_cov():
         "正股简称",
         "债券面值",
         "发行价格",
-        "转股价",
+        "_",
         "中签号发布日",
         "中签率",
         "上市时间",
@@ -155,7 +151,7 @@ def bond_zh_cov():
         "_",
         "申购上限",
         "_",
-        "_",
+        "转股价",
         "转股价值",
         "债现价",
         "转股溢价率",
@@ -192,16 +188,15 @@ def bond_zh_cov():
     return temp_df
 
 
-def bond_cov_comparison():
+def bond_cov_comparison() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-可转债比价表
     http://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
     :return: 可转债比价表数据
     :rtype: pandas.DataFrame
     """
-    url = "http://77.push2.eastmoney.com/api/qt/clist/get"
+    url = "http://16.push2.eastmoney.com/api/qt/clist/get"
     params = {
-        "cb": "jQuery112406285914172501668_1590386857513",
         "pn": "1",
         "pz": "5000",
         "po": "1",
@@ -216,12 +211,15 @@ def bond_cov_comparison():
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -2])
+    json_data = demjson.decode(text_data)
     temp_df = pd.DataFrame(json_data["data"]["diff"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
     temp_df.columns = [
+        "序号",
         "_",
-        "最新价",
-        "涨跌幅",
+        "转债最新价",
+        "转债涨跌幅",
         "转债代码",
         "_",
         "转债名称",
@@ -229,8 +227,8 @@ def bond_cov_comparison():
         "_",
         "纯债价值",
         "_",
-        "_",
-        "涨跌幅",
+        "正股最新价",
+        "正股涨跌幅",
         "_",
         "正股代码",
         "_",
@@ -247,15 +245,15 @@ def bond_cov_comparison():
     ]
     temp_df = temp_df[
         [
-            "最新价",
-            "涨跌幅",
+            "序号",
             "转债代码",
             "转债名称",
-            "上市日期",
-            "纯债价值",
-            "涨跌幅",
+            "转债最新价",
+            "转债涨跌幅",
             "正股代码",
             "正股名称",
+            "正股最新价",
+            "正股涨跌幅",
             "转股价",
             "转股价值",
             "转股溢价率",
@@ -263,7 +261,9 @@ def bond_cov_comparison():
             "回售触发价",
             "强赎触发价",
             "到期赎回价",
+            "纯债价值",
             "开始转股日",
+            "上市日期",
             "申购日期",
         ]
     ]
@@ -271,8 +271,9 @@ def bond_cov_comparison():
 
 
 if __name__ == "__main__":
-    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sh113542")
+    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123111")
     print(bond_zh_hs_cov_daily_df)
+
     bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()
     print(bond_zh_hs_cov_spot_df)
 

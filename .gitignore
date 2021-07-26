@@ -18,13 +18,16 @@
 
 # Temp
 build/
+docs/_build/
 dist/
 *.egg-info/
 colors
-docs/_build/
+
 
 # IDE
 .idea/
 
 # jupyter
 .ipynb_checkpoints
+#docs/source/_static/
+#docs/source/_templates/

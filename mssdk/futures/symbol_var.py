@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc:
+Date: 2019/9/30 13:58
+Desc:
 """
 import re
 
@@ -23,7 +21,7 @@ def symbol_varieties(contract_code: str):
     return symbol_detail
 
 
-def symbol_market(symbol_detail: str):
+def symbol_market(symbol_detail: str = "SC"):
     """
     映射出市场代码
     :param symbol_detail:
@@ -143,6 +141,19 @@ def chinese_to_english(chinese_var: str):
         "不锈钢仓库",
         "纯碱",
         "液化石油气",
+        "低硫燃料油",
+        "纸浆仓库",
+        "石油沥青厂库",
+        "石油沥青仓库",
+        "螺纹钢仓库",
+        "螺纹钢厂库",
+        "纸浆厂库",
+        "低硫燃料油仓库",
+        "低硫燃料油厂库",
+        "短纤",
+        '涤纶短纤',
+        '生猪',
+        '花生',
     ]
     english_list = [
         "RU",
@@ -235,6 +246,19 @@ def chinese_to_english(chinese_var: str):
         "SS",
         "SA",
         "PG",
+        "LU",
+        "SP",
+        "BU",
+        "BU",
+        "RB",
+        "RB",
+        "SP",
+        "LU",
+        "LU",
+        "PF",
+        "PF",
+        "LH",
+        "PK",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]

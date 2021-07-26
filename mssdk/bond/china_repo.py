@@ -1,11 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/9 11:48
-contact: jindaxiang@163.com
-desc: 腾讯-债券-质押式回购-实时行情-成交明细
-下载成交明细-每个交易日16:00提供当日数据
+Date: 2021/1/20 11:48
+Desc: 腾讯-债券-质押式回购-实时行情-成交明细
+下载成交明细-每个交易日 16:00 提供当日数据
 http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
 """
 from io import StringIO
@@ -14,9 +12,12 @@ import pandas as pd
 import requests
 
 
-def bond_repo_zh_tick(code="sz131802", trade_date="20200207"):
+def bond_repo_zh_tick(
+    code: str = "sz131802", trade_date: str = "20201028"
+) -> pd.DataFrame:
     """
     成交明细-每个交易日16:00提供当日数据
+    http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
     :param code: 带市场标识的债券-质押式回购代码
     :type code: str
     :param trade_date: 需要提取数据的日期
@@ -31,14 +32,14 @@ def bond_repo_zh_tick(code="sz131802", trade_date="20200207"):
         "c": code,
         "d": trade_date,
     }
-    res = requests.get(url, params=params)
-    res.encoding = "gbk"
-    temp_df = pd.read_table(StringIO(res.text))
+    r = requests.get(url, params=params)
+    r.encoding = "gbk"
+    temp_df = pd.read_table(StringIO(r.text))
     return temp_df
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20190801", end="20200209").tolist()
+    date_list = pd.date_range(start="20210101", end="20210120").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         data = bond_repo_zh_tick(code="sz131802", trade_date=f"{item}")

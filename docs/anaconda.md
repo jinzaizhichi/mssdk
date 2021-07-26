@@ -1,22 +1,21 @@
-# [MSSDK](https://github.com/cdmaxsmart/mssdk) 环境配置
+# [mssdk](https://github.com/cdmaxsmart/mssdk) 环境配置
 
 ## Anaconda 安装说明
 
-Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
-作者基于目前 Python2 即将停止更新, 且目前大部分使用者电脑系统基本都是 64 位, 所以建议选择 Python3.7.3 64 位版本
-同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
+Anaconda 是集成上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
+作者建议根据您计算机的操作系统选择相应版本的安装包, 国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来
+加速下载最新的 64 位安装包.
+国外用户可以访问 [Anaconda 官网](https://www.anaconda.com/products/individual) 下载最新的 64 位安装包.
 
 ## Anaconda 安装演示
 
-**以 64 位 windows 版本为例**
+**以 64 位 Windows 版本 Anaconda3-2019.07 为例**
 
 下图中红框为 64 位 Windows 选择的版本:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/anaconda_download.png)
 
-在这里, 作者建议下载 Anaconda3-2019.07, 点击下载 [最新版 Anaconda 官方下载链接](https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe)
-
-双击如下图标进行安装:
+下载完成后双击如下图标进行安装:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/anaconda_icon.png)
 
@@ -48,10 +47,10 @@ Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Ana
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/virtual_env/anaconda_prompt_1.png)
 
-创建虚拟环境命令:
+创建虚拟环境命令, 此处指定 Python 版本为 3.8.5, mssdk 支持 Python 3.7 以上的版本:
 
 ```
-conda create -n ms_test python=3.7.3
+conda create -n ms_test python=3.8.5
 ```
 
 输入上述命令后出现确认, 输入 y
@@ -64,7 +63,7 @@ Proceed 输入 y
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
-在虚拟环境中安装 [mssdk](https://github.com/cdmaxsmart/mssdk). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
+在虚拟环境中安装 [mssdk](https://github.com/cdmaxsmart/mssdk) 波动率数据. 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
 激活已经创建好的 ms_test 虚拟环境
 
@@ -72,7 +71,7 @@ Proceed 输入 y
 conda activate ms_test
 ```
 
-在 ms_test 虚拟环境中安装并更新 [mssdk](https://github.com/cdmaxsmart/mssdk)
+在 ms_test 虚拟环境中安装并更新 [mssdk](https://github.com/cdmaxsmart/mssdk) 波动率数据
 
 ```
 pip install mssdk --upgrade
@@ -80,7 +79,7 @@ pip install mssdk --upgrade
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/virtual_env/anaconda_prompt_3.png)
 
-在安装完毕后, 输入 **python** 进入虚拟环境中的 Python
+在安装完毕后, 输入 `python` 进入虚拟环境中的 Python
 
 ```
 python
@@ -93,11 +92,11 @@ import mssdk as ms
 ms.__doc__
 ```
 
-显示出如下图则虚拟环境和 [mssdk](https://github.com/cdmaxsmart/mssdk) 安装成功:
+显示出如下图则虚拟环境和 [mssdk](https://github.com/cdmaxsmart/mssdk) 波动率数据 安装成功:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
-还可以在 ms_test 虚拟环境的 Python 环境中输入如下代码可以显示 [mssdk](https://github.com/cdmaxsmart/mssdk) 的版本
+还可以在 ms_test 虚拟环境的 Python 环境中输入如下代码可以显示 [mssdk](https://github.com/cdmaxsmart/mssdk) 波动率数据 的版本信息
 
 ```python
 import mssdk as ms
