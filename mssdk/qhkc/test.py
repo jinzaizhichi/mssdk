@@ -1,10 +1,10 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/2/13 21:33
 Desc: 接口测试文件
 """
-from mssdk.pro.data_pro import pro_api
+from akshare.pro.data_pro import pro_api
 
 pro = pro_api()
 

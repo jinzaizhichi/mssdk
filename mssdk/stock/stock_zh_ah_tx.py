@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/5/11 15:20
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
@@ -9,15 +9,15 @@ import random
 
 import requests
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 from tqdm import tqdm
 
-from mssdk.stock.cons import (hk_url,
-                              hk_headers,
-                              hk_payload,
-                              hk_stock_url,
-                              hk_stock_headers,
-                              hk_stock_payload)
+from akshare.stock.cons import (hk_url,
+                                hk_headers,
+                                hk_payload,
+                                hk_stock_url,
+                                hk_stock_headers,
+                                hk_stock_payload)
 
 
 def _get_zh_stock_ah_page_count() -> int:

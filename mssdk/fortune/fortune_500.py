@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/11/5 14:55
 Desc: 历年世界 500 强榜单数据
@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.fortune.cons import *
+from akshare.fortune.cons import *
 
 
 def fortune_rank(year: str = "2015") -> pd.DataFrame:

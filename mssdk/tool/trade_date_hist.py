@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/7/12 19:27
 Desc: 新浪财经-交易日历
@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-from mssdk.stock.cons import hk_js_decode
+from akshare.stock.cons import hk_js_decode
 
 
 def tool_trade_date_hist_sina() -> pd.DataFrame:
@@ -35,7 +35,7 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
     temp_list = temp_df["trade_date"].to_list()
     temp_list.append(datetime.date(1992, 5, 4))  # 是交易日但是交易日历缺失该日期
     temp_list.sort()
-    temp_df = pd.DataFrame(temp_list)
+    temp_df = pd.DataFrame(temp_list, columns=['trade_date'])
     return temp_df
 
 

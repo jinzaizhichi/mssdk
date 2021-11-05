@@ -1,5 +1,5 @@
 # coding=utf-8
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/4/19 14:27
 Desc: 西本新干线-指数数据
@@ -14,7 +14,7 @@ import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from mssdk.futures_derivative.cons import (
+from akshare.futures_derivative.cons import (
     xgx_short_headers,
     xgx_headers,
     xgx_code_url,

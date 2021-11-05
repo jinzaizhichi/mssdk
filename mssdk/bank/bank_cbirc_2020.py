@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/7/17 17:06
 Desc: 中国银行保险监督管理委员会-首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表
@@ -12,7 +12,7 @@ import requests
 import numpy as np
 import pandas as pd
 
-from mssdk.bank.cons import cbirc_headers_without_cookie_2020
+from akshare.bank.cons import cbirc_headers_without_cookie_2020
 
 item_id_list = {
     '机关': '4113',

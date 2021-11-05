@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/11/14 20:31
 Desc: FF-data-library
@@ -8,7 +8,7 @@ http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 import pandas as pd
 import requests
 
-from mssdk.article.cons import ff_home_url
+from akshare.article.cons import ff_home_url
 
 
 def article_ff_crr() -> pd.DataFrame:

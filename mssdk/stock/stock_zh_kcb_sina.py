@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/10/30 11:28
 Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
@@ -7,18 +7,18 @@ Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前�
 import datetime
 import re
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from mssdk.stock.cons import (zh_sina_kcb_stock_payload,
-                              zh_sina_kcb_stock_url,
-                              zh_sina_kcb_stock_count_url,
-                              zh_sina_kcb_stock_hist_url,
-                              zh_sina_kcb_stock_hfq_url,
-                              zh_sina_kcb_stock_qfq_url,
-                              zh_sina_kcb_stock_amount_url)
+from akshare.stock.cons import (zh_sina_kcb_stock_payload,
+                                zh_sina_kcb_stock_url,
+                                zh_sina_kcb_stock_count_url,
+                                zh_sina_kcb_stock_hist_url,
+                                zh_sina_kcb_stock_hfq_url,
+                                zh_sina_kcb_stock_qfq_url,
+                                zh_sina_kcb_stock_amount_url)
 
 
 def get_zh_kcb_page_count() -> int:

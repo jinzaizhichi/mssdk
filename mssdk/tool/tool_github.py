@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/3/10 16:59
 Desc: This is a tool for downloading github user email address.
@@ -12,7 +12,7 @@ import jsonpath
 import requests
 
 
-def tool_github_star_list(owner="jindaxiang", name="mssdk"):
+def tool_github_star_list(owner="jindaxiang", name="akshare"):
     url = "https://api.github.com/graphql"
     query1 = """
     query GetStars($name: String!, $owner: String!) {

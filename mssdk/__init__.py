@@ -12,18 +12,263 @@
 0.0.9: 发布测试版本 v0.0.9
 0.0.10: 发布测试版本 v0.0.10
 0.0.11: 发布测试版本 v0.0.11
+0.0.12: 发布测试版本 v0.0.12
 """
 
-__version__ = '0.0.11'
+__version__ = '0.0.12'
 __author__ = 'mssdk'
 
 import sys
 
 if sys.version_info < (3, 7):
-    print(f"MSSDK {__version__} requires Python 3.7+")
+    print(f"mssdk {__version__} requires Python 3.7+ and 64 bit OS")
     sys.exit(1)
 
 del sys
+
+"""
+同花顺-数据中心-技术选股
+"""
+from mssdk.stock_feature.stock_technology_ths import (
+    stock_rank_cxg_ths,
+    stock_rank_cxd_ths,
+    stock_rank_lxsz_ths,
+    stock_rank_lxxd_ths,
+    stock_rank_cxfl_ths,
+    stock_rank_cxsl_ths,
+    stock_rank_xstp_ths,
+    stock_rank_xxtp_ths,
+)
+
+"""
+沪深港通持股
+"""
+from mssdk.stock_feature.stock_em_hsgt import (
+    stock_hsgt_individual_em,
+    stock_hsgt_individual_detail_em,
+)
+
+"""
+指数估值
+"""
+from mssdk.index.zh_stock_index_csindex import (
+    index_value_hist_funddb,
+    index_value_name_funddb,
+)
+
+"""
+基金规模
+"""
+from mssdk.fund.fund_scale_sina import (
+    fund_scale_open_sina,
+    fund_scale_close_sina,
+    fund_scale_structured_sina,
+)
+
+"""
+巨潮资讯-数据中心-专题统计-基金报表
+"""
+from mssdk.fund.fund_report_cninfo import (
+    fund_report_stock_cninfo,
+    fund_report_industry_allocation_cninfo,
+    fund_report_asset_allocation_cninfo,
+)
+
+"""
+巨潮资讯-数据中心-专题统计-债券报表-债券发行
+"""
+from mssdk.bond.bond_issue_cninfo import (
+    bond_treasure_issue_cninfo,
+    bond_local_government_issue_cninfo,
+    bond_corporate_issue_cninfo,
+    bond_cov_issue_cninfo,
+    bond_cov_stock_issue_cninfo,
+)
+
+"""
+巨潮资讯-数据中心-专题统计-公司治理-股权质押
+"""
+from mssdk.stock.stock_cg_equity_mortgage import stock_cg_equity_mortgage_cninfo
+
+"""
+巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
+"""
+from mssdk.stock.stock_cg_lawsuit import stock_cg_lawsuit_cninfo
+
+"""
+巨潮资讯-数据中心-专题统计-公司治理-对外担保
+"""
+from mssdk.stock.stock_cg_guarantee import stock_cg_guarantee_cninfo
+
+"""
+B 股
+"""
+from mssdk.stock.stock_zh_b_sina import (
+    stock_zh_b_spot,
+    stock_zh_b_daily,
+    stock_zh_b_minute,
+)
+
+"""
+期货手续费
+"""
+from mssdk.futures.futures_comm_qihuo import futures_comm_info
+
+"""
+实际控制人持股变动
+"""
+from mssdk.stock.stock_hold_control_cninfo import (
+    stock_hold_control_cninfo,
+    stock_hold_management_detail_cninfo,
+)
+
+"""
+股东人数及持股集中度
+"""
+from mssdk.stock.stock_hold_num_cninfo import stock_hold_num_cninfo
+
+"""
+新股过会
+"""
+from mssdk.stock.stock_new_cninfo import stock_new_gh_cninfo, stock_new_ipo_cninfo
+
+"""
+个股分红
+"""
+from mssdk.stock.stock_dividents_cninfo import stock_dividents_cninfo
+
+"""
+行业市盈率
+"""
+from mssdk.stock.stock_industry_pe_cninfo import stock_industry_pe_ratio_cninfo
+
+"""
+投资评级
+"""
+from mssdk.stock.stock_rank_forecast import stock_rank_forecast_cninfo
+
+"""
+美股-知名美股
+"""
+from mssdk.stock.stock_us_famous import stock_us_famous_spot_em
+
+"""
+美股-粉单市场
+"""
+from mssdk.stock.stock_us_pink import stock_us_pink_spot_em
+
+"""
+REITs
+"""
+from mssdk.reits.reits_basic import reits_info_jsl, reits_realtime_em
+
+"""
+鸡蛋价格数据
+"""
+from mssdk.futures_derivative.futures_egg import (
+    futures_egg_price_yearly,
+    futures_egg_price_area,
+    futures_egg_price,
+)
+
+"""
+全部 A 股-等权重市盈率、中位数市盈率
+全部 A 股-等权重、中位数市净率
+"""
+from mssdk.stock_feature.stock_ttm_lyr import stock_a_ttm_lyr
+from mssdk.stock_feature.stock_all_pb import stock_a_all_pb
+
+"""
+奥运奖牌
+"""
+from mssdk.sport.sport_olympic import sport_olympic_hist
+
+"""
+宏观-加拿大
+"""
+from mssdk.economic.macro_canada import (
+    macro_canada_cpi_monthly,
+    macro_canada_core_cpi_monthly,
+    macro_canada_bank_rate,
+    macro_canada_core_cpi_yearly,
+    macro_canada_cpi_yearly,
+    macro_canada_gdp_monthly,
+    macro_canada_new_house_rate,
+    macro_canada_retail_rate_monthly,
+    macro_canada_trade,
+    macro_canada_unemployment_rate,
+)
+
+"""
+猪肉价格信息
+"""
+from mssdk.futures_derivative.futures_pig import futures_pig_info, futures_pig_rank
+
+"""
+宏观-澳大利亚
+"""
+from mssdk.economic.macro_australia import (
+    macro_australia_bank_rate,
+    macro_australia_unemployment_rate,
+    macro_australia_trade,
+    macro_australia_cpi_quarterly,
+    macro_australia_cpi_yearly,
+    macro_australia_ppi_quarterly,
+    macro_australia_retail_rate_monthly,
+)
+
+"""
+融资融券-深圳
+"""
+from mssdk.stock_feature.stock_szse_margin import (
+    stock_margin_underlying_info_szse,
+    stock_margin_detail_szse,
+    stock_margin_szse,
+)
+
+"""
+英国-宏观
+"""
+from mssdk.economic.macro_uk import (
+    macro_uk_gdp_yearly,
+    macro_uk_gdp_quarterly,
+    macro_uk_retail_yearly,
+    macro_uk_rightmove_monthly,
+    macro_uk_rightmove_yearly,
+    macro_uk_unemployment_rate,
+    macro_uk_halifax_monthly,
+    macro_uk_bank_rate,
+    macro_uk_core_cpi_monthly,
+    macro_uk_core_cpi_yearly,
+    macro_uk_cpi_monthly,
+    macro_uk_cpi_yearly,
+    macro_uk_halifax_yearly,
+    macro_uk_retail_monthly,
+    macro_uk_trade,
+)
+
+"""
+日本-宏观
+"""
+from mssdk.economic.macro_japan import (
+    macro_japan_bank_rate,
+    macro_japan_core_cpi_yearly,
+    macro_japan_cpi_yearly,
+    macro_japan_head_indicator,
+    macro_japan_unemployment_rate,
+)
+
+"""
+瑞士-宏观
+"""
+from mssdk.economic.macro_swiss import (
+    macro_swiss_trade,
+    macro_swiss_svme,
+    macro_swiss_cpi_yearly,
+    macro_swiss_gbd_yearly,
+    macro_swiss_gbd_bank_rate,
+    macro_swiss_gdp_quarterly,
+)
 
 """
 东方财富-概念板块
@@ -51,7 +296,7 @@ from mssdk.economic.macro_germany import (
 """
 基金规模和规模趋势
 """
-from mssdk.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend
+from mssdk.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend, fund_em_aum_hist
 
 """
 CRIX 数据
@@ -78,6 +323,11 @@ from mssdk.stock_feature.stock_em_hist import (
     stock_hk_hist,
     stock_us_spot_em,
     stock_us_hist,
+    stock_zh_a_hist_min_em,
+    stock_zh_a_hist_pre_min_em,
+    stock_hk_hist_min_em,
+    stock_us_hist_min_em,
+    stock_zh_b_spot_em,
 )
 
 """
@@ -141,7 +391,7 @@ from mssdk.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
 平均持仓
 """
 from mssdk.stock_feature.stock_legu_average_position import (
-    stock_legu_average_position,
+    stock_average_position_legu,
 )
 
 """
@@ -157,7 +407,7 @@ from mssdk.index.index_cflp import index_cflp_price, index_cflp_volume
 """
 赚钱效应分析
 """
-from mssdk.stock_feature.stock_legu_market import stock_legu_market_activity
+from mssdk.stock_feature.stock_legu_market import stock_market_activity_legu
 
 """
 浙江省排污权交易指数
@@ -215,7 +465,7 @@ from mssdk.stock_feature.stock_lh_yybpm import (
 )
 
 """
-沪深A股公告
+沪深 A 股公告
 """
 from mssdk.stock_fundamental.stock_notice import stock_notice_report
 
@@ -246,6 +496,7 @@ from mssdk.stock_feature.stock_board_industry_ths import (
     stock_board_industry_name_ths,
     stock_board_industry_info_ths,
     stock_board_industry_index_ths,
+    stock_ipo_benefit_ths,
 )
 
 """
@@ -313,17 +564,12 @@ from mssdk.futures.futures_to_spot import (
 """
 基金持仓
 """
-from mssdk.fund.fund_em_portfolio import fund_em_portfolio_hold
-
-"""
-银行-全球银行排名
-"""
-from mssdk.bank.bank_banker import bank_rank_banker
+from mssdk.fund.fund_em_portfolio import fund_portfolio_hold_em
 
 """
 债券概览
 """
-from mssdk.bond.bond_summary import bond_deal_summary_sse
+from mssdk.bond.bond_summary import bond_deal_summary_sse, bond_cash_summary_sse
 
 """
 新闻-个股新闻
@@ -371,7 +617,7 @@ from mssdk.option.option_em import option_current_em
 """
 科创板报告
 """
-from mssdk.stock.stock_zh_kcb_report import zh_stock_kcb_report
+from mssdk.stock.stock_zh_kcb_report import stock_zh_kcb_report_em
 
 """
 期货合约详情
@@ -452,9 +698,14 @@ from mssdk.futures.futures_comex import futures_comex_inventory
 from mssdk.bond.bond_futures import bond_futures_deliverable_coupons
 
 """
-A 股-次新股
+A 股-特别标的
 """
-from mssdk.stock.stock_zh_a_new import stock_zh_a_new
+from mssdk.stock.stock_zh_a_special import (
+    stock_zh_a_new,
+    stock_zh_a_st_em,
+    stock_zh_a_new_em,
+    stock_zh_a_stop_em,
+)
 
 """
 东方财富-注册制审核
@@ -479,7 +730,10 @@ from mssdk.stock_feature.stock_sina_lhb import (
 """
 中证指数
 """
-from mssdk.index.zh_stock_index_csindex import stock_zh_index_hist_csindex
+from mssdk.index.zh_stock_index_csindex import (
+    stock_zh_index_hist_csindex,
+    stock_zh_index_value_csindex,
+)
 
 """
 股票基金持仓数据
@@ -620,6 +874,14 @@ from mssdk.stock_fundamental.stock_finance import (
 )
 
 """
+stock-HK-fundamental
+"""
+from mssdk.stock_fundamental.stock_finance_hk import (
+    stock_financial_hk_analysis_indicator_em,
+    stock_financial_hk_report_em,
+)
+
+"""
 stock_fund
 """
 from mssdk.stock.stock_fund import (
@@ -662,12 +924,6 @@ from mssdk.stock_feature.stock_em_dxsyl import stock_em_dxsyl, stock_em_xgsglb
 article
 """
 from mssdk.article.fred_md import fred_md, fred_qd
-from mssdk.article.agoyal import agoyal_stock_return
-
-"""
-argus
-"""
-from mssdk.ws.argus import watch_argus
 
 """
 covid_19 CSSE
@@ -684,7 +940,7 @@ from mssdk.event.covid import (
 """
 futures_cfmmc
 """
-from mssdk.futures.futures_cfmmc import futures_index_dict, futures_index_cfmmc
+from mssdk.futures.futures_cfmmc import futures_index_cscidx_map, futures_index_cscidx
 
 """
 futures_em_spot_stock
@@ -709,7 +965,7 @@ from mssdk.futures.futures_foreign import futures_foreign_detail, futures_foreig
 """
 stock-em-tfp
 """
-from mssdk.stock_feature.stock_em_tfp import stock_em_tfp
+from mssdk.stock_feature.stock_em_tfp import stock_tfp_em
 
 """
 stock-em-hsgt
@@ -810,12 +1066,14 @@ from mssdk.event.franchise import franchise_china
 """
 债券-沪深债券
 """
-from mssdk.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
-from mssdk.bond.zh_bond_cov_sina import (
+from mssdk.bond.bond_zh_sina import bond_zh_hs_daily, bond_zh_hs_spot
+from mssdk.bond.bond_zh_cov_sina import (
     bond_zh_hs_cov_daily,
     bond_zh_hs_cov_spot,
     bond_cov_comparison,
     bond_zh_cov,
+    bond_zh_cov_info,
+    bond_zh_hs_cov_min,
 )
 from mssdk.bond.bond_convert import bond_cov_jsl
 
@@ -840,7 +1098,6 @@ from mssdk.bond.china_repo import bond_repo_zh_tick
 from mssdk.event.covid import (
     covid_19_trip,
     covid_19_trace,
-    covid_19_history,
 )
 
 """
@@ -893,7 +1150,7 @@ from mssdk.fx.currency_investing import (
 """
 商品期权-郑州商品交易所-期权-历史数据
 """
-from mssdk.option.czce_option import option_czce_hist
+from mssdk.option.option_czce import option_czce_hist
 
 """
 宏观-经济数据-银行间拆借利率
@@ -951,89 +1208,6 @@ from mssdk.economic.macro_bank import (
 )
 
 """
-交易法门-工具-席位分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_structure,
-    jyfm_tools_position_seat_cost,
-    jyfm_tools_position_interest_process,
-)
-
-"""
-交易法门-工具-套利分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_spread,
-    jyfm_tools_futures_ratio,
-    jyfm_tools_futures_customize,
-    jyfm_exchange_symbol_dict,
-    jyfm_tools_futures_full_carry,
-    jyfm_tools_futures_arbitrage_matrix,
-)
-
-"""
-交易法门-工具-资讯汇总
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_research_query,
-    jyfm_tools_trade_calendar,
-)
-
-"""
-交易法门-工具-持仓分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_detail,
-    jyfm_tools_position_seat,
-    jyfm_tools_position_season,
-)
-
-"""
-交易法门-工具-资金分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_fund_direction,
-    jyfm_tools_position_fund_down,
-    jyfm_tools_position_fund_season,
-    jyfm_tools_position_fund_deal,
-)
-
-"""
-交易法门-工具-仓单分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_warehouse_receipt_daily,
-    jyfm_tools_warehouse_receipt_query,
-    jyfm_tools_warehouse_virtual_fact_ratio,
-    jyfm_tools_warehouse_virtual_fact_daily,
-)
-
-"""
-交易法门-工具-期限分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_basis_daily,
-    jyfm_tools_futures_basis_daily_area,
-    jyfm_tools_futures_basis_analysis,
-    jyfm_tools_futures_basis_structure,
-    jyfm_tools_futures_basis_rule,
-)
-
-"""
-行情分析
-"""
-from mssdk.futures_derivative.jyfm_tools_func import jyfm_tools_futures_market
-
-"""
-交易法门-工具-交易规则
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_receipt_expire_info,
-    jyfm_tools_position_limit_info,
-    jyfm_tools_symbol_handbook,
-)
-
-"""
 义乌小商品指数
 """
 from mssdk.index.index_yw import index_yw
@@ -1048,14 +1222,6 @@ from mssdk.index.index_cons import (
     index_stock_cons_sina,
     index_stock_cons_csindex,
     stock_a_code_to_symbol,
-)
-
-"""
-交易法门-工具-数据-黑色系
-"""
-from mssdk.futures_derivative.jyfm_data_func import (
-    jyfm_data_cocking_coal,
-    jyfm_data_coke,
 )
 
 """
@@ -1132,6 +1298,7 @@ from mssdk.cost.cost_living import cost_living
 能源-碳排放权
 """
 from mssdk.energy.energy_carbon import (
+    energy_carbon_domestic,
     energy_carbon_bj,
     energy_carbon_eu,
     energy_carbon_gz,
@@ -1168,37 +1335,12 @@ from mssdk.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 申万行业一级
 """
 from mssdk.index.index_sw import (
+    sw_index_representation_spot,
     sw_index_spot,
     sw_index_cons,
     sw_index_daily,
     sw_index_daily_indicator,
 )
-
-"""
-交易法门-数据-农产品
-"""
-from mssdk.futures_derivative.jyfm_data_func import (
-    jyfm_data_palm,  # 棕榈
-    jyfm_data_soybean_meal,  # 豆粕
-    jyfm_data_sugar,  # 白糖
-    jyfm_data_usa_bean,  # 美豆
-    jyfm_data_soybean_oil,  # 豆油
-)
-
-"""
-交易法门-工具
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_customize,  # 棕榈
-    jyfm_tools_futures_ratio,  # 豆粕
-    jyfm_tools_futures_spread,  # 白糖
-    jyfm_tools_receipt_expire_info,  # 美豆
-)
-
-"""
-交易法门-登录
-"""
-from mssdk.futures_derivative.jyfm_login_func import jyfm_login
 
 """
 谷歌指数
@@ -1243,12 +1385,6 @@ from mssdk.air.air_hebei import air_quality_hebei
 timeanddate-日出和日落
 """
 from mssdk.air.time_and_date import sunrise_daily, sunrise_monthly
-
-"""
-金十财经-实时监控
-"""
-from mssdk.ws.js_ws_fx import watch_jinshi_fx
-from mssdk.ws.js_ws_quotes import watch_jinshi_quotes
 
 """
 新浪-指数实时行情和历史行情
@@ -1368,15 +1504,6 @@ from mssdk.futures_derivative.sys_spot_futures import (
 )
 
 """
-交易法门-套利工具-跨期价差(自由价差)
-"""
-from mssdk.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_ratio,
-    jyfm_tools_futures_customize,
-    jyfm_tools_futures_spread,
-)
-
-"""
 和讯财经-行情及历史数据
 """
 from mssdk.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
@@ -1385,11 +1512,6 @@ from mssdk.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
 和讯财经-企业社会责任
 """
 from mssdk.stock.stock_zh_zrbg_hx import stock_zh_a_scr_report
-
-"""
-期货-仓单有效期
-"""
-from mssdk.futures.receipt_period import get_receipt_date
 
 """
 全球宏观-机构宏观
@@ -1549,9 +1671,9 @@ from mssdk.bond.china_bond import bond_spot_quote, bond_spot_deal, bond_china_yi
 商品期权
 """
 from mssdk.option.option_commodity import (
-    get_dce_option_daily,
-    get_czce_option_daily,
-    get_shfe_option_daily,
+    option_dce_daily,
+    option_czce_daily,
+    option_shfe_daily,
 )
 
 """
@@ -1568,6 +1690,7 @@ from mssdk.bond.bond_investing import (
 from mssdk.index.index_investing import (
     index_investing_global,
     index_investing_global_country_name_url,
+    index_investing_global_from_url,
 )
 
 """

@@ -1,7 +1,7 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
-Date: 2021/7/14 16:08
+Date: 2021/10/15 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -12,13 +12,13 @@ import math
 import time
 from datetime import datetime
 
-import demjson
+from akshare.utils import demjson
 import numpy as np
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from mssdk.economic.cons import (
+from akshare.economic.cons import (
     JS_CHINA_CPI_YEARLY_URL,
     JS_CHINA_CPI_MONTHLY_URL,
     JS_CHINA_M2_YEARLY_URL,
@@ -168,32 +168,67 @@ def macro_china_shrzgm() -> pd.DataFrame:
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
 def macro_china_gdp_yearly():
     """
-    中国年度GDP数据, 数据区间从20110120-至今
+    中国年度 GDP 数据, 数据区间从 20110120-至今
     https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
     :return: pandas.Series
     """
     t = time.time()
-    res = requests.get(
+    r = requests.get(
         JS_CHINA_GDP_YEARLY_URL.format(
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
-    temp_df.name = "gdp"
-    temp_df = temp_df.astype(float)
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "57",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
+    temp_df.name = "gpd"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
 def macro_china_cpi_yearly():
     """
-    中国年度CPI数据, 数据区间从19860201-至今
+    中国年度 CPI 数据, 数据区间从 19860201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
     :return: pandas.Series
     """
@@ -210,17 +245,53 @@ def macro_china_cpi_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "56",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "cpi"
-    temp_df = temp_df.astype(float)
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
 def macro_china_cpi_monthly():
     """
-    中国月度CPI数据, 数据区间从19960201-至今
+    中国月度 CPI 数据, 数据区间从 19960201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
-    :return: pandas.Series
+    :return: 中国月度 CPI 数据
+    :rtype: pandas.Series
     """
     t = time.time()
     res = requests.get(
@@ -235,17 +306,53 @@ def macro_china_cpi_monthly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "72",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "cpi"
-    temp_df = temp_df.astype(float)
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
 def macro_china_ppi_yearly():
     """
-    中国年度PPI数据, 数据区间从19950801-至今
+    中国年度 PPI 数据, 数据区间从 19950801-至今
     https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
-    :return: pandas.Series
+    :return: 中国年度PPI数据
+    :rtype: pandas.Series
     """
     t = time.time()
     res = requests.get(
@@ -260,8 +367,43 @@ def macro_china_ppi_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "60",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "ppi"
-    temp_df = temp_df.astype(float)
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -285,6 +427,41 @@ def macro_china_exports_yoy():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "66",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "china_exports_yoy"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -293,7 +470,7 @@ def macro_china_exports_yoy():
 # 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
 def macro_china_imports_yoy():
     """
-    中国以美元计算进口年率报告, 数据区间从19960201-至今
+    中国以美元计算进口年率报告, 数据区间从 19960201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_imports_yoy
     https://cdn.jin10.com/dc/reports/dc_chinese_imports_yoy_all.js?v=1578754588
     :return: 中国以美元计算进口年率报告-今值(%)
@@ -310,6 +487,41 @@ def macro_china_imports_yoy():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "77",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "china_imports_yoy"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -318,7 +530,7 @@ def macro_china_imports_yoy():
 # 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐(亿美元)
 def macro_china_trade_balance():
     """
-    中国以美元计算贸易帐报告, 数据区间从19810201-至今
+    中国以美元计算贸易帐报告, 数据区间从 19810201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_trade_balance
     https://cdn.jin10.com/dc/reports/dc_chinese_trade_balance_all.js?v=1578754677
     :return: 中国以美元计算贸易帐报告-今值(亿美元)
@@ -335,6 +547,41 @@ def macro_china_trade_balance():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(亿美元)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "61",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "china_trade_balance"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -360,6 +607,41 @@ def macro_china_industrial_production_yoy():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "58",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "china_industrial_production_yoy"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -368,7 +650,7 @@ def macro_china_industrial_production_yoy():
 # 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
 def macro_china_pmi_yearly():
     """
-    中国年度PMI数据, 数据区间从20050201-至今
+    中国年度 PMI 数据, 数据区间从20050201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
     https://cdn.jin10.com/dc/reports/dc_chinese_manufacturing_pmi_all.js?v=1578817858
     :return: pandas.Series
@@ -386,6 +668,41 @@ def macro_china_pmi_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "65",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "pmi"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -394,7 +711,7 @@ def macro_china_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
 def macro_china_cx_pmi_yearly():
     """
-    中国年度财新PMI数据, 数据区间从20120120-至今
+    中国年度财新PMI数据, 数据区间从 20120120-至今
     https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
     https://cdn.jin10.com/dc/reports/dc_chinese_caixin_manufacturing_pmi_all.js?v=1578818009
     :return: pandas.Series
@@ -412,6 +729,41 @@ def macro_china_cx_pmi_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "73",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "cx_pmi"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -420,7 +772,7 @@ def macro_china_cx_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
 def macro_china_cx_services_pmi_yearly():
     """
-    中国财新服务业PMI报告, 数据区间从20120405-至今
+    中国财新服务业PMI报告, 数据区间从 20120405-至今
     https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
     https://cdn.jin10.com/dc/reports/dc_chinese_caixin_services_pmi_all.js?v=1578818109
     :return: pandas.Series
@@ -438,6 +790,41 @@ def macro_china_cx_services_pmi_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "67",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "cx_services_pmi"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -446,21 +833,10 @@ def macro_china_cx_services_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
 def macro_china_non_man_pmi():
     """
-    中国官方非制造业PMI, 数据区间从20160101-至今
+    中国官方非制造业 PMI, 数据区间从 20160101-至今
     https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
     https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v=1578818248
     :return: pandas.Series
-    2007-02-01    60.4
-    2007-03-01    60.6
-    2007-04-01    58.2
-    2007-05-01    60.4
-    2007-06-01    62.2
-                  ...
-    2019-06-30    54.2
-    2019-07-31    53.7
-    2019-08-31    53.8
-    2019-09-30    53.7
-    2019-10-31       0
     """
     t = time.time()
     res = requests.get(
@@ -475,6 +851,41 @@ def macro_china_non_man_pmi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "75",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "non_pmi"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -483,60 +894,10 @@ def macro_china_non_man_pmi():
 # 金十数据中心-经济指标-中国-金融指标-外汇储备(亿美元)
 def macro_china_fx_reserves_yearly():
     """
-    中国年度外汇储备数据, 数据区间从20140115-至今
+    中国年度外汇储备数据, 数据区间从 20140115-至今
     https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
     https://cdn.jin10.com/dc/reports/dc_chinese_fx_reserves_all.js?v=1578818365
     :return: pandas.Series
-    2014-01-15    39500
-    2014-07-15    39900
-    2015-01-15    32300
-    2016-03-07    32020
-    2016-04-07    32100
-    2016-06-07    31900
-    2016-07-07    32100
-    2016-08-07    32010
-    2016-09-07    31820
-    2016-10-07    31660
-    2016-11-07    31210
-    2016-12-07    30520
-    2017-01-07    30110
-    2017-02-07    29980
-    2017-03-07    30050
-    2017-04-07    30090
-    2017-05-07    30300
-    2017-06-07    30540
-    2017-07-07    30570
-    2017-08-07    30810
-    2017-09-07    30920
-    2017-10-09    31080
-    2017-11-07    31090
-    2017-12-07    31190
-    2017-12-08        0
-    2018-01-07    31390
-    2018-02-07    31620
-    2018-02-08        0
-    2018-03-07    31340
-    2018-04-08    31430
-    2018-05-07    31250
-    2018-06-07    31110
-    2018-07-09    31120
-    2018-08-07    31180
-    2018-09-07    31100
-    2018-10-07    30870
-    2018-11-07    30500
-    2018-12-07    30600
-    2019-01-07    30700
-    2019-02-11    30700
-    2019-03-07    30900
-    2019-04-07    30990
-    2019-05-07        0
-    2019-05-08    31010
-    2019-06-07        0
-    2019-07-07        0
-    2019-07-08    31190
-    2019-08-07    31040
-    2019-09-07    31070
-    2019-10-08    30920
     """
     t = time.time()
     res = requests.get(
@@ -551,6 +912,41 @@ def macro_china_fx_reserves_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(亿美元)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "76",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "fx_reserves"
     temp_df = temp_df.astype(float)
     return temp_df
@@ -559,21 +955,10 @@ def macro_china_fx_reserves_yearly():
 # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
 def macro_china_m2_yearly():
     """
-    中国年度M2数据, 数据区间从19980201-至今
+    中国年度 M2 数据, 数据区间从 19980201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
     https://cdn.jin10.com/dc/reports/dc_chinese_m2_money_supply_yoy_all.js?v=1578818474
     :return: pandas.Series
-    1998-02-01    17.4
-    1998-03-01    16.7
-    1998-04-01    15.4
-    1998-05-01    14.6
-    1998-06-01    15.5
-                  ...
-    2019-09-11     8.2
-    2019-09-13       0
-    2019-10-14       0
-    2019-10-15     8.4
-    2019-10-17       0
     """
     t = time.time()
     res = requests.get(
@@ -588,9 +973,43 @@ def macro_china_m2_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
-    temp_df.name = "m2"
-    temp_df = temp_df[temp_df != 0]
-    temp_df = temp_df.astype(float)
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "59",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
+    temp_df.name = "gpd"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1950,7 +2369,7 @@ def macro_china_reserve_requirement_ratio():
 
 def macro_china_consumer_goods_retail():
     """
-    社会消费品零售总额
+    新浪财经-中国宏观经济数据-社会消费品零售总额
     http://data.eastmoney.com/cjsj/xfp.html
     :return: 社会消费品零售总额
     :rtype: pandas.DataFrame
@@ -1989,7 +2408,7 @@ def macro_china_consumer_goods_retail():
 
 def macro_china_society_electricity():
     """
-    全社会用电分类情况表
+    新浪财经-中国宏观经济数据-全社会用电分类情况表
     http://finance.sina.com.cn/mac/#industry-6-0-31-1
     :return: 全社会用电分类情况表
     :rtype: pandas.DataFrame
@@ -2040,7 +2459,7 @@ def macro_china_society_electricity():
 
 def macro_china_society_traffic_volume():
     """
-    全社会客货运输量
+    新浪财经-中国宏观经济数据-全社会客货运输量
     http://finance.sina.com.cn/mac/#industry-10-0-31-1
     :return: 全社会客货运输量
     :rtype: pandas.DataFrame
@@ -2072,7 +2491,7 @@ def macro_china_society_traffic_volume():
 
 def macro_china_postal_telecommunicational():
     """
-    邮电业务基本情况
+    新浪财经-中国宏观经济数据-邮电业务基本情况
     http://finance.sina.com.cn/mac/#industry-11-0-31-1
     :return: 邮电业务基本情况
     :rtype: pandas.DataFrame
@@ -2104,7 +2523,7 @@ def macro_china_postal_telecommunicational():
 
 def macro_china_international_tourism_fx():
     """
-    国际旅游外汇收入构成
+    新浪财经-中国宏观经济数据-国际旅游外汇收入构成
     http://finance.sina.com.cn/mac/#industry-15-0-31-3
     :return: 国际旅游外汇收入构成
     :rtype: pandas.DataFrame
@@ -2136,7 +2555,7 @@ def macro_china_international_tourism_fx():
 
 def macro_china_passenger_load_factor():
     """
-    民航客座率及载运率
+    新浪财经-中国宏观经济数据-民航客座率及载运率
     http://finance.sina.com.cn/mac/#industry-20-0-31-1
     :return: 民航客座率及载运率
     :rtype: pandas.DataFrame
@@ -2166,9 +2585,9 @@ def macro_china_passenger_load_factor():
     return big_df
 
 
-def macro_china_freight_index():
+def _macro_china_freight_index():
     """
-    航贸运价指数
+    新浪财经-中国宏观经济数据-航贸运价指数
     http://finance.sina.com.cn/mac/#industry-22-0-31-2
     :return: 航贸运价指数
     :rtype: pandas.DataFrame
@@ -2198,9 +2617,39 @@ def macro_china_freight_index():
     return big_df
 
 
+def macro_china_freight_index():
+    """
+    新浪财经-中国宏观经济数据-航贸运价指数
+    http://finance.sina.com.cn/mac/#industry-22-0-31-2
+    :return: 航贸运价指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://quotes.sina.cn/mac/view/vMacExcle.php"
+    params = {
+        'cate': 'industry',
+        'event': '22',
+        'from': '0',
+        'num': 5000,
+        'condition': '',
+    }
+    r = requests.get(url, params=params)
+    columns_list = r.content.decode('gbk').split('\n')[2].split(", ")
+    columns_list = [item.strip() for item in columns_list]
+    content_list = r.content.decode('gbk').split('\n')[3:]
+    big_df = pd.DataFrame([item.split(", ") for item in content_list], columns=columns_list).dropna(axis=1, how='all').dropna(axis=0).iloc[:, :-1]
+    big_df['波罗的海好望角型船运价指数BCI'] = pd.to_numeric(big_df['波罗的海好望角型船运价指数BCI'])
+    big_df['灵便型船综合运价指数BHMI'] = pd.to_numeric(big_df['灵便型船综合运价指数BHMI'])
+    big_df['波罗的海超级大灵便型船BSI指数'] = pd.to_numeric(big_df['波罗的海超级大灵便型船BSI指数'])
+    big_df['波罗的海综合运价指数BDI'] = pd.to_numeric(big_df['波罗的海综合运价指数BDI'])
+    big_df['HRCI国际集装箱租船指数'] = pd.to_numeric(big_df['HRCI国际集装箱租船指数'])
+    big_df['油轮运价指数成品油运价指数BCTI'] = pd.to_numeric(big_df['油轮运价指数成品油运价指数BCTI'])
+    big_df['油轮运价指数原油运价指数BDTI'] = pd.to_numeric(big_df['油轮运价指数原油运价指数BDTI'])
+    return big_df
+
+
 def macro_china_central_bank_balance():
     """
-    央行货币当局资产负债
+    新浪财经-中国宏观经济数据-央行货币当局资产负债
     http://finance.sina.com.cn/mac/#fininfo-8-0-31-2
     :return: 央行货币当局资产负债
     :rtype: pandas.DataFrame
@@ -2232,7 +2681,7 @@ def macro_china_central_bank_balance():
 
 def macro_china_insurance():
     """
-    保险业经营情况
+    新浪财经-中国宏观经济数据-保险业经营情况
     http://finance.sina.com.cn/mac/#fininfo-19-0-31-3
     :return: 保险业经营情况
     :rtype: pandas.DataFrame
@@ -2264,7 +2713,7 @@ def macro_china_insurance():
 
 def macro_china_supply_of_money():
     """
-    货币供应量
+    新浪财经-中国宏观经济数据-货币供应量
     http://finance.sina.com.cn/mac/#fininfo-1-0-31-1
     :return: 货币供应量
     :rtype: pandas.DataFrame
@@ -2295,10 +2744,10 @@ def macro_china_supply_of_money():
 
 
 def macro_china_swap_rate(
-    start_date: str = "2020-09-06", end_date: str = "2020-10-06"
+    start_date: str = "20210706", end_date: str = "20210806"
 ) -> pd.DataFrame:
     """
-    FR007利率互换曲线历史数据
+    FR007利率互换曲线历史数据; 只能获取近一年的数据
     http://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007
     :param start_date: 开始日期, 开始和结束日期不得超过一个月
     :type start_date: str
@@ -2307,6 +2756,8 @@ def macro_china_swap_rate(
     :return: FR007利率互换曲线历史数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/IfccHis"
     params = {
         "cfgItemType": "72",

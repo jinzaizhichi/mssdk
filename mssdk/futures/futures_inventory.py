@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/13 13:58
 Desc: 99 期货网-大宗商品库存数据
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.futures.cons import (
+from akshare.futures.cons import (
     qh_headers,
     sample_headers,
     inventory_temp_headers,

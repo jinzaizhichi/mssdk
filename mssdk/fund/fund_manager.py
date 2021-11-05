@@ -1,11 +1,11 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/7/1 16:30
 Desc: 基金经理大全
 http://fund.eastmoney.com/manager/default.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -91,5 +91,5 @@ def fund_manager(explode: bool = False) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_manager_df = fund_manager(explode=True)
+    fund_manager_df = fund_manager(explode=False)
     print(fund_manager_df)

@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/5/14 17:52
 Desc: 乘联会
@@ -10,7 +10,7 @@ http://i.gasgoo.com/data/ranking
 """
 import requests
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 
 
 def car_cpca_energy_sale():
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     car_cpca_energy_sale_df = car_cpca_energy_sale()
     print(car_cpca_energy_sale_df)
 
-    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202104")
+    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202107")
     print(car_gasgoo_sale_rank_df)
 
     car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车型榜", date="202104")

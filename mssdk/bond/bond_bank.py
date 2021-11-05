@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/9/30 13:58
 Desc:
@@ -9,7 +9,7 @@ Desc:
 import pandas as pd
 import requests
 
-from mssdk.futures.cons import BOND_BANK_URL, bond_bank_headers
+from akshare.futures.cons import BOND_BANK_URL, bond_bank_headers
 
 
 # pd.set_option("display.max_columns", None)

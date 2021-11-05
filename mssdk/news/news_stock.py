@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/15 16:59
 Desc: 个股新闻数据
@@ -75,4 +75,4 @@ def stock_news_em(stock: str = "601628") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_news_em_df = stock_news_em(stock="601318")
-    print(stock_news_em_df)
+    print(stock_news_em_df.info())

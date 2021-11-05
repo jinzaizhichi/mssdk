@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/10/20 10:57
 Desc: 获取中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
@@ -12,7 +12,7 @@ import time
 import requests
 import pandas as pd
 
-from mssdk.fx.cons import SHORT_HEADERS, FX_SPOT_URL, FX_SWAP_URL, FX_PAIR_URL
+from akshare.fx.cons import SHORT_HEADERS, FX_SPOT_URL, FX_SWAP_URL, FX_PAIR_URL
 
 
 def fx_spot_quote():

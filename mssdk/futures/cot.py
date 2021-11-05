@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/12 15:06
 Desc: 期货-中国-交易所-会员持仓数据接口
@@ -27,11 +27,11 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.futures import cons
-from mssdk.futures.requests_fun import (
+from akshare.futures import cons
+from akshare.futures.requests_fun import (
     requests_link
 )
-from mssdk.futures.symbol_var import (
+from akshare.futures.symbol_var import (
     symbol_varieties
 )
 

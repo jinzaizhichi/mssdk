@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/21 16:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
@@ -20,9 +20,9 @@ import warnings
 
 import pandas as pd
 
-from mssdk.futures import cons
-from mssdk.futures.requests_fun import pandas_read_html_link
-from mssdk.futures.symbol_var import chinese_to_english
+from akshare.futures import cons
+from akshare.futures.requests_fun import pandas_read_html_link
+from akshare.futures.symbol_var import chinese_to_english
 
 
 calendar = cons.get_calendar()

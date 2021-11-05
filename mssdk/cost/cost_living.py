@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/12/18 12:32
 Desc: 获取世界各大城市生活成本数据
@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.cost.cons import url, name_url_map
+from akshare.cost.cons import url, name_url_map
 
 
 def _get_region():

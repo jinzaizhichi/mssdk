@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/12/2 22:24
 Desc: 获取微博指数
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 import matplotlib.pyplot as plt
 
-from mssdk.index.cons import index_weibo_headers  # 伪装游览器, 必备
+from akshare.index.cons import index_weibo_headers  # 伪装游览器, 必备
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
 

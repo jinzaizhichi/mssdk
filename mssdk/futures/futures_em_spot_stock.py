@@ -1,14 +1,13 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
-Date: 2021/5/29 14:24
+Date: 2021/9/8 21:00
 Desc: 东方财富网-数据中心-现货与股票
 http://data.eastmoney.com/ifdata/xhgp.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
 def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
@@ -46,14 +45,14 @@ def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
     data_text = r.text
     temp_json = demjson.decode(
         data_text[
-            data_text.find("pagedata") : data_text.find(
+            data_text.find("pagedata"): data_text.find(
                 "/newstatic/js/common/emdataview.js"
             )
         ]
         .strip("pagedata= ")
         .strip(';\n        </script>\n        <script src="')
     )
-    date_list = list(temp_json['dates'].values())
+    date_list = list(temp_json["dates"].values())
     temp_json = temp_json["datas"]
     temp_df = temp_json[map_dict.get(indicator)]
     temp_df = pd.DataFrame(temp_df["list"])
@@ -79,6 +78,12 @@ def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
         "生产商",
         "下游用户",
     ]
+    temp_df[date_list[0]] = pd.to_numeric(temp_df[date_list[0]])
+    temp_df[date_list[1]] = pd.to_numeric(temp_df[date_list[1]])
+    temp_df[date_list[2]] = pd.to_numeric(temp_df[date_list[2]])
+    temp_df[date_list[3]] = pd.to_numeric(temp_df[date_list[3]])
+    temp_df['最新价格'] = pd.to_numeric(temp_df['最新价格'])
+    temp_df['近半年涨跌幅'] = pd.to_numeric(temp_df['近半年涨跌幅'])
     return temp_df
 
 

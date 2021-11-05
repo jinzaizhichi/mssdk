@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/5/7 13:50
 Desc: 英为财情-利率国债-全球政府债券行情与收益率
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.index.cons import short_headers, long_headers
+from akshare.index.cons import short_headers, long_headers
 
 
 def _get_global_country_name_url() -> dict:

@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/10/17 1:19
 Desc: 指数配置文件
@@ -11,8 +11,8 @@ from time import sleep
 
 import pandas as pd
 
-from mssdk.index.exceptions import ResponseError
-from mssdk.index.request import TrendReq
+from akshare.index.exceptions import ResponseError
+from akshare.index.request import TrendReq
 
 
 def get_last_date_of_month(year: int, month: int) -> date:

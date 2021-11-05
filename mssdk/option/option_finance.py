@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/26 10:58
 Desc: 金融期权数据
@@ -8,7 +8,7 @@ http://www.sse.com.cn/assortment/options/price/
 import pandas as pd
 import requests
 
-from mssdk.option.cons import (
+from akshare.option.cons import (
     SH_OPTION_URL_50,
     SH_OPTION_PAYLOAD,
     SH_OPTION_PAYLOAD_OTHER,

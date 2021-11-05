@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/16 20:04
 Desc: 东方财富网-数据中心-开放式基金排行
@@ -9,7 +9,7 @@ http://help.1234567.com.cn/list_236.html
 """
 import datetime
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 
@@ -281,6 +281,7 @@ def fund_em_money_rank() -> pd.DataFrame:
 def fund_em_lcx_rank() -> pd.DataFrame:
     """
     东方财富网-数据中心-理财基金排行
+    # 该接口暂时没有数据
     http://fund.eastmoney.com/data/lcxfundranking.html#t;c0;r;sSYL_Z;ddesc;pn50;f;os1;
     :return: 理财基金排行
     :rtype: pandas.DataFrame

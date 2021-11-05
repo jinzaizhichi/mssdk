@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2019/9/30 13:58
 Desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-工具数据接口, 方便您程序化调用
@@ -10,7 +10,7 @@ from typing import AnyStr
 import pandas as pd
 import requests
 
-from mssdk.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
+from akshare.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
 
 
 def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):

@@ -1,14 +1,14 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/2/13 21:22
-Desc: 存储和读取Token文件
+Desc: 存储和读取 Token 文件
 """
 import os
 
 import pandas as pd
 
-from mssdk.pro import cons
+from akshare.pro import cons
 
 
 def set_token(token):

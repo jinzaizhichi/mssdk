@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/5/10 17:06
 Desc: 提供英为财情-国际大宗商品期货
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from mssdk.index.cons import short_headers, long_headers
+from akshare.index.cons import short_headers, long_headers
 
 
 def get_sector_symbol_name_url() -> dict:

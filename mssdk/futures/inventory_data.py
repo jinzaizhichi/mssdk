@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/1/10 13:58
 Desc: 得到 99 期货网的原始数据
@@ -87,13 +87,13 @@ for i in code_temp_list:
             continue
 
 
-with open('./mssdk/futures/exchange_symbol_list.pk', 'wb') as f:
+with open('./akshare/futures/exchange_symbol_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_list, f)
 
-with open('./mssdk/futures/exchange_symbol_value_list.pk', 'wb') as f:
+with open('./akshare/futures/exchange_symbol_value_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_value_list, f)
 
-with open('./mssdk/futures/code_exchange_name_dict.pk', 'wb') as f:
+with open('./akshare/futures/code_exchange_name_dict.pk', 'wb') as f:
     pickle.dump(code_exchange_name_dict, f)
 
 

@@ -7,7 +7,7 @@ import pandas as pd
 import requests
 from requests.packages.urllib3.util.retry import Retry
 
-from mssdk.index import exceptions
+from akshare.index import exceptions
 from typing import Optional
 import copy
 
