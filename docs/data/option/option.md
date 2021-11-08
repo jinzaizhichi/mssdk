@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 期权数据
+## [mssdk](https://github.com/msfamily/mssdk) 期权数据
 
 ### 金融期权-三大交易所
 
@@ -1082,20 +1082,20 @@ print(option_sina_hist_df)
 
 #### 上海期货交易所
 
-接口: get_shfe_option_daily
+接口: option_shfe_daily
 
 目标地址: http://www.shfe.com.cn/statements/dataview.html?paramid=kxQ
 
-描述: 获取上海期货交易所商品期权数据
+描述: 上海期货交易所-商品期权数据
 
-限量: 单次返回具体某天某个品种期权行情数据
+限量: 单次返回指定交易日和品种的期权行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol="铜期权"|
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| trade_date | str  |    trade_date="20191017"|
+| symbol | str  |  symbol="铜期权"|
 
 上海期货交易所提供的商品期权品种
 
@@ -1106,28 +1106,29 @@ print(option_sina_hist_df)
 | 上海期货交易所  | 黄金期权 | 2019-12-20 |
 | 上海期货交易所  | 铝期权 | 2020-08-10 |
 | 上海期货交易所  | 锌期权 | 2020-08-10 |
+| 上海期货交易所  | 原油期权 | 2021-06-21 |
 
 输出参数
 
 Part-1: 上海期货交易所期权合约行情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 合约代码      | str   | Y        |   |
-| 开盘价      | float   | Y        |    |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 收盘价      | float   | Y        |   |
-| 前结算价    | float   | Y        |    |
-| 结算价      | float   | Y        |   |
-| 涨跌1      | float   | Y        |    |
-| 涨跌2      | float   | Y        |   |
-| 成交量      | float   | Y        |    |
-| 持仓量      | float   | Y        |    |
-| 持仓量变化  | float   | Y        |    |
-| 成交额      | float   | Y        |    |
-| 德尔塔      | float   | Y        | Delta   |
-| 行权量      | float   | Y        |    |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 合约代码      | str   |   |
+| 开盘价      | float   |    |
+| 最高价      | float   |   |
+| 最低价      | float   |   |
+| 收盘价      | float   |   |
+| 前结算价    | float   |    |
+| 结算价      | float   |   |
+| 涨跌1      | float   |    |
+| 涨跌2      | float   |   |
+| 成交量      | float   |    |
+| 持仓量      | float   |    |
+| 持仓量变化  | float   | Y  |
+| 成交额      | float   |    |
+| 德尔塔      | float   | Delta   |
+| 行权量      | float   |    |
 
 注:
 1. 期权报价单位: 铜、天然橡胶为元/吨. 
@@ -1139,23 +1140,23 @@ Part-1: 上海期货交易所期权合约行情
 
 Part-2: 上海期货交易所隐含波动参考值
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 合约系列      | str   | Y        |   |
-| 成交量      | float   | Y        | 注意单位：手   |
-| 持仓量      | float   | Y        |  注意单位：手  |
-| 持仓量变化      | float   | Y        |  注意单位：手  |
-| 成交额      | float   | Y        | 注意单位：手   |
-| 行权量      | float   | Y        |  注意单位：手  |
-| 隐含波动率      | float   | Y        |   |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 合约系列      | str   |   |
+| 成交量      | float   | 注意单位：手   |
+| 持仓量      | float   |  注意单位：手  |
+| 持仓量变化      | float   |  注意单位：手  |
+| 成交额      | float   | 注意单位：手   |
+| 行权量      | float   |  注意单位：手  |
+| 隐含波动率      | float      |
 						
 接口示例
 
 ```python
 import mssdk as ms
-get_shfe_option_daily_one, get_shfe_option_daily_two = ms.get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
-print(get_shfe_option_daily_one)
-print(get_shfe_option_daily_two)
+option_shfe_daily_one, option_shfe_daily_two = ms.option_shfe_daily(trade_date="20200827", symbol="铝期权")
+print(option_shfe_daily_one)
+print(option_shfe_daily_two)
 ```
 
 数据示例
@@ -1189,20 +1190,20 @@ part_2: 上海期货交易所隐含波动参考值
 
 #### 大连商品交易所
 
-接口: get_dce_option_daily
+接口: option_dce_daily
 
 目标地址: http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
 
-描述: 获取大连商品交易所商品期权数据
+描述: 大连商品交易所-商品期权数据
 
-限量: 单次返回具体某天某个品种期权行情数据
+限量: 单次返回指定交易日和品种的期权行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol="玉米期权"|
+| 名称   | 类型 | 描述        |
+| -------- | ---- |  --- |
+| trade_date | str  |    trade_date="20191017"|
+| symbol | str  |  symbol="玉米期权"|
 
 大连商品交易所提供的商品期权品种
 
@@ -1215,28 +1216,29 @@ part_2: 上海期货交易所隐含波动参考值
 | 大连商品交易所  | 聚乙烯期权        |2020-07-06|
 | 大连商品交易所  | 聚氯乙烯期权        |2020-07-06|
 | 大连商品交易所  | 聚丙烯期权        |2020-07-06|
+| 大连商品交易所  | 棕榈油期权        |2021-06-18|
 
 输出参数
 
 Part-1: 大连商品交易所期权合约行情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 商品名称      | str   | Y        |   |
-| 合约名称      | str   | Y        |   |
-| 开盘价      | float   | Y        |    |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 收盘价      | float   | Y        |   |
-| 前结算价    | float   | Y        |    |
-| 结算价      | float   | Y        |   |
-| 涨跌      | float   | Y        |    |
-| 涨跌1     | float   | Y        |   |
-| 成交量      | float   | Y        |    |
-| 持仓量      | float   | Y        |    |
-| 持仓量变化  | float   | Y        |    |
-| 成交额      | float   | Y        |    |
-| 行权量      | float   | Y        |    |
+| 名称          | 类型 | 描述           |
+| --------------- | ----- |  ---------------- |
+| 商品名称      | str   |   |
+| 合约名称      | str   |   |
+| 开盘价      | float   |    |
+| 最高价      | float   |   |
+| 最低价      | float   |   |
+| 收盘价      | float   |   |
+| 前结算价    | float   |    |
+| 结算价      | float   |   |
+| 涨跌      | float   |    |
+| 涨跌1     | float   |   |
+| 成交量      | float   |    |
+| 持仓量      | float   |    |
+| 持仓量变化  | float   | Y  |
+| 成交额      | float   |    |
+| 行权量      | float   |    |
 
 
 说明: 
@@ -1250,16 +1252,16 @@ Part-1: 大连商品交易所期权合约行情
 
 Part-2: 隐含波动率参考值
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 合约系列      | str   | Y        |   |
-| 隐含波动率%      | float   | Y        |    |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 合约系列      | str   |    |
+| 隐含波动率%      | float   |     |
 						
 接口示例
 
 ```python
 import mssdk as ms
-part_1, part_2= ms.get_dce_option_daily(trade_date="20191017", symbol="玉米期权")
+part_1, part_2 = ms.option_dce_daily(trade_date="20191017", symbol="玉米期权")
 print(part_1)
 print(part_2)
 ```
@@ -1308,20 +1310,20 @@ part_2: 隐含波动率参考值
 
 #### 郑州商品交易所
 
-接口: get_czce_option_daily
+接口: option_czce_daily
 
 目标地址: http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
 
-描述: 获取郑州商品交易所的商品期权数据
+描述: 郑州商品交易所-商品期权数据
 
-限量: 单次返回具体某天某个品种期权行情数据
+限量: 单次返回指定交易日和品种的期权行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol="白糖期权"|
+| 名称   | 类型 | 描述       |
+| -------- | ---- |  --- |
+| trade_date | str  |    trade_date="20191017"|
+| symbol | str  |  symbol="白糖期权"|
 
 郑州商品交易所提供的商品期权品种
 
@@ -1338,24 +1340,24 @@ part_2: 隐含波动率参考值
 
 郑州商品交易所期权合约行情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种代码      | str   | Y        |   |
-| 昨结算      | float   | Y        |   |
-| 今开盘      | float   | Y        |   |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 今收盘      | float   | Y        |   |
-| 今结算      | float   | Y        |   |
-| 涨跌1     | float   | Y        |    |
-| 涨跌2     | float   | Y        |   |
-| 成交量(手)      | float   | Y        |    |
-| 空盘量      | float   | Y        |    |
-| 增减量  | float   | Y        |    |
-| 成交额(万元)      | float   | Y        |    |
-| DELTA      | float   | Y        |    |
-| 隐含波动率      | float   | Y        |    |
-| 行权量      | float   | Y        |    |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 品种代码      | str   |   |
+| 昨结算      | float   |   |
+| 今开盘      | float   |   |
+| 最高价      | float   |   |
+| 最低价      | float   |   |
+| 今收盘      | float   |   |
+| 今结算      | float   |   |
+| 涨跌1     | float   |    |
+| 涨跌2     | float   |   |
+| 成交量(手)      | float   |    |
+| 空盘量      | float   |     |
+| 增减量  | float   |     |
+| 成交额(万元)      | float   |     |
+| DELTA      | float   |     |
+| 隐含波动率      | float   |     |
+| 行权量      | float   |     |
 
 说明:
 
@@ -1370,8 +1372,8 @@ part_2: 隐含波动率参考值
 
 ```python
 import mssdk as ms
-option_df = ms.get_czce_option_daily(trade_date="20191216", symbol="PTA期权")
-print(option_df)
+option_czce_daily_df = ms.option_czce_daily(trade_date="20191216", symbol="PTA期权")
+print(option_czce_daily_df)
 ```
 
 数据示例-郑州商品交易所期权合约行情(PTA期权)
@@ -1421,16 +1423,16 @@ print(option_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 
-描述: 获取郑州商品交易所的商品期权历史行情数据
+描述: 郑州商品交易所的商品期权历史行情数据
 
 限量: 单次返回指定年份指定品种期权历史行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="SR"; choice of {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM", "动力煤": "ZC"}|
-| year | str  | Y    |   year="2019"|
+| 名称   | 类型 | 描述        |
+| -------- | ---- |  --- |
+| symbol | str  |   symbol="SR"; choice of {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM", "动力煤": "ZC"}|
+| year | str  |   year="2019"|
 
 郑州商品交易所提供的商品期权品种
 
@@ -1447,25 +1449,25 @@ print(option_df)
 
 郑州商品交易所期权合约行情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 交易日期      | str   | Y        |   |
-| 品种代码      | float   | Y        |   |
-| 昨结算      | float   | Y        |   |
-| 今开盘      | float   | Y        |   |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 今收盘      | float   | Y        |   |
-| 今结算     | float   | Y        |    |
-| 涨跌1     | float   | Y        |   |
-| 涨跌2      | float   | Y        |    |
-| 成交量(手)      | float   | Y        |    |
-| 空盘量  | float   | Y        |    |
-| 增减量      | float   | Y        |    |
-| 成交额(万元)      | float   | Y        |    |
-| DELTA      | float   | Y        |    |
-| 隐含波动率      | float   | Y        |    |
-| 行权量      | float   | Y        |    |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 交易日期      | object   |    |
+| 品种代码      | object   |    |
+| 昨结算      | float64   |   |
+| 今开盘      | float64   |    |
+| 最高价      | float64   |    |
+| 最低价      | float64   |    |
+| 今收盘      | float64   |    |
+| 今结算     | float64   |     |
+| 涨跌1     | float64   |    |
+| 涨跌2      | float64   |     |
+| 成交量(手)      | object   |     |
+| 空盘量  | object   |     |
+| 增减量      | object   |    |
+| 成交额(万元)      | object   |     |
+| DELTA      | float64   |     |
+| 隐含波动率      | float64   |     |
+| 行权量      | float64   |    |
 
 说明:
 
@@ -1477,7 +1479,6 @@ print(option_df)
 6. 隐含波动率: 将当日期权合约的结算价代入期权定价模型, 反推出来的波动率数值
 
 接口示例
-
 ```python
 import mssdk as ms
 option_czce_hist_df = ms.option_czce_hist(symbol="RM", year="2020")
@@ -1503,4 +1504,4 @@ print(option_czce_hist_df)
 
 #### 全景图
 
-[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/msshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
+[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)

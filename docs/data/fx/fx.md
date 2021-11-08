@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 外汇数据
+## [mssdk](https://github.com/msfamily/mssdk) 外汇数据
 
 ### 人民币牌价数据
 
@@ -83,7 +83,6 @@ print(currency_boc_sina_df)
 **注：本行情为询价报价行情(美元为ODM), 实时更新**
 						
 接口示例
-
 ```python
 import mssdk as ms
 fx_df = ms.fx_spot_quote()

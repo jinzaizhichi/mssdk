@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 高频数据
+## [mssdk](https://github.com/msfamily/mssdk) 高频数据
 
 ### 标普 500 指数
 

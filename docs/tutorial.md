@@ -8,9 +8,9 @@
 
 ```
  # 交易所期货数据
- "get_cffex_daily",  # 获取中国金融期货交易所每日交易数据
- "get_cffex_rank_table",  # 获取中国金融期货交易所前20会员持仓数据明细
- "get_czce_daily",  # 获取郑州商品交易所每日交易数据
+ "get_cffex_daily",  # 中国金融期货交易所每日交易数据
+ "get_cffex_rank_table",  # 中国金融期货交易所前20会员持仓数据明细
+ "get_czce_daily",  # 郑州商品交易所每日交易数据
  "get_czce_rank_table",  # 获取郑州商品交易所前20会员持仓数据明细
  "get_dce_daily",  # 获取大连商品交易所每日交易数据
  "get_ine_daily",  # 获取上海国际能源交易中心每日交易数据
@@ -46,11 +46,12 @@
  "get_bond_bank"  # 获取中国银行间市场交易商协会-债券数据
  # 提供英为财情数据接口
  "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
+ "index_investing_global_from_url"  # 提供英为财情-股票指数-全球股指与期货指数数据-URL版本
  "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
- "get_dce_option_daily"  # 提供大连商品交易所商品期权数据
- "get_czce_option_daily"  # 提供郑州商品交易所商品期权数据
- "get_shfe_option_daily"  # 提供上海期货交易所商品期权数据
+ "option_dce_daily"  # 提供大连商品交易所商品期权数据
+ "option_czce_daily"  # 提供郑州商品交易所商品期权数据
+ "option_shfe_daily"  # 提供上海期货交易所商品期权数据
  # 中国银行间市场债券行情数据
  "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
  "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
@@ -124,9 +125,6 @@
  "stock_zh_a_tick_tx"  # A 股票分笔行情数据(近2年)-腾讯
  "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据(近2年)-腾讯-当日数据
  "stock_zh_a_tick_163"  # A 股票分笔行情数据(近5个交易日)-163
- # Websocket 实时监控
- "watch_jinshi_fx"  # 外汇实时接口
- "watch_jinshi_quotes"  # 行情报价接口
  # 世界各地区日出和日落数据-日
  "weather_daily"  # 每日日出和日落数据
  # 世界各地区日出和日落数据-月
@@ -150,6 +148,7 @@
  # 谷歌指数
  "google_index"  # 获取谷歌趋势指数
  # 申万行业指数
+ "sw_index_representation_spot"  # 申万市场表征数据
  "sw_index_spot"  # 获取申万一级实时行情
  "sw_index_cons"  # 获取申万一级板块成份
  "sw_index_daily"  # 获取申万一级历史行情
@@ -181,6 +180,7 @@
  "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价
  "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
  # 能源-碳排放权
+ "energy_carbon_domestic"  # 碳排放权-国内
  "energy_carbon_bj"  # 碳排放权-北京
  "energy_carbon_sz"  # 碳排放权-深圳
  "energy_carbon_eu"  # 碳排放权-国际
@@ -220,26 +220,6 @@
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
  "stock_em_account"  # 获取股票账户统计数据
- # 交易法门-工具接口-套利分析
- "jyfm_tools_futures_spread"  # 交易法门-工具-套利分析-跨期价差(自由价差)
- "jyfm_tools_futures_ratio"  # 交易法门-工具-套利分析-自由价比
- "jyfm_tools_futures_customize"  # 交易法门-工具-套利分析-多腿组合
- "jyfm_exchange_symbol_dict"  # 交易法门-交易所-品种字典
- # 交易法门-工具接口-套利分析
- "jyfm_tools_position_detail"  # 交易法门-工具-持仓分析-期货分析
- "jyfm_tools_position_seat"  # 交易法门-工具-持仓分析-持仓分析
- "jyfm_tools_position_season"  # 交易法门-工具-持仓分析-季节性分析
- # 交易法门-工具接口-交易规则
- "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
- "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
- "jyfm_tools_symbol_handbook"  # 交易法门-工具-交易规则-品种手册
- # 交易法门-数据接口-农产品
- "jyfm_data_cocking_coal"  # 交易法门-数据-黑色系-焦煤
- "jyfm_data_palm"  # 交易法门-数据-农产品-棕榈
- "jyfm_data_soybean_meal"  # 交易法门-数据-农产品-豆粕
- "jyfm_data_sugar"  # 交易法门-数据-农产品-白糖
- "jyfm_data_usa_bean"  # 交易法门-数据-农产品-美豆
- "jyfm_data_soybean_oil"  # 交易法门-数据-农产品-豆油
  # 股票指数-成份股
  "index_stock_cons"  # 股票指数-成份股-最新成份股获取
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
@@ -247,25 +227,6 @@
  "index_stock_hist"  # 股票指数-历史成份股
  # 义乌小商品指数
  "index_yw"  # 获取义乌小商品指数
- # 交易法门-工具-期限分析
- "jyfm_tools_futures_basis_daily"  # 交易法门-工具-期限分析-基差日报
- "jyfm_tools_futures_basis_analysis"  # 交易法门-工具-期限分析-基差分析
- "jyfm_tools_futures_basis_structure"  # 交易法门-工具-期限分析-期限结构
- "jyfm_tools_futures_basis_rule"  # 交易法门-工具-期限分析-价格季节性
- # 交易法门-工具-资讯汇总
- "jyfm_tools_research_query"  # 交易法门-工具-资讯汇总-研报查询
- "jyfm_tools_trade_calendar"  # 交易法门-工具-资讯汇总-交易日历
- # 交易法门-工具-资金分析
- "jyfm_tools_position_fund_direction"  # 交易法门-工具-资金分析-资金流向
- "jyfm_tools_position_fund_down"  # 交易法门-工具-资金分析-沉淀资金
- "jyfm_tools_position_fund_season"  # 交易法门-工具-资金分析-资金季节性
- "jyfm_tools_position_fund_deal"  # 交易法门-工具-资金分析-成交排名
- # 交易法门-工具-席位分析
- "jyfm_tools_position_structure"  # 交易法门-工具-席位分析-持仓结构
- # 交易法门-工具-仓单分析
- "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
- "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询
- "jyfm_tools_warehouse_receipt_ratio"  # 交易法门-工具-仓单分析-虚实盘比查询
  # 世界银行间拆借利率
  "rate_interbank"  #  银行间拆借利率
  # 主要央行利率
@@ -391,7 +352,6 @@
  "covid_19_csse_global_recovered"  # COVID-19-CSSE-全球治愈
  "covid_19_csse_us_death"  # COVID-19-CSSE-美国死亡
  "covid_19_csse_us_confirmed"  # COVID-19-CSSE-美国确诊
- "covid_19_history"  # COVID-19-所有历史数据(中文)
  # 百度迁徙地图接口
  "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
  "migration_scale_baidu"  # 百度迁徙地图-迁徙规模
@@ -485,7 +445,7 @@
  "stock_em_hsgt_hist"  # 沪深港通历史数据
  "stock_em_hsgt_board_rank"  # 板块排行
  # 两市停复牌
- "stock_em_tfp"  # 两市停复牌数据
+ "stock_tfp_em"  # 两市停复牌数据
  # 恐慌指数
  "index_vix"  # 恐慌指数
  # 中国油价
@@ -495,8 +455,6 @@
  "futures_spot_stock"  # 现货与股票接口
  # 中国期货市场监控中心
  "futures_index_cfmmc"  # 中国期货市场监控中心-指数
- # 阿尔戈斯全网监控
- "watch_argus"  # 阿尔戈斯全网监控
  # 打新收益率
  "stock_em_dxsyl"  # 打新收益率
  "stock_em_xgsglb"  # 新股申购与中签查询
@@ -523,6 +481,7 @@
  "stock_ipo_info"  # 股票新股
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
+ "stock_dividents_cninfo"  # 个股历史分红
  "stock_restricted_shares"  # 限售解禁
  "stock_circulate_stock_holder"  # 流动股东
  "stock_fund_stock_holder"  # 基金持股
@@ -573,6 +532,7 @@
  "stock_report_fund_hold_detail"  # 个股-基金持股-明细
  # 中证指数
  "stock_zh_index_hist_csindex"  # 中证指数
+ "stock_zh_index_value_csindex"  # 中证指数-指数估值
  # A股龙虎榜
  "stock_sina_lhb_detail_daily"  # 龙虎榜-每日详情
  "stock_sina_lhb_ggtj"  # 龙虎榜-个股上榜统计
@@ -658,7 +618,7 @@
  # 期货合约详情
  "futures_contract_detail"  # 期货合约详情
  # 科创板报告
- "zh_stock_kcb_report"  # 科创板报告
+ "stock_zh_kcb_report_em"  # 科创板报告
  # 东方财富-期权
  "option_current_em"  # 东方财富-期权
  # 金十数据-新闻资讯
@@ -686,8 +646,6 @@
  "bond_deal_summary_sse"  # 上登债券信息网-债券成交概览
  # 中国货币供应量
  "macro_china_money_supply"  # 中国货币供应量
- # 银行排名
- "bank_rank_banker"  # 全球银行排名数据及各项指标
  # 期货交割和期转现
  "futures_to_spot_czce"  # 郑商所期转现
  "futures_to_spot_shfe"  # 上期所期转现
@@ -754,7 +712,7 @@
  # 浙江省排污权交易指数
  "index_eri"  # 浙江省排污权交易指数
  # 赚钱效应分析
- "stock_legu_market_activity"  # 赚钱效应分析
+ "stock_market_activity_legu"  # 赚钱效应分析
  # 中国公路物流运价指数
  "index_cflp_price"  # 中国公路物流运价指数
  # 中国公路物流运量指数
@@ -763,7 +721,7 @@
  "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
  "car_cpca_energy_sale"  # 乘联会-新能源细分市场-整体市场
  # 平均持仓
- "stock_legu_average_position"  # 平均持仓
+ "stock_average_position_legu"  # 平均持仓
  # 增发
  "stock_em_qbzf"  # 增发
  # 配股
@@ -802,6 +760,7 @@
  # 基金规模和规模趋势
  "fund_em_aum"  # 基金公司规模排名列表
  "fund_em_aum_trend"  # 基金市场管理规模走势图
+ "fund_em_aum_hist"  # 基金市场管理规模历史
  # 企业商品价格指数
  "macro_china_qyspjg"  # 企业商品价格指数
  "macro_china_fdi"  # 外商直接投资数据
@@ -820,6 +779,156 @@
  "stock_board_concept_name_em"  # 概念板块-名称
  "stock_board_concept_hist_em"  # 概念板块-历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
+ # 瑞士-宏观
+ "macro_swiss_svme"  # 瑞士-宏观-SVME采购经理人指数
+ "macro_swiss_trade"  # 瑞士-宏观-贸易帐
+ "macro_swiss_cpi_yearly"  # 瑞士-宏观-消费者物价指数年率
+ "macro_swiss_gdp_quarterly"  # 瑞士-宏观-GDP季率
+ "macro_swiss_gbd_yearly"  # 瑞士-宏观-GDP年率
+ "macro_swiss_gbd_bank_rate"  # 瑞士-宏观-央行公布利率决议
+ # 日本-宏观
+ "macro_japan_bank_rate"  # 日本-央行公布利率决议
+ "macro_japan_cpi_yearly"  # 日本-全国消费者物价指数年率
+ "macro_japan_core_cpi_yearly"  # 日本-全国核心消费者物价指数年率
+ "macro_japan_unemployment_rate"  # 日本-失业率
+ "macro_japan_head_indicator"  # 日本-领先指标终值
+ # 英国-宏观
+ "macro_uk_halifax_monthly"  # 英国-Halifax 房价指数月率
+ "macro_uk_halifax_yearly"  # 英国-Halifax 房价指数年率
+ "macro_uk_trade"  # 英国-贸易帐
+ "macro_uk_bank_rate"  # 英国-央行公布利率决议
+ "macro_uk_core_cpi_yearly"  # 英国-核心消费者物价指数年率
+ "macro_uk_core_cpi_monthly"  # 英国-核心消费者物价指数月率
+ "macro_uk_cpi_yearly"  # 英国-消费者物价指数年率
+ "macro_uk_cpi_monthly"  # 英国-消费者物价指数月率
+ "macro_uk_retail_monthly"  # 英国-零售销售月率
+ "macro_uk_retail_yearly"  # 英国-零售销售年率
+ "macro_uk_rightmove_yearly"  # 英国-Rightmove 房价指数年率
+ "macro_uk_rightmove_monthly"  # 英国-Rightmove 房价指数月率
+ "macro_uk_gdp_quarterly"  # 英国-GDP 季率初值
+ "macro_uk_gdp_yearly"  # 英国-GDP 年率初值
+ "macro_uk_unemployment_rate"  # 英国-失业率
+ # 融资融券-深圳
+ "stock_margin_underlying_info_szse"  # 标的证券信息
+ "stock_margin_detail_szse"  # 融资融券明细
+ "stock_margin_szse"  # 融资融券汇总
+ # 宏观-澳大利亚
+ "macro_australia_bank_rate"  # 央行公布利率决议
+ "macro_australia_unemployment_rate"  # 失业率
+ "macro_australia_trade"  # 贸易帐
+ "macro_australia_cpi_quarterly"  # 消费者物价指数季率
+ "macro_australia_cpi_yearly"  # 消费者物价指数年率
+ "macro_australia_ppi_quarterly"  # 生产者物价指数季率
+ "macro_australia_retail_rate_monthly"  # 零售销售月率
+ # 养猪数据中心
+ "futures_pig_info"  # 生猪信息
+ "futures_pig_rank"  # 生猪价格排行
+ # 宏观-加拿大
+ "macro_canada_new_house_rate"  # 新屋开工
+ "macro_canada_unemployment_rate"  # 失业率
+ "macro_canada_trade"  # 贸易帐
+ "macro_canada_retail_rate_monthly"  # 零售销售月率
+ "macro_canada_bank_rate"  # 央行公布利率决议
+ "macro_canada_core_cpi_yearly"  # 核心消费者物价指数年率
+ "macro_canada_core_cpi_monthly"  # 核心消费者物价指数月率
+ "macro_canada_cpi_yearly"  # 消费者物价指数年率
+ "macro_canada_cpi_monthly"  # 消费者物价指数月率
+ "macro_canada_gdp_monthly"  # GDP 月率
+ # 奥运奖牌
+ "sport_olympic_hist"  # 奥运奖牌
+ # 港股财报
+ "stock_financial_hk_report_em"  # 东方财富-港股-财务报表-三大报表
+ "stock_financial_hk_analysis_indicator_em"  # 东方财富-港股-财务分析-主要指标
+ # 全部 A 股-等权重市盈率、中位数市盈率
+ "stock_a_ttm_lyr"  # 全部 A 股-等权重市盈率、中位数市盈率
+ "stock_a_all_pb"  # 全部 A 股-等权重市净率、中位数市净率
+ # 鸡蛋价格
+ "futures_egg_price_yearly"  # 各年度产区鸡蛋价格走势
+ "futures_egg_price"  # 2015-2021年鸡蛋价格走势图
+ "futures_egg_price_area"  # 各主产区鸡蛋均价
+ # REITs
+ "reits_info_jsl"  #  REITs-信息
+ "reits_realtime_em"  #  REITs-行情
+ # A 股分时数据
+ "stock_zh_a_hist_min_em"  # 东财-股票分时
+ "stock_zh_a_hist_pre_min_em"  # 东财-股票盘前分时
+ # 港股分时数据
+ "stock_hk_hist_min_em"  # 东财-港股分时数据
+ # 美股分时数据
+ "stock_us_hist_min_em"  # 东财-美股分时数据
+ # 可转债详情
+ "bond_zh_cov_info"  # 东财-可转债详情
+ # 风险警示板
+ "stock_zh_a_st_em"  # 风险警示板
+ # 美股-粉单市场
+ "stock_us_pink_spot_em"  # 美股-粉单市场
+ # 美股-知名美股
+ "stock_us_famous_spot_em"  # 美股-知名美股
+ # 股票-投资评级
+ "stock_rank_forecast_cninfo"  # 股票-投资评级
+ # 股票-行业市盈率
+ "stock_industry_pe_ratio_cninfo"  # 股票-行业市盈率
+ # 新股-新股过会
+ "stock_new_gh_cninfo"  # 新股-新股过会
+ # 新股-IPO
+ "stock_new_ipo_cninfo"  # 新股-IPO
+ # 股东人数及持股集中度
+ "stock_hold_num_cninfo"  # 股东人数及持股集中度
+ # 实际控制人持股变动
+ "stock_hold_control_cninfo"  # 实际控制人持股变动
+ # 高管持股变动明细
+ "stock_hold_management_detail_cninfo"  # 高管持股变动明细
+ # 期货手续费
+ "futures_comm_info"  # 期货手续费
+ # B 股实时行情数据和历史行情数据
+ "stock_zh_b_spot"  # B 股实时行情数据
+ "stock_zh_b_daily"  # B 股历史行情数据(日频)
+ "stock_zh_b_minute"  # B 股分时历史行情数据(分钟)
+ # 公司治理-对外担保
+ "stock_cg_guarantee_cninfo"  # 公司治理-对外担保
+ # 公司治理-公司诉讼
+ "stock_cg_lawsuit_cninfo"  # 公司治理-公司诉讼
+ # 公司治理-股权质押
+ "stock_cg_equity_mortgage_cninfo"  # 公司治理-股权质押
+ # 债券报表-债券发行-国债发行
+ "bond_treasure_issue_cninfo"  # 债券报表-债券发行-国债发行
+ # 债券报表-债券发行-地方债发行
+ "bond_local_government_issue_cninfo"  # 债券报表-债券发行-地方债
+ # 债券报表-债券发行-企业债发行
+ "bond_corporate_issue_cninfo"  # 债券报表-债券发行-企业债
+ # 债券报表-债券发行-可转债发行
+ "bond_cov_issue_cninfo"  # 债券报表-债券发行-可转债发行
+ # 债券报表-债券发行-可转债转股
+ "bond_cov_stock_issue_cninfo"  # 债券报表-债券发行-可转债转股
+ # 基金报表-基金重仓股
+ "fund_report_stock_cninfo"  # 基金报表-基金重仓股
+ # 公告大全-沪深 A 股公告
+ "stock_notice_report"  # 公告大全-沪深 A 股公告
+ # 基金报表-基金行业配置
+ "fund_report_industry_allocation_cninfo"  # 基金报表-基金行业配置
+ "fund_report_asset_allocation_cninfo"  # 基金报表-基金资产配置
+ # 基金规模
+ "fund_scale_open_sina"  # 基金规模-开放式基金
+ "fund_scale_close_sina"  # 基金规模-封闭式基金
+ "fund_scale_structured_sina"  # 基金规模-分级子基金
+ # 指数估值
+ "index_value_hist_funddb"  # 指数估值
+ # 沪深港通持股
+ "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
+ "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
+ # IPO 受益股
+ "stock_ipo_benefit_ths"  # IPO 受益股
+ # 同花顺-数据中心-技术选股-创新高
+ "stock_rank_cxg_ths"  # 创新高
+ "stock_rank_cxd_ths"  # 创新低
+ "stock_rank_lxsz_ths"  # 连续上涨
+ "stock_rank_lxxd_ths"  # 连续下跌
+ "stock_rank_cxfl_ths"  # 持续放量
+ "stock_rank_cxsl_ths"  # 持续缩量
+ "stock_rank_xstp_ths"  # 向上突破
+ "stock_rank_xxtp_ths"  # 向下突破
+ # 可转债分时数据
+ "bond_zh_hs_cov_min"  # 可转债分时数据
 ```
 
 ## 案例演示

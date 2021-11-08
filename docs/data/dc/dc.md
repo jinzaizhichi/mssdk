@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 加密货币数据
+## [mssdk](https://github.com/msfamily/mssdk) 加密货币数据
 
 ### 实时数据
 
