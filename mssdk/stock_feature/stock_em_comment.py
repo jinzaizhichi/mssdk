@@ -5,7 +5,7 @@ Date: 2021/3/26 15:28
 Desc: 东方财富网-数据中心-特色数据-千股千评
 http://data.eastmoney.com/stockcomment/
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

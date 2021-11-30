@@ -8,7 +8,7 @@ http://data.eastmoney.com/tfpxx/
 import pandas as pd
 import requests
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 def stock_tfp_em(date: str = "20211026") -> pd.DataFrame:

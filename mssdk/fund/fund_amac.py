@@ -1,5 +1,5 @@
 """
-Date: 2021/10/22 11:28
+Date: 2021/11/16 15:48
 Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
@@ -8,35 +8,10 @@ Desc: 中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
+from tqdm import tqdm
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-from akshare.fund.cons import (
-    amac_member_info_url,
-    amac_member_info_payload,
-    amac_person_org_list_url,
-    amac_person_org_list_payload,
-    amac_manager_info_url,
-    amac_manager_info_payload,
-    amac_manager_classify_info_url,
-    amac_manager_classify_info_payload,
-    member_sub_url,
-    member_sub_payload,
-    amac_fund_info_url,
-    amac_fund_info_payload,
-    amac_securities_info_url,
-    amac_securities_info_payload,
-    amac_aoin_info_url,
-    amac_aoin_info_payload,
-    amac_fund_sub_info_url,
-    amac_fund_sub_info_payload,
-    amac_fund_account_info_url,
-    amac_fund_account_info_payload,
-    amac_fund_abs_url,
-    amac_fund_abs_payload,
-    amac_futures_info_url,
-    amac_futures_info_payload,
-    amac_manager_cancelled_info_url,
-    amac_manager_cancelled_info_payload,
-)
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
@@ -75,8 +50,22 @@ def amac_member_info() -> pd.DataFrame:
     :return: 会员机构综合查询
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_member_info_url, payload=amac_member_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/pofMember"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "managerName",
         "memberBehalf",
@@ -86,7 +75,7 @@ def amac_member_info() -> pd.DataFrame:
         "primaryInvestType",
         "markStar",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "机构（会员）名称",
@@ -97,7 +86,9 @@ def amac_member_info() -> pd.DataFrame:
         "机构类型",
         "是否星标",
     ]
-    manager_data_out["入会时间"] = pd.to_datetime(manager_data_out["入会时间"], unit="ms")
+    manager_data_out["入会时间"] = pd.to_datetime(
+        manager_data_out["入会时间"], unit="ms"
+    ).dt.date
     return manager_data_out
 
 
@@ -110,8 +101,26 @@ def amac_person_fund_org_list() -> pd.DataFrame:
     :return: 基金从业人员资格注册信息
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_person_org_list_url, payload=amac_person_org_list_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(
+        url, params=params, json={"orgType": "gmjjglgs", "page": "1"}, verify=False
+    )
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(
+            url, params=params, json={"orgType": "gmjjglgs", "page": "1"}, verify=False
+        )
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "orgName",
         "workerTotalNum",
@@ -120,7 +129,7 @@ def amac_person_fund_org_list() -> pd.DataFrame:
         "investmentManagerNum",
         "fundManagerNum",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "机构名称",
@@ -141,17 +150,13 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     :return: 债券投资交易相关人员公示
     :rtype: pandas.DataFrame
     """
-    url = 'https://human.amac.org.cn/web/api/publicityAddress'
-    params = {
-        'rand': '0.1965383823100506',
-        'pageNum': '0',
-        'pageSize': '5000'
-    }
+    url = "https://human.amac.org.cn/web/api/publicityAddress"
+    params = {"rand": "0.1965383823100506", "pageNum": "0", "pageSize": "5000"}
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['list'])
+    temp_df = pd.DataFrame(data_json["list"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
         "_",
@@ -160,12 +165,14 @@ def amac_person_bond_org_list() -> pd.DataFrame:
         "机构类型",
         "公示网址",
     ]
-    temp_df = temp_df[[
-        "序号",
-        "机构类型",
-        "机构名称",
-        "公示网址",
-    ]]
+    temp_df = temp_df[
+        [
+            "序号",
+            "机构类型",
+            "机构名称",
+            "公示网址",
+        ]
+    ]
     return temp_df
 
 
@@ -178,9 +185,22 @@ def amac_manager_info() -> pd.DataFrame:
     :return: 私募基金管理人综合查询
     :rtype: pandas.DataFrame
     """
-    print("Please waiting for about 10 seconds")
-    data = get_data(url=amac_manager_info_url, payload=amac_manager_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/manager"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "managerName",
         "artificialPersonName",
@@ -190,7 +210,7 @@ def amac_manager_info() -> pd.DataFrame:
         "establishDate",
         "registerDate",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "私募基金管理人名称",
@@ -201,8 +221,12 @@ def amac_manager_info() -> pd.DataFrame:
         "成立时间",
         "登记时间",
     ]
-    manager_data_out["成立时间"] = pd.to_datetime(manager_data_out["成立时间"], unit="ms")
-    manager_data_out["登记时间"] = pd.to_datetime(manager_data_out["登记时间"], unit="ms")
+    manager_data_out["成立时间"] = pd.to_datetime(
+        manager_data_out["成立时间"], unit="ms"
+    ).dt.date
+    manager_data_out["登记时间"] = pd.to_datetime(
+        manager_data_out["登记时间"], unit="ms"
+    ).dt.date
     return manager_data_out
 
 
@@ -214,9 +238,22 @@ def amac_manager_classify_info() -> pd.DataFrame:
     :return: 私募基金管理人分类公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
-    data = get_data(url=amac_manager_classify_info_url, payload=amac_manager_classify_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/manager"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "managerName",
         "artificialPersonName",
@@ -226,7 +263,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "establishDate",
         "registerDate",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "私募基金管理人名称",
@@ -237,8 +274,12 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "成立时间",
         "登记时间",
     ]
-    manager_data_out["成立时间"] = pd.to_datetime(manager_data_out["成立时间"], unit="ms")
-    manager_data_out["登记时间"] = pd.to_datetime(manager_data_out["登记时间"], unit="ms")
+    manager_data_out["成立时间"] = pd.to_datetime(
+        manager_data_out["成立时间"], unit="ms"
+    ).dt.date
+    manager_data_out["登记时间"] = pd.to_datetime(
+        manager_data_out["登记时间"], unit="ms"
+    ).dt.date
     return manager_data_out
 
 
@@ -250,8 +291,22 @@ def amac_member_sub_info() -> pd.DataFrame:
     :return: 证券公司私募基金子公司管理人信息公示
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=member_sub_url, payload=member_sub_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/pofMember"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "managerName",
         "memberBehalf",
@@ -260,7 +315,7 @@ def amac_member_sub_info() -> pd.DataFrame:
         "memberDate",
         "primaryInvestType",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "机构（会员）名称",
@@ -270,22 +325,45 @@ def amac_member_sub_info() -> pd.DataFrame:
         "入会时间",
         "公司类型",
     ]
-    manager_data_out["入会时间"] = pd.to_datetime(manager_data_out["入会时间"], unit="ms")
+    manager_data_out["入会时间"] = pd.to_datetime(
+        manager_data_out["入会时间"], unit="ms"
+    ).dt.date
     return manager_data_out
 
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info() -> pd.DataFrame:
+def amac_fund_info(start_page: str = '1', end_page: str = "2000") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
+    :param start_page: 开始页码, 获取指定页码直接的数据
+    :type start_page: str
+    :param end_page: 结束页码, 获取指定页码直接的数据
+    :type end_page: str
     :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 20 秒")
-    data = get_data(url=amac_fund_info_url, payload=amac_fund_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/fund"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = int(data_json["totalPages"])
+    if total_page > int(end_page):
+        real_end_page = int(end_page)
+    else:
+        real_end_page = total_page
+    big_df = pd.DataFrame()
+    for page in tqdm(range(int(start_page)-1, real_end_page), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "fundName",
         "managerName",
@@ -295,8 +373,7 @@ def amac_fund_info() -> pd.DataFrame:
         "establishDate",
         "mandatorName",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
-    manager_data_out = manager_data_out[keys_list]
+    manager_data_out = big_df[keys_list]
     manager_data_out.columns = [
         "基金名称",
         "私募基金管理人名称",
@@ -306,8 +383,12 @@ def amac_fund_info() -> pd.DataFrame:
         "建立时间",
         "托管人名称",
     ]
-    manager_data_out["建立时间"] = pd.to_datetime(manager_data_out["建立时间"], unit="ms").dt.date
-    manager_data_out["备案时间"] = pd.to_datetime(manager_data_out["备案时间"], unit="ms").dt.date
+    manager_data_out["建立时间"] = pd.to_datetime(
+        manager_data_out["建立时间"], unit="ms"
+    ).dt.date
+    manager_data_out["备案时间"] = pd.to_datetime(
+        manager_data_out["备案时间"], unit="ms"
+    ).dt.date
     return manager_data_out
 
 
@@ -319,9 +400,22 @@ def amac_securities_info() -> pd.DataFrame:
     :return: 证券公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_securities_info_url, payload=amac_securities_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/securities"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "cpmc",
         "cpbm",
@@ -334,7 +428,7 @@ def amac_securities_info() -> pd.DataFrame:
         "barq",
         "yzzt",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "产品名称",
@@ -359,8 +453,22 @@ def amac_aoin_info() -> pd.DataFrame:
     :return: 证券公司直投基金
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_aoin_info_url, payload=amac_aoin_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/aoin/product"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "code",
         "name",
@@ -368,7 +476,7 @@ def amac_aoin_info() -> pd.DataFrame:
         "managerName",
         "createDate",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "产品编码",
@@ -389,8 +497,22 @@ def amac_fund_sub_info() -> pd.DataFrame:
     :return: 证券公司私募投资基金
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_fund_sub_info_url, payload=amac_fund_sub_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/subfund"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "productCode",
         "productName",
@@ -399,7 +521,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
         "foundDate",
         "registeredDate",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "产品编码",
@@ -422,16 +544,29 @@ def amac_fund_account_info() -> pd.DataFrame:
     :return: 基金公司及子公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_fund_account_info_url, payload=amac_fund_account_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/fund/account"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "registerDate",
         "registerCode",
         "name",
         "manager",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "成立日期",
@@ -451,19 +586,25 @@ def amac_fund_abs() -> pd.DataFrame:
     :return: 资产支持专项计划公示信息
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    url = 'https://gs.amac.org.cn/amac-infodisc/api/fund/abs'
+    url = "https://gs.amac.org.cn/amac-infodisc/api/fund/abs"
     params = {
-        'rand': '0.45416112116335716',
-        'pageNo': '0',
-        'pageSize': '50000',
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
     }
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["content"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
-    temp_df.columns = [
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = range(1, len(big_df) + 1)
+    big_df.columns = [
         "编号",
         "_",
         "_",
@@ -475,20 +616,24 @@ def amac_fund_abs() -> pd.DataFrame:
         "成立日期",
         "预期到期时间",
     ]
-    temp_df["备案通过时间"] = pd.to_datetime(temp_df["备案通过时间"], unit='ms').dt.date
-    temp_df["成立日期"] = pd.to_datetime(temp_df["成立日期"], unit='ms').dt.date
-    temp_df["预期到期时间"] = pd.to_datetime(temp_df["预期到期时间"], unit='ms', errors='coerce').dt.date
-    temp_df = temp_df[[
-        "编号",
-        "备案编号",
-        "专项计划全称",
-        "管理人",
-        "托管人",
-        "成立日期",
-        "预期到期时间",
-        "备案通过时间",
-    ]]
-    return temp_df
+    big_df["备案通过时间"] = pd.to_datetime(big_df["备案通过时间"], unit="ms").dt.date
+    big_df["成立日期"] = pd.to_datetime(big_df["成立日期"], unit="ms").dt.date
+    big_df["预期到期时间"] = pd.to_datetime(
+        big_df["预期到期时间"], unit="ms", errors="coerce"
+    ).dt.date
+    big_df = big_df[
+        [
+            "编号",
+            "备案编号",
+            "专项计划全称",
+            "管理人",
+            "托管人",
+            "成立日期",
+            "预期到期时间",
+            "备案通过时间",
+        ]
+    ]
+    return big_df
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
@@ -499,9 +644,22 @@ def amac_futures_info() -> pd.DataFrame:
     :return: 期货公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_futures_info_url, payload=amac_futures_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/pof/futures"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "mpiName",
         "mpiProductCode",
@@ -514,7 +672,7 @@ def amac_futures_info() -> pd.DataFrame:
         "dueDate",
         "fundStatus",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "产品名称",
@@ -543,9 +701,22 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     :return: 已注销私募基金管理人名单
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_manager_cancelled_info_url, payload=amac_manager_cancelled_info_payload)
-    need_data = data["content"]
+    url = "https://gs.amac.org.cn/amac-infodisc/api/cancelled/manager"
+    params = {
+        "rand": "0.7665138514630696",
+        "page": "1",
+        "size": "100",
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(0, int(total_page)), leave=False):
+        params.update({"page": page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "orgName",
         "orgCode",
@@ -553,7 +724,7 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
         "cancelDate",
         "status",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
+    manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
         "管理人名称",
@@ -596,7 +767,7 @@ if __name__ == "__main__":
 
     # 中国证券投资基金业协会-信息公示-基金产品
     # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-    amac_fund_info_df = amac_fund_info()
+    amac_fund_info_df = amac_fund_info(start_page="1", end_page='5')
     print(amac_fund_info_df)
     example_df = amac_fund_info_df[amac_fund_info_df["私募基金管理人名称"].str.contains("聚宽")]
     print(example_df)

@@ -8,7 +8,7 @@ http://www.sse.com.cn/assortment/options/price/
 import pandas as pd
 import requests
 
-from akshare.option.cons import (
+from mssdk.option.cons import (
     SH_OPTION_URL_50,
     SH_OPTION_PAYLOAD,
     SH_OPTION_PAYLOAD_OTHER,

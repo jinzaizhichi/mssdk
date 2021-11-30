@@ -8,7 +8,7 @@ import os
 
 import pandas as pd
 
-from akshare.pro import cons
+from mssdk.pro import cons
 
 
 def set_token(token):

@@ -5,7 +5,7 @@ Date: 2021/6/5 19:18
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

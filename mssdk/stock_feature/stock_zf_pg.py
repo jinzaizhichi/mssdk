@@ -10,7 +10,7 @@ http://data.eastmoney.com/xg/pg/
 """
 import requests
 import pandas as pd
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 def stock_em_qbzf():

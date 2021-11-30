@@ -9,13 +9,13 @@ Desc: 东方财富网-数据中心-特色数据-商誉
 东方财富网-数据中心-特色数据-商誉-个股商誉明细: http://data.eastmoney.com/sy/list.html
 东方财富网-数据中心-特色数据-商誉-行业商誉: http://data.eastmoney.com/sy/hylist.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.stock_feature.cons import stock_em_sy_js
+from mssdk.stock_feature.cons import stock_em_sy_js
 
 ctx = py_mini_racer.MiniRacer()
 ctx.eval(stock_em_sy_js)

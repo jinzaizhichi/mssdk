@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/msfamily/mssdk) 自然语言处理
+## [mssdk](https://github.com/akfamily/mssdk) 自然语言处理
 
 ### 知识图谱
 

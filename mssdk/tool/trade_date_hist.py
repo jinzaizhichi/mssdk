@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-from akshare.stock.cons import hk_js_decode
+from mssdk.stock.cons import hk_js_decode
 
 
 def tool_trade_date_hist_sina() -> pd.DataFrame:

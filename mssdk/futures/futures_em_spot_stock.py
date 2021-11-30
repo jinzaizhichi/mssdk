@@ -5,7 +5,7 @@ Date: 2021/9/8 21:00
 Desc: 东方财富网-数据中心-现货与股票
 http://data.eastmoney.com/ifdata/xhgp.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

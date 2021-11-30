@@ -6,7 +6,7 @@ Desc: 东方财富网-数据中心-特色数据-股票账户统计
 东方财富网-数据中心-特色数据-股票账户统计: 股票账户统计详细数据
 http://data.eastmoney.com/cjsj/gpkhsj.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm

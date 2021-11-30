@@ -15,7 +15,7 @@ def sport_olympic_hist():
     :return: 奥运会-奖牌数据
     :rtype: pandas.DataFrame
     """
-    url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_olympic/athlete_events.zip"
+    url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_olympic/athlete_events.zip"
     temp_df = pd.read_csv(url)
     columns_list = [item.lower() for item in temp_df.columns.tolist()]
     temp_df.columns = columns_list

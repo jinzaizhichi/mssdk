@@ -12,7 +12,7 @@ import requests
 import numpy as np
 import pandas as pd
 
-from akshare.bank.cons import cbirc_headers_without_cookie_2020
+from mssdk.bank.cons import cbirc_headers_without_cookie_2020
 
 item_id_list = {
     '机关': '4113',

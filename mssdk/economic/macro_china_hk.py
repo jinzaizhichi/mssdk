@@ -5,7 +5,7 @@ Date: 2021/7/14 21:21
 Desc: 中国-香港-宏观指标
 https://data.eastmoney.com/cjsj/foreign_8_0.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

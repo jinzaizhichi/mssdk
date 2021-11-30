@@ -5,7 +5,7 @@ Date: 2020/9/17 13:58
 Desc: 东方财富网-数据中心-期货库存数据
 http://data.eastmoney.com/ifdata/kcsj.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

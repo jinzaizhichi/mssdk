@@ -10,7 +10,7 @@ from typing import AnyStr
 import pandas as pd
 import requests
 
-from akshare.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
+from mssdk.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
 
 
 def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):

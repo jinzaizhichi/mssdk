@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.futures.cons import (
+from mssdk.futures.cons import (
     qh_headers,
     sample_headers,
     inventory_temp_headers,

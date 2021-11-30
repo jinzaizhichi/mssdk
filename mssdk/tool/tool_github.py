@@ -12,7 +12,7 @@ import jsonpath
 import requests
 
 
-def tool_github_star_list(owner="jindaxiang", name="akshare"):
+def tool_github_star_list(owner="jindaxiang", name="mssdk"):
     url = "https://api.github.com/graphql"
     query1 = """
     query GetStars($name: String!, $owner: String!) {

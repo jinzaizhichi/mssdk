@@ -15,14 +15,14 @@ from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
-from akshare.bond.cons import (
+from mssdk.bond.cons import (
     zh_sina_bond_hs_cov_count_url,
     zh_sina_bond_hs_cov_payload,
     zh_sina_bond_hs_cov_url,
     zh_sina_bond_hs_cov_hist_url,
 )
-from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from mssdk.stock.cons import hk_js_decode
+from mssdk.utils import demjson
 
 
 def _get_zh_bond_hs_cov_page_count() -> int:

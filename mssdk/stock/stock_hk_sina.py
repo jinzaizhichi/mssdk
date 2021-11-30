@@ -6,11 +6,11 @@ Desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复�
 http://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 from py_mini_racer import py_mini_racer
 
-from akshare.stock.cons import (
+from mssdk.stock.cons import (
     hk_js_decode,
     hk_sina_stock_dict_payload,
     hk_sina_stock_list_url,

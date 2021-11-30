@@ -6,7 +6,7 @@ Desc:
 """
 import re
 
-from akshare.futures import cons
+from mssdk.futures import cons
 
 
 def symbol_varieties(contract_code: str):

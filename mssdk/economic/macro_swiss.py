@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
 import pandas as pd
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 # SVME采购经理人指数

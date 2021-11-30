@@ -7,7 +7,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 """
 from typing import Dict, List
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

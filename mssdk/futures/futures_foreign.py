@@ -10,7 +10,7 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from akshare.futures.futures_hq_sina import futures_foreign_commodity_subscribe_exchange_symbol
+from mssdk.futures.futures_hq_sina import futures_foreign_commodity_subscribe_exchange_symbol
 
 
 def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:

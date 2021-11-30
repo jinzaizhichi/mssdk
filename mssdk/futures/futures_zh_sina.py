@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/12 20:08
+Date: 2021/11/23 20:08
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
@@ -12,13 +12,13 @@ import time
 import pandas as pd
 import requests
 
-from akshare.futures.cons import (
+from mssdk.futures.cons import (
     zh_subscribe_exchange_symbol_url,
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
-from akshare.futures.futures_contract_detail import futures_contract_detail
-from akshare.utils import demjson
+from mssdk.futures.futures_contract_detail import futures_contract_detail
+from mssdk.utils import demjson
 
 
 def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
@@ -422,7 +422,7 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="FU2201", period="1")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="V2201", period="5")
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")

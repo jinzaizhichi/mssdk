@@ -9,8 +9,8 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-from akshare.stock.cons import hk_js_decode
-from akshare.utils import demjson
+from mssdk.stock.cons import hk_js_decode
+from mssdk.utils import demjson
 
 
 def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:

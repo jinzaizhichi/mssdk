@@ -8,19 +8,19 @@ https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 import datetime
 import re
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
-from akshare.index.cons import (
+from mssdk.index.cons import (
     zh_sina_index_stock_payload,
     zh_sina_index_stock_url,
     zh_sina_index_stock_count_url,
     zh_sina_index_stock_hist_url,
 )
-from akshare.stock.cons import hk_js_decode
+from mssdk.stock.cons import hk_js_decode
 
 
 def _replace_comma(x):

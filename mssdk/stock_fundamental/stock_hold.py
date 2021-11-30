@@ -5,7 +5,7 @@ Date: 2020/5/27 19:57
 Desc: 新浪财经-股票-机构持股
 http://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

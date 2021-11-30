@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.cost.cons import url, name_url_map
+from mssdk.cost.cons import url, name_url_map
 
 
 def _get_region():

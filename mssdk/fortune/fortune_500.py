@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.fortune.cons import *
+from mssdk.fortune.cons import *
 
 
 def fortune_rank(year: str = "2015") -> pd.DataFrame:

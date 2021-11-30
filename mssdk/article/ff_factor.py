@@ -8,7 +8,7 @@ http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 import pandas as pd
 import requests
 
-from akshare.article.cons import ff_home_url
+from mssdk.article.cons import ff_home_url
 
 
 def article_ff_crr() -> pd.DataFrame:

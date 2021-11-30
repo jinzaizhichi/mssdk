@@ -14,7 +14,7 @@ import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 
-from akshare.futures_derivative.cons import (
+from mssdk.futures_derivative.cons import (
     xgx_short_headers,
     xgx_headers,
     xgx_code_url,

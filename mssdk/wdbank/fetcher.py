@@ -15,7 +15,7 @@ from pathlib import Path
 import appdirs
 import requests
 
-from akshare import wdbank
+from mssdk import wdbank
 
 EXP = 7
 PER_PAGE = 1000
@@ -34,7 +34,7 @@ class Cache(object):
 
     def __init__(self):
         self.path = Path(
-            appdirs.user_cache_dir(appname="akshare/wdbank", version=wdbank.__version__)
+            appdirs.user_cache_dir(appname="mssdk/wdbank", version=wdbank.__version__)
         )
         self.path.parent.mkdir(parents=True, exist_ok=True)
         try:

@@ -4,8 +4,8 @@
 Date: 2019/11/10 22:52
 Desc: 数据接口初始化
 """
-from akshare.pro import client
-from akshare.utils import token_process
+from mssdk.pro import client
+from mssdk.utils import token_process
 
 
 def pro_api(token=''):

@@ -10,7 +10,7 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from akshare.economic.cons import bitcoin_url, bitcoin_payload, bitcoin_headers
+from mssdk.economic.cons import bitcoin_url, bitcoin_payload, bitcoin_headers
 
 
 def crypto_js_spot() -> pd.DataFrame:

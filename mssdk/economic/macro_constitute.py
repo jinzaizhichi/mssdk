@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.economic.cons import (
+from mssdk.economic.cons import (
     JS_CONS_GOLD_ETF_URL,
     JS_CONS_SLIVER_ETF_URL,
     JS_CONS_OPEC_URL,

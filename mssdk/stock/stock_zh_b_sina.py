@@ -8,13 +8,13 @@ https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 import re
 import json
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.stock.cons import (
+from mssdk.stock.cons import (
     zh_sina_a_stock_payload,
     zh_sina_a_stock_url,
     zh_sina_a_stock_hist_url,

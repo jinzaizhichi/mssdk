@@ -9,10 +9,10 @@ import random
 
 import requests
 import pandas as pd
-from akshare.utils import demjson
+from mssdk.utils import demjson
 from tqdm import tqdm
 
-from akshare.stock.cons import (hk_url,
+from mssdk.stock.cons import (hk_url,
                                 hk_headers,
                                 hk_payload,
                                 hk_stock_url,

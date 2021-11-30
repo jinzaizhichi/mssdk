@@ -4,7 +4,7 @@
 Date: 2020/2/13 21:33
 Desc: 接口测试文件
 """
-from akshare.pro.data_pro import pro_api
+from mssdk.pro.data_pro import pro_api
 
 pro = pro_api()
 

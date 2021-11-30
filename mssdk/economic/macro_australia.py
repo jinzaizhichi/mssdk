@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 # 零售销售月率

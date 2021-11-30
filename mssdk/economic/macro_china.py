@@ -12,13 +12,13 @@ import math
 import time
 from datetime import datetime
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import numpy as np
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.economic.cons import (
+from mssdk.economic.cons import (
     JS_CHINA_CPI_YEARLY_URL,
     JS_CHINA_CPI_MONTHLY_URL,
     JS_CHINA_M2_YEARLY_URL,

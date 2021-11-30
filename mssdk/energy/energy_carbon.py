@@ -20,7 +20,7 @@ http://www.cnemission.com/article/hqxx/
 """
 import re
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

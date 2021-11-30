@@ -11,7 +11,7 @@ import math
 import pandas as pd
 import requests
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 from tqdm import tqdm
 
 

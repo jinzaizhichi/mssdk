@@ -11,8 +11,8 @@ from time import sleep
 
 import pandas as pd
 
-from akshare.index.exceptions import ResponseError
-from akshare.index.request import TrendReq
+from mssdk.index.exceptions import ResponseError
+from mssdk.index.request import TrendReq
 
 
 def get_last_date_of_month(year: int, month: int) -> date:

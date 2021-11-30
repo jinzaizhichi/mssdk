@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_3_0.html
 """
 import pandas as pd
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 # 央行公布利率决议

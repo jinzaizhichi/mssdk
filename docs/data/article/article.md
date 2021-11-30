@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/msfamily/mssdk) 波动率数据
+## [mssdk](https://github.com/akfamily/mssdk) 波动率数据
 
 ### 已实现波动率数据
 
@@ -163,7 +163,7 @@ print(df)
 2019-11-08    0.199549
 ```
 
-## [mssdk](https://github.com/msfamily/mssdk) 多因子数据
+## [mssdk](https://github.com/akfamily/mssdk) 多因子数据
 
 ### Current Research Returns
 
@@ -224,10 +224,10 @@ Big Growth                                             0.30           1.04
 Size and Operating Profitability Portfolios               -              -   
 Small Robust                                           3.73          -6.10   
 Small Neutral                                          4.50          -1.20   
-Small Wems                                            -0.22          -6.10   
+Small Weak                                            -0.22          -6.10   
 Big Robust                                             1.12           2.24   
 Big Neutral                                            2.60           0.67   
-Big Wems                                               1.11          -2.08   
+Big Weak                                               1.11          -2.08   
 Size and Investment Portfolios                            -              -   
 Small Conservative                                     3.57          -3.90   
 Small Neutral                                          3.57          -1.41   
@@ -257,10 +257,10 @@ Big Growth                                             3.73
 Size and Operating Profitability Portfolios               -  
 Small Robust                                         -15.42  
 Small Neutral                                         -7.23  
-Small Wems                                           -15.73  
+Small Weak                                           -15.73  
 Big Robust                                             4.76  
 Big Neutral                                            3.40  
-Big Wems                                              -4.88  
+Big Weak                                              -4.88  
 Size and Investment Portfolios                            -  
 Small Conservative                                   -14.66  
 Small Neutral                                         -8.16  
@@ -270,7 +270,7 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
-## [mssdk](https://github.com/msfamily/mssdk) 政策不确定性数据
+## [mssdk](https://github.com/akfamily/mssdk) 政策不确定性数据
 
 ### 国家和地区指数
 

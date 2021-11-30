@@ -87,13 +87,13 @@ for i in code_temp_list:
             continue
 
 
-with open('./akshare/futures/exchange_symbol_list.pk', 'wb') as f:
+with open('./mssdk/futures/exchange_symbol_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_list, f)
 
-with open('./akshare/futures/exchange_symbol_value_list.pk', 'wb') as f:
+with open('./mssdk/futures/exchange_symbol_value_list.pk', 'wb') as f:
     pickle.dump(exchange_symbol_value_list, f)
 
-with open('./akshare/futures/code_exchange_name_dict.pk', 'wb') as f:
+with open('./mssdk/futures/code_exchange_name_dict.pk', 'wb') as f:
     pickle.dump(code_exchange_name_dict, f)
 
 

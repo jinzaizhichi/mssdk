@@ -15,9 +15,9 @@ import numpy as np
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 
-from akshare.futures import cons
-from akshare.futures.futures_daily_bar import get_futures_daily
-from akshare.futures.symbol_var import symbol_market, symbol_varieties
+from mssdk.futures import cons
+from mssdk.futures.futures_daily_bar import get_futures_daily
+from mssdk.futures.symbol_var import symbol_market, symbol_varieties
 
 register_matplotlib_converters()
 calendar = cons.get_calendar()

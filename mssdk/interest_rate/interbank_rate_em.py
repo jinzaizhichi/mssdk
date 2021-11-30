@@ -11,14 +11,13 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.interest_rate.cons import market_symbol_indicator_dict, headers
+from mssdk.interest_rate.cons import market_symbol_indicator_dict, headers
 
 
 class IPError(Exception):
     """
     Define IPError
     """
-
     pass
 
 
@@ -105,7 +104,7 @@ def rate_interbank(
 
 if __name__ == "__main__":
     rate_interbank_shanghai_df = rate_interbank(
-        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5"
+        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="22"
     )
     print(rate_interbank_shanghai_df)
 

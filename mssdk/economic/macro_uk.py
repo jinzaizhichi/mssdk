@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_4_0.html
 """
 import pandas as pd
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 # Halifax房价指数月率

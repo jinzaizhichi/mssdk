@@ -10,7 +10,7 @@ http://www.sse.com.cn/market/stockdata/statistic/
 import warnings
 from io import BytesIO
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

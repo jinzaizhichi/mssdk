@@ -5,7 +5,7 @@ Date: 2020/10/10 13:46
 Desc: 东方财富网-数据中心-COMEX库存数据
 http://data.eastmoney.com/pmetal/comex/by.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

@@ -8,7 +8,7 @@ http://data.eastmoney.com/xg/xg/dxsyl.html
 东方财富网-数据中心-新股数据-新股申购与中签查询
 http://data.eastmoney.com/xg/xg/default_2.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm

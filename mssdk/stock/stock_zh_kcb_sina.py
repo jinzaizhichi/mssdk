@@ -7,12 +7,12 @@ Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前�
 import datetime
 import re
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.stock.cons import (zh_sina_kcb_stock_payload,
+from mssdk.stock.cons import (zh_sina_kcb_stock_payload,
                                 zh_sina_kcb_stock_url,
                                 zh_sina_kcb_stock_count_url,
                                 zh_sina_kcb_stock_hist_url,

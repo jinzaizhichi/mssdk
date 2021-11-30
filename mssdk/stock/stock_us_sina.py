@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.stock.cons import (
+from mssdk.stock.cons import (
     js_hash_text,
     zh_js_decode,
     us_sina_stock_list_url,

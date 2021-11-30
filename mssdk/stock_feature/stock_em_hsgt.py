@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.utils import demjson
+from mssdk.utils import demjson
 
 
 def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFrame:

@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.index.cons import short_headers, long_headers
+from mssdk.index.cons import short_headers, long_headers
 
 
 def _get_global_country_name_url() -> dict:

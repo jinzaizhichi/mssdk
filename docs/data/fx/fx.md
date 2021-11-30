@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/msfamily/mssdk) 外汇数据
+## [mssdk](https://github.com/akfamily/mssdk) 外汇数据
 
 ### 人民币牌价数据
 

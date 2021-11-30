@@ -5,7 +5,7 @@ Date: 2020/7/5 22:49
 Desc: 东方财富网-数据中心-特色数据-券商业绩月报
 http://data.eastmoney.com/other/qsjy.html
 """
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 import requests
 

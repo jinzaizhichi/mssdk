@@ -15,7 +15,7 @@
 0.0.12: 发布测试版本 v0.0.12
 """
 
-__version__ = '0.0.12'
+__version__ = '0.0.11'
 __author__ = 'mssdk'
 
 import sys
@@ -25,6 +25,40 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+东方财富-行业板块
+"""
+from mssdk.stock.stock_board_industry_em import (
+    stock_board_industry_cons_em,
+    stock_board_industry_hist_em,
+    stock_board_industry_name_em,
+)
+
+"""
+天天基金网-基金数据-规模变动
+"""
+from mssdk.fund.fund_scale_em import fund_scale_change_em, fund_hold_structure_em
+
+"""
+天天基金网-基金数据-分红送配
+"""
+from mssdk.fund.fund_fhsp_em import fund_cf_em, fund_fh_rank_em, fund_fh_em
+
+"""
+中国电竞价值排行榜
+"""
+from mssdk.other.other_game import club_rank_game, player_rank_game
+
+"""
+艺恩-艺人
+"""
+from mssdk.movie.artist_yien import online_value_artist, business_value_artist
+
+"""
+艺恩-视频放映
+"""
+from mssdk.movie.video_yien import video_variety_show, video_tv
 
 """
 同花顺-数据中心-技术选股
@@ -38,6 +72,9 @@ from mssdk.stock_feature.stock_technology_ths import (
     stock_rank_cxsl_ths,
     stock_rank_xstp_ths,
     stock_rank_xxtp_ths,
+    stock_rank_ljqd_ths,
+    stock_rank_ljqs_ths,
+    stock_rank_xzjp_ths,
 )
 
 """
@@ -343,7 +380,7 @@ from mssdk.futures_derivative.futures_sina_cot import futures_sina_hold_pos
 """
 股东户数
 """
-from mssdk.stock_feature.stock_gdhs import stock_zh_a_gdhs
+from mssdk.stock_feature.stock_gdhs import stock_zh_a_gdhs, stock_zh_a_gdhs_detail_em
 
 """
 两网及退市
@@ -507,6 +544,7 @@ from mssdk.stock_feature.stock_board_concept_ths import (
     stock_board_concept_name_ths,
     stock_board_concept_info_ths,
     stock_board_concept_hist_ths,
+    stock_board_cons_ths,
 )
 
 """
@@ -846,6 +884,7 @@ from mssdk.stock.stock_info import (
     stock_info_sz_delist,
     stock_info_a_code_name,
     stock_info_sh_name_code,
+    stock_info_bj_name_code,
     stock_info_sz_name_code,
     stock_info_sz_change_name,
     stock_info_change_name,
@@ -938,9 +977,9 @@ from mssdk.event.covid import (
 )
 
 """
-futures_cfmmc
+futures_cscidx
 """
-from mssdk.futures.futures_cfmmc import futures_index_cscidx_map, futures_index_cscidx
+from mssdk.futures.futures_cscidx import futures_index_cscidx
 
 """
 futures_em_spot_stock
@@ -1337,6 +1376,7 @@ from mssdk.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 from mssdk.index.index_sw import (
     sw_index_representation_spot,
     sw_index_spot,
+    sw_index_second_spot,
     sw_index_cons,
     sw_index_daily,
     sw_index_daily_indicator,

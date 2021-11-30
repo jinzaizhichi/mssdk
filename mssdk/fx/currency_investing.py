@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-from akshare.index.cons import short_headers, long_headers
+from mssdk.index.cons import short_headers, long_headers
 
 
 def _currency_name_url() -> dict:

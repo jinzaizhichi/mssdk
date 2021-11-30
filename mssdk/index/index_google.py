@@ -4,7 +4,7 @@
 Date: 2021/6/25 15:49
 Desc: 获取谷歌指数, 必须使用代理, 获得的数据是小时频率的, 所以获取时间周期太长会很慢
 """
-from akshare.index.request import TrendReq
+from mssdk.index.request import TrendReq
 import matplotlib.pyplot as plt
 
 

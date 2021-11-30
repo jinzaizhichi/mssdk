@@ -12,7 +12,7 @@ import time
 import requests
 import pandas as pd
 
-from akshare.fx.cons import SHORT_HEADERS, FX_SPOT_URL, FX_SWAP_URL, FX_PAIR_URL
+from mssdk.fx.cons import SHORT_HEADERS, FX_SPOT_URL, FX_SWAP_URL, FX_PAIR_URL
 
 
 def fx_spot_quote():

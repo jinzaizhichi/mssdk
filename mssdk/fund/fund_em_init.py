@@ -6,7 +6,7 @@ Desc: 基金数据-新发基金-新成立基金
 http://fund.eastmoney.com/data/xinfound.html
 """
 import requests
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import pandas as pd
 
 

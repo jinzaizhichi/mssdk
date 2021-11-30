@@ -9,10 +9,10 @@ import json
 import time
 
 import pandas as pd
-from akshare.utils import demjson
+from mssdk.utils import demjson
 import requests
 
-from akshare.economic.cons import (
+from mssdk.economic.cons import (
     JS_USA_NON_FARM_URL,
     JS_USA_UNEMPLOYMENT_RATE_URL,
     JS_USA_EIA_CRUDE_URL,
