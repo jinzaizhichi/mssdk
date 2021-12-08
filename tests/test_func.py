@@ -18,4 +18,5 @@ def test_cost_living():
 
 
 if __name__ == "__main__":
-    test_cost_living()
+    test_cost_living_df = test_cost_living()
+    print(test_cost_living_df)
