@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 货币数据
+## [mssdk](https://github.com/akfamily/mssdk) 货币数据
 
 ### 货币报价最新数据
 

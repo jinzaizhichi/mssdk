@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 波动率数据
+## [mssdk](https://github.com/akfamily/mssdk) 波动率数据
 
 ### 已实现波动率数据
 
@@ -163,7 +163,7 @@ print(df)
 2019-11-08    0.199549
 ```
 
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 多因子数据
+## [mssdk](https://github.com/akfamily/mssdk) 多因子数据
 
 ### Current Research Returns
 
@@ -224,10 +224,10 @@ Big Growth                                             0.30           1.04
 Size and Operating Profitability Portfolios               -              -   
 Small Robust                                           3.73          -6.10   
 Small Neutral                                          4.50          -1.20   
-Small Wems                                            -0.22          -6.10   
+Small Weak                                            -0.22          -6.10   
 Big Robust                                             1.12           2.24   
 Big Neutral                                            2.60           0.67   
-Big Wems                                               1.11          -2.08   
+Big Weak                                               1.11          -2.08   
 Size and Investment Portfolios                            -              -   
 Small Conservative                                     3.57          -3.90   
 Small Neutral                                          3.57          -1.41   
@@ -257,10 +257,10 @@ Big Growth                                             3.73
 Size and Operating Profitability Portfolios               -  
 Small Robust                                         -15.42  
 Small Neutral                                         -7.23  
-Small Wems                                           -15.73  
+Small Weak                                           -15.73  
 Big Robust                                             4.76  
 Big Neutral                                            3.40  
-Big Wems                                              -4.88  
+Big Weak                                              -4.88  
 Size and Investment Portfolios                            -  
 Small Conservative                                   -14.66  
 Small Neutral                                         -8.16  
@@ -270,7 +270,7 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 政策不确定性数据
+## [mssdk](https://github.com/akfamily/mssdk) 政策不确定性数据
 
 ### 国家和地区指数
 
@@ -347,73 +347,4 @@ print(epu_index_df)
 289  2019      2           720.15790
 290  2019      3           753.10770
 291  2019      4           502.55000
-```
-
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 学术专栏
-
-### Amit Goyal
-
-#### 标普500和常用经济指标
-
-接口: agoyal_stock_return
-
-目标地址: http://www.hec.unil.ch/agoyal/
-
-描述: 获取 Amit Goyal 在其论文:  A comprehensive look at the empirical performance of
-equity premium prediction 中的标普 500 和常用经济指标
-
-限量: 单次返回指定 **indicator** 的数据，本数据大约每年中旬更新(现在更新到 **2018** 年)
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str  | Y    |  indicator="monthly"; 可以选择 {"Monthly", "Quarterly", "Annual"} 之一|
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| ---------- | ----- | -------- | ---------------- |
-| yyyymm      | str   | Y        | -  |  
-| Index      | str   | Y        | -  |  
-| D12      | str   | Y        | -  |  
-| E12      | str   | Y        | -  |  
-| b/m      | str   | Y        | -  |  
-| tbl      | str   | Y        | -  |  
-| AAA      | str   | Y        | -  |  
-| BAA      | str   | Y        | -  |  
-| lty      | str   | Y        | -  |  
-| ntis      | str   | Y        | -  |  
-| Rfree      | str   | Y        | -  |  
-| infl      | str   | Y        | -  |  
-| ltr      | str   | Y        | -  |  
-| corpr      | str   | Y        | -  |  
-| svar      | str   | Y        | -  |  
-| csp      | str   | Y        | -  |  
-| CRSP_SPvw      | str   | Y        | -  |  
-| CRSP_SPvwx      | str   | Y        | -  |  
-
-接口示例
-
-```python
-import mssdk as ms
-agoyal_stock_return_df = ms.agoyal_stock_return(indicator="monthly")
-print(agoyal_stock_return_df)
-```
-
-数据示例
-
-```
-      yyyymm    Index        D12     E12  ...      svar  csp  CRSP_SPvw  CRSP_SPvwx
-0     187101     4.44   0.260000    0.40  ...       NaN  NaN        NaN         NaN
-1     187102     4.50   0.260000    0.40  ...       NaN  NaN        NaN         NaN
-2     187103     4.61   0.260000    0.40  ...       NaN  NaN        NaN         NaN
-3     187104     4.74   0.260000    0.40  ...       NaN  NaN        NaN         NaN
-4     187105     4.86   0.260000    0.40  ...       NaN  NaN        NaN         NaN
-      ...      ...        ...     ...  ...       ...  ...        ...         ...
-1771  201808  2901.52  52.338996  130.39  ...  0.000471  NaN   0.032938    0.030647
-1772  201809  2913.98  52.338996  130.39  ...  0.000230  NaN   0.005138    0.003758
-1773  201810  2711.74  53.748178  132.39  ...  0.004578  NaN  -0.068409   -0.069492
-1774  201811  2760.17  53.748178  132.39  ...  0.002838  NaN   0.019980    0.017477
-1775  201812  2506.85  53.748178  132.39  ...  0.006793  NaN  -0.090928   -0.092457
 ```

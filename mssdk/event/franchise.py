@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2020/9/28 14:51
 Desc: 中国-商业特许经营信息管理
@@ -50,7 +50,7 @@ def franchise_china() -> pd.DataFrame:
     """
     url = "http://txjy.syggs.mofcom.gov.cn/index.do"
     # file_url 历史数据文件, 主要是为了防止重复访问的速度和资源浪费问题
-    file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/franchise/franchise_china.csv"
+    file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/readme/franchise/franchise_china.csv"
     outer_df = pd.read_csv(file_url, encoding="gbk", index_col=0)
     try:
         for page in tqdm(range(1, int(5)), leave=False):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件

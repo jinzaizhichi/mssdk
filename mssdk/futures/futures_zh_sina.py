@@ -1,15 +1,14 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
-Date: 2021/4/12 16:34
+Date: 2021/11/23 20:08
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-P.S. 注意抓取速度, 容易封 IP 地址
+P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 """
-import time
 import json
+import time
 
-import demjson
 import pandas as pd
 import requests
 
@@ -18,8 +17,8 @@ from mssdk.futures.cons import (
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
-
 from mssdk.futures.futures_contract_detail import futures_contract_detail
+from mssdk.utils import demjson
 
 
 def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
@@ -32,6 +31,7 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     :rtype: dict
     """
     r = requests.get(zh_subscribe_exchange_symbol_url)
+    r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
     if exchange == "czce":
@@ -383,7 +383,13 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold"]
+    temp_df.columns = ["datetime", "open", "high", "low", "close", "volume", "hold"]
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['hold'] = pd.to_numeric(temp_df['hold'])
     return temp_df
 
 
@@ -404,12 +410,19 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold"]
+    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold", "settle"]
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['hold'] = pd.to_numeric(temp_df['hold'])
+    temp_df['settle'] = pd.to_numeric(temp_df['settle'])
     return temp_df
 
 
 if __name__ == "__main__":
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="TF2009", period="1")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="V2201", period="5")
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")

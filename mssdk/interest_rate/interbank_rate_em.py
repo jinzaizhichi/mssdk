@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/6/22 16:13
 Desc: 东方财富网-经济数据-银行间拆借利率
@@ -18,7 +18,6 @@ class IPError(Exception):
     """
     Define IPError
     """
-
     pass
 
 
@@ -105,7 +104,7 @@ def rate_interbank(
 
 if __name__ == "__main__":
     rate_interbank_shanghai_df = rate_interbank(
-        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5"
+        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="22"
     )
     print(rate_interbank_shanghai_df)
 

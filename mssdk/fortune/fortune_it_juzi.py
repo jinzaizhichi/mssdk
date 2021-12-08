@@ -1,5 +1,5 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
 Date: 2021/6/30 15:55
 Desc: 获取 IT桔子 的死亡公司数据、千里马和独角兽
@@ -20,7 +20,7 @@ def death_company() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/juzi.csv"
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/juzi.csv"
     )
     for page in tqdm(range(1, 3)):
         url = "https://www.itjuzi.com/api/closure"
@@ -66,7 +66,7 @@ def nicorn_company() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv",
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/nicorn_company.csv",
         index_col=0,
     )
     for i in tqdm(range(1, 2)):
@@ -117,7 +117,7 @@ def maxima_company() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv",
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/mssdk/data/data_juzi/maxima.csv",
         index_col=0,
     )
     for i in range(1, 2):

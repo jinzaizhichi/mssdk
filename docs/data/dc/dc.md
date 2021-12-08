@@ -1,4 +1,4 @@
-## [mssdk](https://github.com/cdmaxsmart/mssdk) 加密货币数据
+## [mssdk](https://github.com/akfamily/mssdk) 加密货币数据
 
 ### 实时数据
 
@@ -47,12 +47,12 @@ reported_at                                        ...
 2020-02-28 16:37:15    Bitflyer(日本)        BTCJPY  ...    940368.000   6566.954034
 2020-02-28 16:37:15    Bitstamp(美国)        BTCUSD  ...      8585.470   6958.242385
 2020-02-28 16:36:27      CEX.IO(伦敦)        BTCUSD  ...      8653.900    129.747383
-2020-02-28 16:37:15  Krmsen_EUR(美国)        BTCEUR  ...      7897.100   5300.456910
-2020-02-28 16:36:27      Krmsen(美国)        LTCUSD  ...        58.410  40829.390880
+2020-02-28 16:37:15  Kraken_EUR(美国)        BTCEUR  ...      7897.100   5300.456910
+2020-02-28 16:36:27      Kraken(美国)        LTCUSD  ...        58.410  40829.390880
 2020-02-28 16:36:27      OKCoin(中国)        BTCUSD  ...      8614.120    756.123400
 2020-02-28 16:36:27    Bitfinex(香港)        BCHUSD  ...       312.050  10427.392214
 2020-02-28 16:37:15    Bitfinex(香港)        BTCUSD  ...      8569.200   5229.230908
-2020-02-28 16:37:15      Krmsen(美国)        BTCUSD  ...      8553.200   3910.324878
+2020-02-28 16:37:15      Kraken(美国)        BTCUSD  ...      8553.200   3910.324878
 ```
 
 ### 历史数据
@@ -171,7 +171,7 @@ print(crypto_bitcoin_hold_report_df)
 7       TSX:Hut-8                 Hut 8 Mining Corp  ...    公开交易  4.4
 8        CSE:VYGR               Voyager Digital LTD  ...    公开交易  8.4
 9       NADQ:RIOT             Riot Blockchain, Inc.  ...    公开交易  8.8
-10        msER:NO                         Seetee AS  ...    公开交易  1.1
+10        AKER:NO                         Seetee AS  ...    公开交易  1.1
 11      SEHK:1357                             Meitu  ...    公开交易  1.0
 12    OTCPK:ARBKF               Argo Blockchain PLC  ...    公开交易    1
 13   OTCMKTS:CCTL                  Coin Citadel Inc  ...    公开交易  149

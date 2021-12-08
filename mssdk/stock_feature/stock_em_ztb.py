@@ -1,7 +1,7 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
-Date: 2021/7/17 18:50
+Date: 2021/11/18 14:50
 Desc: 首页-行情中心-涨停板行情-涨停股池
 http://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 
 
-def stock_em_zt_pool(date: str = '20210525') -> pd.DataFrame:
+def stock_em_zt_pool(date: str = '20211118') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     http://quote.eastmoney.com/ztb/detail#type=ztgc
@@ -80,6 +80,7 @@ def stock_em_zt_pool(date: str = '20210525') -> pd.DataFrame:
     ]]
     temp_df['首次封板时间'] = temp_df['首次封板时间'].astype(str).str.zfill(6)
     temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
+    temp_df['最新价'] = temp_df['最新价'] / 1000
     return temp_df
 
 
@@ -350,7 +351,7 @@ def stock_em_zt_pool_zbgc(date: str = '20210525') -> pd.DataFrame:
     return temp_df
 
 
-def stock_em_zt_pool_dtgc(date: str = '20210521') -> pd.DataFrame:
+def stock_em_zt_pool_dtgc(date: str = '20210903') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     http://quote.eastmoney.com/ztb/detail#type=dtgc
@@ -369,6 +370,8 @@ def stock_em_zt_pool_dtgc(date: str = '20210521') -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    if data_json['data'] is None:
+        return None
     temp_df = pd.DataFrame(data_json['data']['pool'])
     temp_df.reset_index(inplace=True)
     temp_df['index'] = range(1, len(temp_df)+1)
@@ -415,7 +418,7 @@ def stock_em_zt_pool_dtgc(date: str = '20210521') -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_em_zt_pool_df = stock_em_zt_pool(date='20210525')
+    stock_em_zt_pool_df = stock_em_zt_pool(date='20211118')
     print(stock_em_zt_pool_df)
 
     stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210525')
@@ -430,5 +433,5 @@ if __name__ == '__main__':
     stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210527')
     print(stock_em_zt_pool_zbgc_df)
 
-    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210527')
+    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210903')
     print(stock_em_zt_pool_dtgc_df)
