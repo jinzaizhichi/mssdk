@@ -15,7 +15,7 @@
 0.0.12: 发布测试版本 v0.0.12
 """
 
-__version__ = '0.0.11'
+__version__ = '0.0.12'
 __author__ = 'mssdk'
 
 import sys
