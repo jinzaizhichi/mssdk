@@ -13,9 +13,10 @@
 0.0.10: 发布测试版本 v0.0.10
 0.0.11: 发布测试版本 v0.0.11
 0.0.12: 发布测试版本 v0.0.12
+0.0.13: 发布测试版本 v0.0.13
 """
 
-__version__ = '0.0.12'
+__version__ = '0.0.13'
 __author__ = 'mssdk'
 
 import sys
@@ -1409,12 +1410,12 @@ from mssdk.article.epu_index import article_epu_index
 """
 南华期货-南华指数
 """
-from mssdk.futures_derivative.nh_index_return import (
-    nh_return_index,
-    get_nh_list_table,
+from mssdk.futures_derivative.nh_index_return import futures_nh_return_index
+from mssdk.futures_derivative.nh_index_price import (
+    futures_nh_price_index,
+    futures_nh_index_symbol_table,
 )
-from mssdk.futures_derivative.nh_index_price import nh_price_index
-from mssdk.futures_derivative.nh_index_volatility import nh_volatility_index
+from mssdk.futures_derivative.nh_index_volatility import futures_nh_volatility_index
 
 """
 空气-河北
