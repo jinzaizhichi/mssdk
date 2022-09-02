@@ -34,8 +34,7 @@ class Score:
     @classmethod
     def get_user_name(cls):
         # 获取 Ubuntu 系统的用户名
-        user_name = sys.path[0].split("/")[-1].split("-")[-1]
-        print(sys.path)
+        user_name = sys.path[-1].split("/")[-2].split("-")[-1]
         return user_name
 
     def get_answer(self, file_name: str = "answer"):
