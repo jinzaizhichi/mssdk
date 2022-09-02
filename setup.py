@@ -59,7 +59,6 @@ setuptools.setup(
         "pyyaml",
         "fastapi[all]",
         "uvicorn[standard]",
-        "mysqlclient"
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
     keywords=[
