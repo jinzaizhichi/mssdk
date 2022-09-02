@@ -111,6 +111,7 @@ class Score:
             ]
         )
         if len(self.answer) != all_num:
+            print("请回答完所有问题后再提交答案")
             raise "请回答完所有问题后再提交答案"
         self.answer_result["right_rate"] = round(right_num / all_num, 2)
         self.answer_result["right_question"] = [
