@@ -134,7 +134,7 @@ class Score:
             "answer_detail": str(self.answer_detail),
             "answer_result": str(self.answer_result),
         }
-        r = requests.post(url, json=json.dumps(payload))
+        r = requests.post(url, json=payload)
         if r.status_code == 200:
             return {"msg": "success"}
         else:
@@ -142,11 +142,11 @@ class Score:
 
 
 if __name__ == "__main__":
-    q_1 = ['收盘价', '成交量']
-    q_2 = 2
-    q_3 = 3
-    q_4 = '1'
-    q_5 = '222'
+    q_1 = [1, 2, 3, 4]
+    q_2 = {"fruit": "苹果", "animal": "pig"}
+    q_3 = {"fruit": "apple", "animal": "pig"}
+    q_4 = {"fruit": "apple", "animal": "pig"}
+    q_5 = {"fruit": "apple", "animal": "pig"}
     score = Score("answer_序列结构")
     score.judge("q_1", q_1)
     score.judge("q_2", q_2)
