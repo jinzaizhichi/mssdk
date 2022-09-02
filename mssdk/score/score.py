@@ -35,14 +35,11 @@ class Score:
     def get_user_name(cls):
         # 获取 Ubuntu 系统的用户名
         user_name = sys.path[0].split("/")[-1].split("-")[-1]
-        user_name = "albert"  # 测试代码
         return user_name
 
     def get_answer(self, file_name: str = "answer"):
         self.answer_title = file_name
-        print()
         file_address = os.path.join(os.path.dirname(os.path.abspath(__file__)),  file_name)
-        print(file_address)
         f = open(
             rf"{file_address}.yaml",
             "r",
