@@ -57,8 +57,6 @@ setuptools.setup(
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
         "pyyaml",
-        "fastapi[all]",
-        "uvicorn[standard]",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
     keywords=[
