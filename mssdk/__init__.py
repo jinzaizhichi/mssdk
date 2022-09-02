@@ -19,9 +19,10 @@
 0.0.16: 发布测试版本 v0.0.16
 0.0.16: 发布测试版本 v0.0.16
 0.0.17: 发布测试版本 v0.0.17
+0.0.18: 发布测试版本 v0.0.18
 """
 
-__version__ = '0.0.17'
+__version__ = '0.0.18'
 __author__ = 'mssdk'
 
 import sys
@@ -33,6 +34,8 @@ if sys.version_info < (3, 7):
 del sys
 
 from mssdk.score.score import Score
+
+score = Score
 
 """
 东方财富-行业板块

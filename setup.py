@@ -58,7 +58,7 @@ setuptools.setup(
         "py_mini_racer>=0.6.0",
         "pyyaml",
     ],
-    package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
+    package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.yaml"]},
     keywords=[
         "stock",
         "option",
