@@ -28,6 +28,8 @@ if sys.version_info < (3, 7):
 
 del sys
 
+from mssdk.score.score import Score
+
 """
 东方财富-行业板块
 """
