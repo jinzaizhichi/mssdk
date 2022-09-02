@@ -5,6 +5,7 @@ Date: 2022/8/25 18:33
 Desc: 判分主类，主要提供判分及保存
 """
 import os
+import json
 import sys
 from typing import Any
 
@@ -133,7 +134,7 @@ class Score:
             "answer_detail": str(self.answer_detail),
             "answer_result": str(self.answer_result),
         }
-        r = requests.post(url, json=payload)
+        r = requests.post(url, json=json.dumps(payload))
         if r.status_code == 200:
             return {"msg": "success"}
         else:
@@ -141,12 +142,17 @@ class Score:
 
 
 if __name__ == "__main__":
-    q_1 = [1, 2, 3, 4]
-    q_2 = {"fruit": "apple", "animal": "pig"}
-    q_3 = '6'
-    score = Score("answer")
+    q_1 = ['收盘价', '成交量']
+    q_2 = 2
+    q_3 = 3
+    q_4 = '1'
+    q_5 = '222'
+    score = Score("answer_序列结构")
     score.judge("q_1", q_1)
-    score.judge("q_2", q_1)
-    score.judge("q_3", q_1)
+    score.judge("q_2", q_2)
+    score.judge("q_3", q_3)
+    score.judge("q_4", q_4)
+    score.judge("q_5", q_5)
     score.result
-    score.save()
+    result = score.save()
+    print(result)
