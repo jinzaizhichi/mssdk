@@ -22,6 +22,18 @@ python setup.py sdist bdist_wheel
 twine upload dist/*
 ```
 
+# Docker 构建镜像
+
+```shell
+docker build -t msscore:v1 .
+```
+
+# Docker 启动
+
+```shell
+docker run -d -p 8000:8000 --restart=always msscore:v1
+```
+
 # 安装方法
 
 ```
