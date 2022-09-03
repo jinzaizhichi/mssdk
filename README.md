@@ -14,6 +14,26 @@
 2. 目前已提供部分测试用的数据接口；
 3. 提供完善的接口文档支持，提高 [MSSDK](https://pypi.org/project/mssdk/) 的易用性；
 
+# 发布版本
+
+```shell
+python setup.py sdist bdist_wheel
+
+twine upload dist/*
+```
+
+# Docker 构建镜像
+
+```shell
+docker build -t msscore:v1 .
+```
+
+# Docker 启动
+
+```shell
+docker run -d -p 8000:8000 --restart=always msscore:v1
+```
+
 # 安装方法
 
 ```

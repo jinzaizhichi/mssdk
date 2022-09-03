@@ -56,8 +56,9 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
+        "pyyaml",
     ],
-    package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
+    package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.yaml"]},
     keywords=[
         "stock",
         "option",
